@@ -132,6 +132,15 @@ def get_retrained_model(args, train_loader, test_loader, old_network, tensorboar
             tensorboard_obj.add_scalars('test_accuracy_percent/', {nick: acc}, global_step=epoch)
 
         print("At retrain epoch the accuracy is : ", acc)
+        if acc>best_acc:
+            model_id="fused_best"
+            print(f"We have a new best! with accuracy::{acc} and at epoch::{epoch}, let's save it!")
+            torch.save(old_network.state_dict(),
+                       '{}/{}/model_{}_{}.pth'.format(args.result_dir, args.exp_name, args.model_name, model_id))
+            torch.save(optimizer.state_dict(),
+                       '{}/{}/optimizer_{}_{}.pth'.format(args.result_dir, args.exp_name, args.model_name, model_id))
+            best_acc = acc
+
         best_acc = max(best_acc, acc)
 
     return old_network, best_acc
