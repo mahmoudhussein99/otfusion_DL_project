@@ -1,2 +1,8 @@
 .idea/
+.logs.out.swp
+__pycache__/
+batch.sh
+data/
+exp_sample/
+exp_sample_300_retrained/
 
