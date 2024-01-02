@@ -126,6 +126,7 @@ def main(config, output_dir, gpu_id, pretrained_model=None, pretrained_dataset=N
         # Store checkpoints for the best model so far
         is_best_so_far = best_accuracy_so_far.add(mean_test_accuracy.value())
         if is_best_so_far:
+            print(f"We have a new best! with accuracy::{mean_test_accuracy.value()} and at epoch::{epoch}, let's save it!")
             store_checkpoint(output_dir, "best.checkpoint", model, epoch, mean_test_accuracy.value())
 
     # Store a final checkpoint
