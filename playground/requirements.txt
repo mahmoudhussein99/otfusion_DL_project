@@ -1,0 +1,6 @@
+matplotlib==3.8.2
+numpy==1.26.2
+PyHessian==0.1
+pytorchcv==0.0.67
+torch==2.1.2
+torchvision==0.16.2
