@@ -3,7 +3,7 @@ import torch.nn.functional as F
 import sys
 PATH_TO_CIFAR = "./cifar/"
 sys.path.append(PATH_TO_CIFAR)
-import train as cifar_train
+import cifar.train as cifar_train
 
 def get_model_from_name(args, idx=-1):
     if idx != -1 and idx == (args.num_models - 1):

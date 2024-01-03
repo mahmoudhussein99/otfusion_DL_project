@@ -12,7 +12,7 @@ import torch
 
 PATH_TO_CIFAR = "./cifar/"
 sys.path.append(PATH_TO_CIFAR)
-import train as cifar_train
+import cifar.train as cifar_train
 from tensorboardX import SummaryWriter
 
 if __name__ == '__main__':
