@@ -10,13 +10,37 @@ sys.path.append(PATH_TO_CIFAR)
 import train as cifar_train
 import copy
 
-def get_trained_model(args, id, random_seed, train_loader, test_loader):
+def get_optimizer(config, model_parameters):
+    """
+    Create an optimizer for a given model
+    :param model_parameters: a list of parameters to be trained
+    :return: Tuple (optimizer, scheduler)
+    """
+    print('lr is ', config['optimizer_learning_rate'])
+    if config['optimizer'] == 'SGD':
+        optimizer = torch.optim.SGD(
+            model_parameters,
+            lr=config['optimizer_learning_rate'],
+            momentum=config['optimizer_momentum'],
+            weight_decay=config['optimizer_weight_decay'],
+        )
+    else:
+        raise ValueError('Unexpected value for optimizer')
+
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(
+        optimizer,
+        milestones=config['optimizer_decay_at_epochs'],
+        gamma=1.0/config['optimizer_decay_with_factor'],
+    )
+
+    return optimizer, scheduler
+
+def get_trained_model(args, id, random_seed, train_loader, test_loader,config):
     torch.backends.cudnn.enabled = False
     torch.manual_seed(random_seed)
     network = get_model_from_name(args, idx=id)
 
-    optimizer = optim.SGD(network.parameters(), lr=args.learning_rate,
-                          momentum=args.momentum)
+    optimizer,scheduler = get_optimizer(config,network.parameters())
     if args.gpu_id!=-1:
         network = network.cuda(args.gpu_id)
     log_dict = {}
@@ -29,6 +53,7 @@ def get_trained_model(args, id, random_seed, train_loader, test_loader):
     best_acc=-1
     acc = test(args, network, test_loader, log_dict)
     for epoch in range(1, args.n_epochs + 1):
+        scheduler.step(epoch)
         train(args, network, optimizer, train_loader, log_dict, epoch, model_id=str(id))
         acc,loss = test(args, network, test_loader, log_dict,return_loss=True)
         if acc>best_acc:
@@ -214,13 +239,15 @@ def get_pretrained_model(args, path, data_separated=False, idx=-1):
 
 def train(args, network, optimizer, train_loader, log_dict, epoch, model_id=-1):
     network.train()
+    criterion = torch.nn.CrossEntropyLoss()
+
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.gpu_id!=-1:
             data = data.cuda(args.gpu_id)
             target = target.cuda(args.gpu_id)
         optimizer.zero_grad()
         output = network(data)
-        loss = F.nll_loss(output, target)
+        loss = criterion(output, target)
         loss.backward()
         optimizer.step()
         if batch_idx % args.log_interval == 0:
@@ -318,15 +345,23 @@ def train_data_separated_models(args, local_train_loaders, local_test_loaders, t
     return networks, accuracies, local_accuracies
 
 
-def train_models(args, train_loader, test_loader):
+def train_models(args,config, second_config,train_loader, test_loader):
     networks = []
     accuracies = []
     for i in range(args.num_models):
-        network, acc = get_trained_model(args, i, i, train_loader, test_loader)
-        networks.append(network)
-        accuracies.append(acc)
-        if args.dump_final_models:
-            save_final_model(args, i, network, acc)
+        if(i==0):
+            network, acc = get_trained_model(args, i, i, train_loader, test_loader,config)
+            networks.append(network)
+            accuracies.append(acc)
+            if args.dump_final_models:
+                save_final_model(args, i, network, acc)
+        else:
+            network, acc = get_trained_model(args, i, i, train_loader, test_loader, second_config)
+            networks.append(network)
+            accuracies.append(acc)
+            if args.dump_final_models:
+                save_final_model(args, i, network, acc)
+
     return networks, accuracies
 
 def save_final_data_separated_model(args, idx, model, local_test_accuracy, test_accuracy, choice):

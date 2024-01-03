@@ -111,7 +111,7 @@ if __name__ == '__main__':
         retrain_loader, _ = get_dataloader(args, no_randomness=args.no_random_trainloaders)
 
         print("------- Training independent models -------")
-        models, accuracies = routines.train_models(args, train_loader, test_loader)
+        models, accuracies = routines.train_models(args, config,second_config,train_loader, test_loader)
 
     # if args.debug:
     #     print(list(models[0].parameters()))
