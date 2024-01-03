@@ -1,376 +1,59 @@
-/home/mhussein/.local/lib/python3.10/site-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 2 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
-  warnings.warn(_create_warning_msg(
+usage: main.py [-h] [--n-epochs N_EPOCHS]
+               [--batch-size-train BATCH_SIZE_TRAIN]
+               [--batch-size-test BATCH_SIZE_TEST]
+               [--learning-rate LEARNING_RATE] [--momentum MOMENTUM]
+               [--log-interval N] [--to-download] [--disable_bias]
+               [--dataset {mnist,Cifar10}] [--num-models NUM_MODELS]
+               [--model-name MODEL_NAME] [--config-file CONFIG_FILE]
+               [--config-dir CONFIG_DIR] [--num-hidden-nodes NUM_HIDDEN_NODES]
+               [--num-hidden-nodes1 NUM_HIDDEN_NODES1]
+               [--num-hidden-nodes2 NUM_HIDDEN_NODES2]
+               [--num-hidden-nodes3 NUM_HIDDEN_NODES3]
+               [--num-hidden-nodes4 NUM_HIDDEN_NODES4] [--sweep-id SWEEP_ID]
+               [--gpu-id GPU_ID] [--skip-last-layer]
+               [--skip-last-layer-type {second,average}] [--debug]
+               [--cifar-style-data] [--activation-histograms]
+               [--act-num-samples ACT_NUM_SAMPLES]
+               [--softmax-temperature SOFTMAX_TEMPERATURE]
+               [--activation-mode {mean,std,meanstd,raw}]
+               [--options-type {generic}] [--deprecated {vgg_cifar,mnist_act}]
+               [--save-result-file SAVE_RESULT_FILE] [--sweep-name SWEEP_NAME]
+               [--reg REG] [--reg-m REG_M]
+               [--ground-metric {euclidean,cosine}]
+               [--ground-metric-normalize {log,max,none,median,mean}]
+               [--not-squared] [--clip-gm] [--clip-min CLIP_MIN]
+               [--clip-max CLIP_MAX] [--tmap-stats]
+               [--ensemble-step ENSEMBLE_STEP] [--ground-metric-eff]
+               [--retrain RETRAIN] [--retrain-lr-decay RETRAIN_LR_DECAY]
+               [--retrain-lr-decay-factor RETRAIN_LR_DECAY_FACTOR]
+               [--retrain-lr-decay-epochs RETRAIN_LR_DECAY_EPOCHS]
+               [--retrain-avg-only] [--retrain-geometric-only]
+               [--load-models LOAD_MODELS] [--ckpt-type {best,final}]
+               [--recheck-cifar] [--recheck-acc] [--eval-aligned]
+               [--enable-dropout] [--dump-model] [--dump-final-models]
+               [--correction] [--activation-seed ACTIVATION_SEED]
+               [--weight-stats]
+               [--sinkhorn-type {normal,stabilized,epsilon,gpu}]
+               [--geom-ensemble-type {wts,acts}] [--act-bug]
+               [--standardize-acts] [--transform-acts] [--center-acts]
+               [--prelu-acts] [--pool-acts] [--pool-relu] [--normalize-acts]
+               [--normalize-wts] [--gromov]
+               [--gromov-loss {square_loss,kl_loss}]
+               [--tensorboard-root TENSORBOARD_ROOT] [--tensorboard]
+               [--same-model SAME_MODEL] [--dist-normalize] [--update-acts]
+               [--past-correction] [--partial-reshape] [--choice CHOICE]
+               [--diff-init]
+               [--partition-type {labels,personalized,small_big}]
+               [--personal-class-idx PERSONAL_CLASS_IDX]
+               [--partition-dataloader PARTITION_DATALOADER]
+               [--personal-split-frac PERSONAL_SPLIT_FRAC] [--exact]
+               [--skip-personal-idx] [--prediction-wts]
+               [--width-ratio WIDTH_RATIO] [--proper-marginals]
+               [--retrain-seed RETRAIN_SEED] [--no-random-trainloaders]
+               [--reinit-trainloaders] [--second-model-name SECOND_MODEL_NAME]
+               [--print-distances] [--deterministic]
+               [--skip-retrain SKIP_RETRAIN] [--importance IMPORTANCE]
+               [--unbalanced] [--temperature TEMPERATURE] [--alpha ALPHA]
+               [--dist-epochs DIST_EPOCHS] [--handle-skips]
+main.py: error: argument --dataset: invalid choice: 'Cifar100' (choose from 'mnist', 'Cifar10')
 ------- Setting up parameters -------
-dumping parameters at  /home/mhussein/otfusion_DL_project/exp_sample_300_retrained/configurations
-The parameters are: 
- Namespace(n_epochs=300, batch_size_train=64, batch_size_test=1000, learning_rate=0.01, momentum=0.5, log_interval=100, to_download=False, disable_bias=True, dataset='Cifar10', num_models=2, model_name='vgg11_nobias', config_file=None, config_dir='/home/mhussein/otfusion_DL_project/exp_sample_300_retrained/configurations', num_hidden_nodes=400, num_hidden_nodes1=400, num_hidden_nodes2=200, num_hidden_nodes3=100, num_hidden_nodes4=50, sweep_id=90, gpu_id=0, skip_last_layer=False, skip_last_layer_type='average', debug=False, cifar_style_data=False, activation_histograms=False, act_num_samples=100, softmax_temperature=1, activation_mode=None, options_type='generic', deprecated=None, save_result_file='sample_300_retrained.csv', sweep_name='exp_sample_300_retrained', reg=0.01, reg_m=0.001, ground_metric='euclidean', ground_metric_normalize='none', not_squared=True, clip_gm=False, clip_min=0, clip_max=5, tmap_stats=False, ensemble_step=0.5, ground_metric_eff=True, retrain=300, retrain_lr_decay=-1, retrain_lr_decay_factor=None, retrain_lr_decay_epochs=None, retrain_avg_only=False, retrain_geometric_only=True, load_models='./cifar_models/', ckpt_type='best', recheck_cifar=True, recheck_acc=False, eval_aligned=False, enable_dropout=False, dump_model=False, dump_final_models=False, correction=True, activation_seed=21, weight_stats=True, sinkhorn_type='normal', geom_ensemble_type='wts', act_bug=False, standardize_acts=False, transform_acts=False, center_acts=False, prelu_acts=True, pool_acts=False, pool_relu=False, normalize_acts=False, normalize_wts=False, gromov=False, gromov_loss='square_loss', tensorboard_root='./tensorboard', tensorboard=False, same_model=-1, dist_normalize=False, update_acts=False, past_correction=True, partial_reshape=False, choice='0 2 4 6 8', diff_init=False, partition_type='labels', personal_class_idx=9, partition_dataloader=-1, personal_split_frac=0.1, exact=True, skip_personal_idx=False, prediction_wts=False, width_ratio=1, proper_marginals=False, retrain_seed=-1, no_random_trainloaders=False, reinit_trainloaders=False, second_model_name=None, print_distances=False, deterministic=False, skip_retrain=-1, importance=None, unbalanced=False, temperature=20, alpha=0.7, dist_epochs=60, handle_skips=False, timestamp='2024-01-02_21-10-34_492192', rootdir='/home/mhussein/otfusion_DL_project/exp_sample_300_retrained', baseroot='/home/mhussein/otfusion_DL_project', result_dir='/home/mhussein/otfusion_DL_project/exp_sample_300_retrained/results', exp_name='exp_2024-01-02_21-10-34_492192', csv_dir='/home/mhussein/otfusion_DL_project/exp_sample_300_retrained/csv')
-refactored get_config
-------- Loading pre-trained models -------
-loading cifar10 dataloaders
-Files already downloaded and verified
-Files already downloaded and verified
-Files already downloaded and verified
-Files already downloaded and verified
-loading model with idx 0 and checkpoint_type is best
-in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
-Relu Inplace is  False
-model parameters are 
- [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
-Loading model at path ./cifar_models/model_0/best.checkpoint which had accuracy 0.9030999821424489 and at epoch 127
-loading model with idx 1 and checkpoint_type is best
-in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
-Relu Inplace is  False
-model parameters are 
- [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
-Loading model at path ./cifar_models/model_1/best.checkpoint which had accuracy 0.9049999803304669 and at epoch 134
-Done loading all the models
-
---------- Testing in global mode ---------
-size of test_loader dataset:  10000
-
-Test set: Avg. loss: 0.0041, Accuracy: 9031/10000 (90%)
-
-
---------- Testing in global mode ---------
-size of test_loader dataset:  10000
-
-Test set: Avg. loss: 0.0039, Accuracy: 9050/10000 (90%)
-
-Rechecked accuracies are  [90.31, 90.5]
-layer features.0.weight has #params  1728
-layer features.3.weight has #params  73728
-layer features.6.weight has #params  294912
-layer features.8.weight has #params  589824
-layer features.11.weight has #params  1179648
-layer features.13.weight has #params  2359296
-layer features.16.weight has #params  2359296
-layer features.18.weight has #params  2359296
-layer classifier.weight has #params  5120
-Activation Timer start
-Activation Timer ends
-------- Geometric Ensembling -------
-Timer start
-Previous layer shape is  None
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  64
-returns a uniform measure of cardinality:  64
-the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        ...,
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0.0469, device='cuda:0')
-Here, trace is 2.9999806880950928 and matrix sum is 63.99958801269531 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([64, 3, 9])
-Shape of fc_layer0_weight_data is  torch.Size([64, 3, 9])
-Previous layer shape is  torch.Size([64, 3, 3, 3])
-shape of layer: model 0 torch.Size([128, 64, 9])
-shape of layer: model 1 torch.Size([128, 64, 9])
-shape of previous transport map torch.Size([64, 64])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  128
-returns a uniform measure of cardinality:  128
-the transport map is  tensor([[0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        ...,
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0078],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000]],
-       device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0.0078, device='cuda:0')
-Here, trace is 0.9999872446060181 and matrix sum is 127.99836730957031 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([128, 64, 9])
-Shape of fc_layer0_weight_data is  torch.Size([128, 64, 9])
-Previous layer shape is  torch.Size([128, 64, 3, 3])
-shape of layer: model 0 torch.Size([256, 128, 9])
-shape of layer: model 1 torch.Size([256, 128, 9])
-shape of previous transport map torch.Size([128, 128])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  256
-returns a uniform measure of cardinality:  256
-the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        ...,
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0., device='cuda:0')
-Here, trace is 0.0 and matrix sum is 255.99343872070312 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([256, 128, 9])
-Shape of fc_layer0_weight_data is  torch.Size([256, 128, 9])
-Previous layer shape is  torch.Size([256, 128, 3, 3])
-shape of layer: model 0 torch.Size([256, 256, 9])
-shape of layer: model 1 torch.Size([256, 256, 9])
-shape of previous transport map torch.Size([256, 256])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  256
-returns a uniform measure of cardinality:  256
-the transport map is  tensor([[0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        ...,
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0039, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000]],
-       device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0.0078, device='cuda:0')
-Here, trace is 1.9999487400054932 and matrix sum is 255.99343872070312 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([256, 256, 9])
-Shape of fc_layer0_weight_data is  torch.Size([256, 256, 9])
-Previous layer shape is  torch.Size([256, 256, 3, 3])
-shape of layer: model 0 torch.Size([512, 256, 9])
-shape of layer: model 1 torch.Size([512, 256, 9])
-shape of previous transport map torch.Size([256, 256])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  512
-returns a uniform measure of cardinality:  512
-the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        ...,
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0.0039, device='cuda:0')
-Here, trace is 1.9998977184295654 and matrix sum is 511.97381591796875 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([512, 256, 9])
-Shape of fc_layer0_weight_data is  torch.Size([512, 256, 9])
-Previous layer shape is  torch.Size([512, 256, 3, 3])
-shape of layer: model 0 torch.Size([512, 512, 9])
-shape of layer: model 1 torch.Size([512, 512, 9])
-shape of previous transport map torch.Size([512, 512])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  512
-returns a uniform measure of cardinality:  512
-the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        ...,
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0.0020, device='cuda:0')
-Here, trace is 0.9999488592147827 and matrix sum is 511.97381591796875 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([512, 512, 9])
-Shape of fc_layer0_weight_data is  torch.Size([512, 512, 9])
-Previous layer shape is  torch.Size([512, 512, 3, 3])
-shape of layer: model 0 torch.Size([512, 512, 9])
-shape of layer: model 1 torch.Size([512, 512, 9])
-shape of previous transport map torch.Size([512, 512])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  512
-returns a uniform measure of cardinality:  512
-the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        ...,
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.],
-        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0.0020, device='cuda:0')
-Here, trace is 0.9999488592147827 and matrix sum is 511.97381591796875 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([512, 512, 9])
-Shape of fc_layer0_weight_data is  torch.Size([512, 512, 9])
-Previous layer shape is  torch.Size([512, 512, 3, 3])
-shape of layer: model 0 torch.Size([512, 512, 9])
-shape of layer: model 1 torch.Size([512, 512, 9])
-shape of previous transport map torch.Size([512, 512])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-returns a uniform measure of cardinality:  512
-returns a uniform measure of cardinality:  512
-the transport map is  tensor([[0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0020, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        ...,
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
-        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000]],
-       device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(0., device='cuda:0')
-Here, trace is 0.0 and matrix sum is 511.97381591796875 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([512, 512, 9])
-Shape of fc_layer0_weight_data is  torch.Size([512, 512, 9])
-Previous layer shape is  torch.Size([512, 512, 3, 3])
-shape of layer: model 0 torch.Size([10, 512])
-shape of layer: model 1 torch.Size([10, 512])
-shape of previous transport map torch.Size([512, 512])
-Processing the coordinates to form ground_metric
-dont leave off the squaring of the ground metric
-ground metric is  tensor([[1.4240, 2.4871, 2.7803, 2.8718, 2.7374, 2.8798, 2.7275, 2.6341, 2.5641,
-         2.5921],
-        [2.4888, 1.3252, 2.6731, 2.5913, 2.7583, 2.5500, 2.4173, 2.5214, 2.3047,
-         2.4100],
-        [2.7599, 2.6711, 1.3831, 2.9464, 2.9064, 2.8700, 2.7276, 2.8384, 2.7484,
-         2.7866],
-        [2.8351, 2.6790, 2.8918, 1.5430, 2.8604, 2.9158, 2.7573, 2.7979, 2.8163,
-         2.6353],
-        [2.7550, 2.5959, 2.8634, 2.8449, 1.5042, 2.7447, 2.7852, 2.6810, 2.7030,
-         2.7293],
-        [2.9189, 2.5394, 2.9468, 2.8414, 2.7271, 1.5501, 2.7780, 2.7302, 2.7976,
-         2.6695],
-        [2.6778, 2.4456, 2.7189, 2.9110, 2.6487, 2.8525, 1.3930, 2.6890, 2.4980,
-         2.5559],
-        [2.7393, 2.5495, 2.7799, 2.7902, 2.7150, 2.6589, 2.7189, 1.3924, 2.5582,
-         2.5120],
-        [2.5971, 2.3659, 2.7693, 2.6871, 2.7025, 2.8279, 2.5324, 2.6365, 1.2999,
-         2.4040],
-        [2.5918, 2.2730, 2.7815, 2.7576, 2.6696, 2.7272, 2.5482, 2.5289, 2.5207,
-         1.2878]], device='cuda:0', grad_fn=<PowBackward0>)
-returns a uniform measure of cardinality:  10
-returns a uniform measure of cardinality:  10
-the transport map is  tensor([[0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
-         0.0000],
-        [0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
-         0.0000],
-        [0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
-         0.0000],
-        [0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
-         0.0000],
-        [0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000,
-         0.0000],
-        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000,
-         0.0000],
-        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000,
-         0.0000],
-        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000,
-         0.0000],
-        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000,
-         0.0000],
-        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
-         0.1000]], device='cuda:0')
-Ratio of trace to the matrix sum:  tensor(1., device='cuda:0')
-Here, trace is 9.999990463256836 and matrix sum is 9.999990463256836 
-this is past correction for weight mode
-Shape of aligned wt is  torch.Size([10, 512])
-Shape of fc_layer0_weight_data is  torch.Size([10, 512])
-using independent method
-in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
-Relu Inplace is  False
-model parameters are 
- [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
-
---------- Testing in global mode ---------
-size of test_loader dataset:  10000
-
-Test set: Avg. loss: 0.0230, Accuracy: 886/10000 (9%)
-
-len of model parameters and avg aligned layers is  9 9
-len of model_state_dict is  9
-len of param_list is  9
-
---------- Testing in global mode ---------
-size of test_loader dataset:  10000
-
-Test set: Avg. loss: 0.0082, Accuracy: 8651/10000 (87%)
-
-Timer ends
-Time taken for geometric ensembling is 8.934628823306412 seconds
-------- Prediction based ensembling -------
-
-Test set: Avg. loss: 0.0035, Accuracy: 9134/10000 (91%)
-
-------- Naive ensembling of weights -------
-[torch.Size([64, 3, 3, 3]), torch.Size([64, 3, 3, 3])]
-torch.Size([64, 3, 3, 3])
-[torch.Size([128, 64, 3, 3]), torch.Size([128, 64, 3, 3])]
-torch.Size([128, 64, 3, 3])
-[torch.Size([256, 128, 3, 3]), torch.Size([256, 128, 3, 3])]
-torch.Size([256, 128, 3, 3])
-[torch.Size([256, 256, 3, 3]), torch.Size([256, 256, 3, 3])]
-torch.Size([256, 256, 3, 3])
-[torch.Size([512, 256, 3, 3]), torch.Size([512, 256, 3, 3])]
-torch.Size([512, 256, 3, 3])
-[torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3])]
-torch.Size([512, 512, 3, 3])
-[torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3])]
-torch.Size([512, 512, 3, 3])
-[torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3])]
-torch.Size([512, 512, 3, 3])
-[torch.Size([10, 512]), torch.Size([10, 512])]
-torch.Size([10, 512])
-in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
-Relu Inplace is  False
-model parameters are 
- [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
-
---------- Testing in global mode ---------
-size of test_loader dataset:  10000
-
-Test set: Avg. loss: 0.0230, Accuracy: 1000/10000 (10%)
-
-
---------- Testing in global mode ---------
-/home/mhussein/.local/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:136: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
-  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
-/home/mhussein/.local/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:149: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
-  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
-size of test_loader dataset:  10000
-
-Test set: Avg. loss: 0.0230, Accuracy: 1702/10000 (17%)
-
--------- Retraining the models ---------
-Retraining model :  geometric
-lr is  0.05
-number of epochs would be  300
-Epoch 000
-accuracy: {'epoch': 0, 'value': 0.12114000000476823} ({'split': 'train'})
-cross_entropy: {'epoch': 0, 'value': 2.2739286737060542} ({'split': 'train'})
-accuracy: {'epoch': 0, 'value': 0.18409999445080763} ({'split': 'test'})
-cross_entropy: {'epoch': 0, 'value': 2.1779843187332153} ({'split': 'test'})
-Epoch 001
-accuracy: {'epoch': 1, 'value': 0.24089999999999995} ({'split': 'train'})
-cross_entropy: {'epoch': 1, 'value': 1.9631127148437497} ({'split': 'train'})
-accuracy: {'epoch': 1, 'value': 0.3264999921619891} ({'split': 'test'})
-cross_entropy: {'epoch': 1, 'value': 1.7391794133186333} ({'split': 'test'})
-Epoch 002
-accuracy: {'epoch': 2, 'value': 0.39277999999999996} ({'split': 'train'})
-cross_entropy: {'epoch': 2, 'value': 1.6041336865997322} ({'split': 'train'})
-accuracy: {'epoch': 2, 'value': 0.5050999888777735} ({'split': 'test'})
-cross_entropy: {'epoch': 2, 'value': 1.3447398245334634} ({'split': 'test'})
-Epoch 003
-accuracy: {'epoch': 3, 'value': 0.5415399999809262} ({'split': 'train'})
-cross_entropy: {'epoch': 3, 'value': 1.2816110815048214} ({'split': 'train'})
-accuracy: {'epoch': 3, 'value': 0.6005999878048899} ({'split': 'test'})
-cross_entropy: {'epoch': 3, 'value': 1.1664771783351897} ({'split': 'test'})
-Epoch 004
-accuracy: {'epoch': 4, 'value': 0.6403399999809258} ({'split': 'train'})
-cross_entropy: {'epoch': 4, 'value': 1.0469625545501702} ({'split': 'train'})
-accuracy: {'epoch': 4, 'value': 0.6629999887943269} ({'split': 'test'})
-cross_entropy: {'epoch': 4, 'value': 1.0283506536483769} ({'split': 'test'})
-Epoch 005
-accuracy: {'epoch': 5, 'value': 0.6876600000190735} ({'split': 'train'})
-cross_entropy: {'epoch': 5, 'value': 0.9225492921638486} ({'split': 'train'})
-accuracy: {'epoch': 5, 'value': 0.7120999854803085} ({'split': 'test'})
-cross_entropy: {'epoch': 5, 'value': 0.8824165695905687} ({'split': 'test'})
-Epoch 006
-accuracy: {'epoch': 6, 'value': 0.7281000000190735} ({'split': 'train'})
-cross_entropy: {'epoch': 6, 'value': 0.8131185517883301} ({'split': 'train'})
-accuracy: {'epoch': 6, 'value': 0.6849999839067461} ({'split': 'test'})
-cross_entropy: {'epoch': 6, 'value': 0.9704724401235578} ({'split': 'test'})
-Epoch 007
-accuracy: {'epoch': 7, 'value': 0.7497599999809267} ({'split': 'train'})
-cross_entropy: {'epoch': 7, 'value': 0.7545757491874694} ({'split': 'train'})
-accuracy: {'epoch': 7, 'value': 0.7243999814987179} ({'split': 'test'})
-cross_entropy: {'epoch': 7, 'value': 0.8045052319765089} ({'split': 'test'})
-Epoch 008
-slurmstepd: error: *** STEP 4431.0 ON studgpu-node01 CANCELLED AT 2024-01-02T21:15:39 ***
