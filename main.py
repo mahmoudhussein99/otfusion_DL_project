@@ -8,7 +8,7 @@ import utils
 import numpy as np
 import sys
 import torch
-
+import prune
 
 PATH_TO_CIFAR = "./cifar/"
 sys.path.append(PATH_TO_CIFAR)
@@ -92,6 +92,18 @@ if __name__ == '__main__':
         print("Done loading all the models")
 
         # Additional flag of recheck_acc to supplement the legacy flag recheck_cifar
+        if args.recheck_cifar or args.recheck_acc:
+            recheck_accuracies = []
+            for model in models:
+                log_dict = {}
+                log_dict['test_losses'] = []
+                recheck_accuracies.append(routines.test(args, model, test_loader, log_dict))
+            print("Rechecked accuracies are ", recheck_accuracies)
+        print('----------Prune the 2 Parent models now---------')
+        pruning_fraction =0.5
+        for model in models:
+            prune.prune_model(model,pruning_fraction)
+        print('--------Rechecking accuracies again!--------')
         if args.recheck_cifar or args.recheck_acc:
             recheck_accuracies = []
             for model in models:
