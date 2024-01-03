@@ -25,10 +25,17 @@ def get_trained_model(args, id, random_seed, train_loader, test_loader):
     log_dict['test_losses'] = []
     # log_dict['test_counter'] = [i * len(test_loader.dataset) for i in range(args.n_epochs + 1)]
     # print(list(network.parameters()))
+    path = os.path.join(args.result_dir, args.exp_name, 'model_{}'.format(id))
+    best_acc=-1
     acc = test(args, network, test_loader, log_dict)
     for epoch in range(1, args.n_epochs + 1):
         train(args, network, optimizer, train_loader, log_dict, epoch, model_id=str(id))
-        acc = test(args, network, test_loader, log_dict)
+        acc,loss = test(args, network, test_loader, log_dict,return_loss=True)
+        if acc>best_acc:
+            best_acc=acc
+            print(f"A new best at epoch:: {epoch}, with test acc:: {acc}, let's save it!")
+            store_checkpoint(path, "best.checkpoint", network, epoch, acc,loss)
+
     return network, acc
 
 def check_freezed_params(model, frozen):
@@ -144,6 +151,22 @@ def get_retrained_model(args, train_loader, test_loader, old_network, tensorboar
         best_acc = max(best_acc, acc)
 
     return old_network, best_acc
+def store_checkpoint(output_dir, filename, model, epoch, test_accuracy,test_loss):
+    """Store a checkpoint file to the output directory"""
+    path = os.path.join(output_dir, filename)
+
+    # Ensure the output directory exists
+    directory = os.path.dirname(path)
+    if not os.path.isdir(directory):
+        os.makedirs(directory, exist_ok=True)
+    import time
+    time.sleep(1) # workaround for RuntimeError('Unknown Error -1') https://github.com/pytorch/pytorch/issues/10577
+    torch.save({
+        'epoch': epoch,
+        'test_accuracy': test_accuracy,
+        'test_loss': test_loss,
+        'model_state_dict': model.state_dict(),
+    }, path)
 
 def get_pretrained_model(args, path, data_separated=False, idx=-1):
     model = get_model_from_name(args, idx=idx)
@@ -226,7 +249,7 @@ def test(args, network, test_loader, log_dict, debug=False, return_loss=False, i
     else:
         print("\n--------- Testing in global mode ---------")
 
-    if args.dataset.lower() == 'cifar10':
+    if args.dataset.lower()[0:7] == 'cifar10':
         cifar_criterion = torch.nn.CrossEntropyLoss()
 
     #   with torch.no_grad():
@@ -244,10 +267,10 @@ def test(args, network, test_loader, log_dict, debug=False, return_loss=False, i
         if debug:
             print("output is ", output)
 
-        if args.dataset.lower() == 'cifar10':
+        if args.dataset.lower()[0:7] == 'cifar10':
             # mnist models return log_softmax outputs, while cifar ones return raw values!
             test_loss += cifar_criterion(output, target).item()
-        elif args.dataset.lower() == 'mnist':
+        elif args.dataset.lower()[0:7] == 'mnist':
             test_loss += F.nll_loss(output, target, size_average=False).item()
 
         pred = output.data.max(1, keepdim=True)[1]
@@ -404,7 +427,7 @@ def intmd_retrain_models(args, old_networks, aligned_wts, train_loader, test_loa
             start_acc = initial_acc[i]
         else:
             start_acc = -1
-        if args.dataset.lower() == 'cifar10':
+        if args.dataset.lower()[0:7] == 'cifar10':
 
             output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
             output_root_dir = os.path.join(output_root_dir, args.exp_name, nick)
