@@ -11,7 +11,7 @@ import time
 
 ## >>> CONFIG -----
 CONFIG = {
-        'seed': 21,
+        'seed': 42,
         'architecture': "vgg11_nobias",
         'dataset': "Cifar10",
         'parent1_cp_path': "../cifar_models/model_0/best.checkpoint",
@@ -20,8 +20,8 @@ CONFIG = {
         'device_id' : 0,
         'use_cuda' : True,
         'time_taken[s]': time.time(),
-        'batch_size': 16,
-        'num_batches': 2,
+        'batch_size': 1000,
+        'num_batches': 4,
         'top_ev': 3,
         "lambdas": np.linspace(-0.5, 0.5, 21).astype(np.float32)
     }

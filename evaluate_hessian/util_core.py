@@ -43,15 +43,14 @@ def load_models(config):
     parent2 = get_model(config)
     fusion = get_model(config)
 
+    device = 'cpu'
+
     if(config['use_cuda']):
         parent1.cuda(config['device_id'])
         parent2.cuda(config['device_id'])
         fusion.cuda(config['device_id'])
 
         device = 'cuda:' + str(config['device_id'])
-        
-    else:
-        device = 'cpu'
 
     state1 = torch.load(config['parent1_cp_path'], map_location=(
                 lambda s, _: torch.serialization.default_restore_location(s, device)
@@ -71,7 +70,7 @@ def load_models(config):
 
 def load_dataset(config):
     if(config['dataset'] == 'Cifar100'):
-        dataset = datasets.CIFAR100('./data/', train=False, download=True,
+        test_dataset = datasets.CIFAR100('./data/', train=False, download=True,
                                 transform=transforms.Compose([
                                         transforms.ToTensor(),
                                         transforms.Normalize(
@@ -79,7 +78,7 @@ def load_dataset(config):
                                         (0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                                 ]))
     else:
-        dataset = datasets.CIFAR10('./data/', train=False, download=True,
+        test_dataset = datasets.CIFAR10('./data/', train=False, download=True,
                                     transform=transforms.Compose([
                                             transforms.ToTensor(),
                                             transforms.Normalize(
@@ -87,13 +86,13 @@ def load_dataset(config):
                                             (0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                                     ]))
 
-    test_loader = torch.utils.data.DataLoader(dataset, batch_size = config['batch_size'], shuffle=True)
+    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size = config['batch_size'], shuffle=True)
     return test_loader
 
-def get_params(model_orig,  model_perb, direction, alpha):
-    for m_orig, m_perb, d in zip(model_orig.parameters(), model_perb.parameters(), direction):
-        m_perb.data = m_orig.data + alpha * d
-    return model_perb
+def get_params(model,  model_perturbed, direction, alpha):
+    for m, m_perturbed, d in zip(model.parameters(), model_perturbed.parameters(), direction):
+        m_perturbed.data = m.data + alpha * d
+    return model_perturbed
 
 def evaluate_hessian(config, models, loader):
     criterion = torch.nn.CrossEntropyLoss()
@@ -101,6 +100,7 @@ def evaluate_hessian(config, models, loader):
     ev_total = []
     trace_total = []
     loss_list_total = []
+
     for k, (inputs, targets) in enumerate(loader):
         if k >= config['num_batches']: break
         
@@ -119,16 +119,16 @@ def evaluate_hessian(config, models, loader):
             loss_list = []
             
             # create a copy of the model
-            model_perb = copy.deepcopy(model)
-            model_perb.eval()
+            model_perburbed = copy.deepcopy(model)
+            model_perburbed.eval()
             
             if config['use_cuda']:
-                model_perb = model_perb.cuda(config['device_id'])
+                model_perburbed = model_perburbed.cuda(config['device_id'])
 
             for lamda in config['lambdas']:
                 # Perturb by eigenvector corresponding with largest eigenvalue!
-                model_perb = get_params(model, model_perb, top_eigenvector[0], lamda)
-                loss_list.append(criterion(model_perb(inputs), targets).item())
+                model_perburbed = get_params(model, model_perburbed, top_eigenvector[0], lamda)
+                loss_list.append(criterion(model_perburbed(inputs), targets).item())
             
             ev_models.append(top_eigenvalues)
             loss_list_models.append(loss_list)
@@ -182,7 +182,7 @@ def output_results(config, loss, evs, traces):
     labels = ["parent1", "parent2", "fusion"]
     colors = ["blue", "orange", "red"]
 
-    for i in range(mean_loss .shape[0]):
+    for i in range(mean_loss.shape[0]):
         plt.fill_between(config['lambdas'], mean_loss[i] + std_loss[i], mean_loss[i] - std_loss[i], alpha = 0.25, color = colors[i])
         plt.plot(config['lambdas'], mean_loss[i], label=labels[i], color = colors[i])
 
