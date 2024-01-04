@@ -10,6 +10,8 @@ import sys
 import torch
 import prune
 
+from util_core import load_models, load_dataset, evaluate_hessian, output_results
+
 PATH_TO_CIFAR = "./cifar/"
 sys.path.append(PATH_TO_CIFAR)
 import cifar.train as cifar_train
@@ -317,3 +319,30 @@ if __name__ == '__main__':
 
 
     print("FYI: the parameters were: \n", args)
+    
+    print(" ----- Evaluate Hessian of Models ---- \n")
+    CONFIG = {
+        'seed': 42,
+        'architecture': "vgg11_nobias",
+        'dataset': "Cifar10",
+        'parent1_cp_path': "../cifar_models/pruning/pruned_parents/model_0.pruned.intial.checkpoint",
+        'parent2_cp_path': "../cifar_models/pruning/pruned_parents/model_1.pruned.intial.checkpoint",
+        'fusion_cp_path': "../cifar_models/pruning/geometric/fused.initial.checkpoint", #../cifar_models/non_pruning/fusion_retraining/best.checkpoint
+        'device_id' : 0,
+        'use_cuda' : True,
+        'time_taken[s]': time.time(),
+        'batch_size': 1000,
+        'num_batches': -1,
+        'top_ev': 3,
+        "lambdas": np.linspace(-0.5, 0.5, 21).astype(np.float32),
+        "compute_ev_density": False
+    }
+
+     # Dataset 
+    # test_loader = load_dataset(CONFIG)
+    
+    # Evaluate
+    result, evs, traces, ev_density = evaluate_hessian(CONFIG, [models[0], models[1], geometric_model], test_loader)
+    
+    # Output
+    output_results(CONFIG, result, evs, traces, ev_density)
