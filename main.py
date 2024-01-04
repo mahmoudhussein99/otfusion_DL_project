@@ -103,6 +103,7 @@ if __name__ == '__main__':
         pruning_fraction = args.prune_frac
         for model in models:
             prune.prune_model(model,pruning_fraction)
+
         print('--------Rechecking accuracies again!--------')
         if args.recheck_cifar or args.recheck_acc:
             recheck_accuracies = []
