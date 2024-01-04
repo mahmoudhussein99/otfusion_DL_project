@@ -100,9 +100,8 @@ if __name__ == '__main__':
                 recheck_accuracies.append(routines.test(args, model, test_loader, log_dict))
             print("Rechecked accuracies are ", recheck_accuracies)
         print('----------Prune the 2 Parent models now---------')
-        pruning_fraction = args.prune_frac
         for model in models:
-            prune.prune_model(model,pruning_fraction)
+            prune.prune_model(model, args.prune_frac, args.prune_type)
 
         print('--------Rechecking accuracies again!--------')
         if args.recheck_cifar or args.recheck_acc:
