@@ -115,13 +115,16 @@ def evaluate_hessian(config, models, loader):
         ev_density_models = []
         
         for i, model in enumerate(models):
+            # Hessian
             hessian_comp = hessian(model, criterion, data=(inputs, targets), cuda = config['use_cuda'])
+            
+            # Trace Computation
             trace = hessian_comp.trace()
 
             # EV Computation
             top_eigenvalues, top_eigenvector = hessian_comp.eigenvalues(top_n = config['top_ev'])
 
-            # Density Computation
+            # EV Density Computation
             if (config["compute_ev_density"]):
                 density_eigen, density_weight = hessian_comp.density()
                 ev_density_models.append([density_eigen, density_weight])
@@ -135,9 +138,9 @@ def evaluate_hessian(config, models, loader):
             if config['use_cuda']:
                 model_perburbed = model_perburbed.cuda(config['device_id'])
 
-            for lamda in config['lambdas']:
+            for lam in config['lambdas']:
                 # Perturb by eigenvector corresponding with largest eigenvalue!
-                model_perburbed = get_params(model, model_perburbed, top_eigenvector[0], lamda)
+                model_perburbed = get_params(model, model_perburbed, top_eigenvector[0], lam)
                 loss_list.append(criterion(model_perburbed(inputs), targets).item())
             
             ev_models.append(top_eigenvalues)
