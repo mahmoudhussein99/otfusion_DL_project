@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
         # ensemble_experiment = "exp_2019-04-23_18-08-48/"
         # ensemble_experiment = "exp_2019-04-24_02-20-26"
-        
+
         ensemble_experiment = args.load_models.split('/')
         if len(ensemble_experiment) > 1:
             # both the path and name of the experiment have been specified
@@ -77,7 +77,7 @@ if __name__ == '__main__':
                     config_used = config
                 elif idx == 1:
                     config_used = second_config
-                    
+
                 model, accuracy = cifar_train.get_pretrained_model(
                         config_used, os.path.join(ensemble_dir, 'model_{}/{}.checkpoint'.format(idx, args.ckpt_type)),
                         args.gpu_id, relu_inplace=not args.prelu_acts # if you want pre-relu acts, set relu_inplace to False
@@ -100,7 +100,7 @@ if __name__ == '__main__':
                 recheck_accuracies.append(routines.test(args, model, test_loader, log_dict))
             print("Rechecked accuracies are ", recheck_accuracies)
         print('----------Prune the 2 Parent models now---------')
-        pruning_fraction =0.5
+        pruning_fraction = args.prune_frac
         for model in models:
             prune.prune_model(model,pruning_fraction)
         print('--------Rechecking accuracies again!--------')
@@ -178,7 +178,7 @@ if __name__ == '__main__':
     st_time = time.perf_counter()
 
     geometric_acc, geometric_model = wasserstein_ensemble.geometric_ensembling_modularized(args, models, train_loader, test_loader, activations)
-    
+
     end_time = time.perf_counter()
     print("Timer ends")
     setattr(args, 'geometric_time', end_time - st_time)
