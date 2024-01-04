@@ -24,7 +24,7 @@ CONFIG = {
         'num_batches': -1,
         'top_ev': 3,
         "lambdas": np.linspace(-0.5, 0.5, 21).astype(np.float32),
-        "compute_ev_density": False
+        "compute_ev_density": True
     }
 ## <<<
 

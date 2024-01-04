@@ -161,9 +161,22 @@ def output_results(config, loss, evs, traces, ev_density):
 
     config['time_taken[s]'] =  time.time() - config['time_taken[s]']
     config['lambdas'] = config['lambdas'].tolist()
- 
+    
+    # Dump all the outputs
     with open(f"{path}/config.json", "w") as outfile:
         outfile.write(json.dumps(config, indent=4))
+    
+    with open(f"{path}/loss_landscape.json", "w") as outfile:
+        outfile.write(json.dumps(loss, indent=4))
+    
+    with open(f"{path}/evs.json", "w") as outfile:
+        outfile.write(json.dumps(evs, indent=4))
+    
+    with open(f"{path}/traces.json", "w") as outfile:
+        outfile.write(json.dumps(traces, indent=4))
+    
+    with open(f"{path}/ev_density.json", "w") as outfile:
+        outfile.write(json.dumps(ev_density, indent=4))
 
     # Traces of models
     traces_np = np.array(traces)
@@ -199,6 +212,7 @@ def output_results(config, loss, evs, traces, ev_density):
     for i in range(mean_loss.shape[0]):
         plt.fill_between(config['lambdas'], mean_loss[i] + std_loss[i], mean_loss[i] - std_loss[i], alpha = 0.25, color = colors[i])
         plt.plot(config['lambdas'], mean_loss[i], label=labels[i], color = colors[i])
+    
 
     plt.legend()
     plt.ylabel('Loss')
@@ -209,7 +223,7 @@ def output_results(config, loss, evs, traces, ev_density):
     # Density of EVs for each model and batch
     if (config["compute_ev_density"]):
         fig, axs = plt.subplots(len(ev_density), len(ev_density[0]))
-
+        fig.tight_layout(h_pad=2)
         for i, batch in enumerate(ev_density):
             for j, [density_eigen, density_weight] in enumerate(batch):
                 density, grids = density_generate(density_eigen, density_weight)
@@ -222,5 +236,4 @@ def output_results(config, loss, evs, traces, ev_density):
                 # plt.yticks(fontsize=12)
                 # plt.axis([np.min(eigenvalues) - 1, np.max(eigenvalues) + 1, None, None])
                 # plt.tight_layout()
-        fig.tight_layout()
         fig.savefig(f'{path}/ev_density_plot.png')
