@@ -102,7 +102,7 @@ def evaluate_hessian(config, models, loader):
     loss_list_total = []
 
     for k, (inputs, targets) in enumerate(loader):
-        if k >= config['num_batches']: break
+        if config['num_batches'] > 0 and k >= config['num_batches']: break
         
         if(config['use_cuda']):
             inputs, targets = inputs.cuda(config['device_id']), targets.cuda(config['device_id'])

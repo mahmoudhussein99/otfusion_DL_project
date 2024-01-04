@@ -21,8 +21,8 @@ CONFIG = {
         'use_cuda' : True,
         'time_taken[s]': time.time(),
         'batch_size': 1000,
-        'num_batches': 4,
-        'top_ev': 3,
+        'num_batches': -1,
+        'top_ev': 100,
         "lambdas": np.linspace(-0.5, 0.5, 21).astype(np.float32)
     }
 ## <<<
