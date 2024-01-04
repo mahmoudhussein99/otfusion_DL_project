@@ -142,11 +142,56 @@ def _get_config(args):
     import hyperparameters.resnet18_nobias_cifar10_baseline as cifar10_resnet18_nobias_hyperparams
     import hyperparameters.resnet18_nobias_nobn_cifar10_baseline as cifar10_resnet18_nobias_nobn_hyperparams
     import hyperparameters.mlpnet_cifar10_baseline as mlpnet_hyperparams
-
+    import hyperparameters.vgg11_cifar100_baseline as cifar100_vgg_hyperparams  # previously vgg_hyperparams
+    import hyperparameters.vgg11_half_cifar100_baseline as cifar100_vgg_hyperparams_half
+    import hyperparameters.vgg11_doub_cifar100_baseline as cifar100_vgg_hyperparams_doub
+    import hyperparameters.vgg11_quad_cifar100_baseline as cifar100_vgg_hyperparams_quad
+    import hyperparameters.resnet18_nobias_cifar100_baseline as cifar100_resnet18_nobias_hyperparams
+    import hyperparameters.resnet18_nobias_nobn_cifar100_baseline as cifar100_resnet18_nobias_nobn_hyperparams
+    import hyperparameters.mlpnet_cifar100_baseline as mlpnet_cifar100_hyperparams
     config = None
     second_config = None
+    if args.dataset.lower() == 'cifar100':
+        if args.model_name == 'mlpnet':
+            config = mlpnet_cifar100_hyperparams.config
+        elif args.model_name == 'vgg11_nobias':
+            config = cifar100_vgg_hyperparams.config
+        elif args.model_name == 'vgg11_half_nobias':
+            config = cifar100_vgg_hyperparams_half.config
+        elif args.model_name == 'vgg11_doub_nobias':
+            config = cifar100_vgg_hyperparams_doub.config
+        elif args.model_name == 'vgg11_quad_nobias':
+            config = cifar100_vgg_hyperparams_quad.config
+        elif args.model_name == 'resnet18_nobias':
+            config = cifar100_resnet18_nobias_hyperparams.config
+        elif args.model_name == 'resnet18_nobias_nobn':
+            config = cifar100_resnet18_nobias_nobn_hyperparams.config
+        else:
+            raise NotImplementedError
 
-    if args.dataset.lower() == 'cifar10':
+        if args.second_model_name is not None:
+            if 'vgg' in args.second_model_name:
+                if 'half' in args.second_model_name:
+                    second_config = cifar100_vgg_hyperparams_half.config
+                elif 'doub' in args.second_model_name:
+                    second_config = cifar100_vgg_hyperparams_doub.config
+                elif 'quad' in args.second_model_name:
+                    second_config = cifar100_vgg_hyperparams_quad.config
+                elif args.second_model_name == 'vgg11_nobias':
+                    second_config = cifar100_vgg_hyperparams.config
+                else:
+                    raise NotImplementedError
+            elif 'resnet' in args.second_model_name:
+                if args.second_model_name == 'resnet18_nobias':
+                    second_config = cifar100_resnet18_nobias_hyperparams.config
+                elif args.second_model_name == 'resnet18_nobias_nobn':
+                    config = cifar100_resnet18_nobias_nobn_hyperparams.config
+                else:
+                    raise NotImplementedError
+        else:
+            second_config = config
+        return config,second_config
+    elif args.dataset.lower() == 'cifar10':
         if args.model_name == 'mlpnet':
             config = mlpnet_hyperparams.config
         elif args.model_name == 'vgg11_nobias':
@@ -164,30 +209,31 @@ def _get_config(args):
         else:
             raise NotImplementedError
 
-    if args.second_model_name is not None:
-        if 'vgg' in args.second_model_name:
-            if 'half' in args.second_model_name:
-                second_config = cifar10_vgg_hyperparams_half.config
-            elif 'doub' in args.second_model_name:
-                second_config = cifar10_vgg_hyperparams_doub.config
-            elif 'quad' in args.second_model_name:
-                second_config = cifar10_vgg_hyperparams_quad.config
-            elif args.second_model_name == 'vgg11_nobias':
-                second_config = cifar10_vgg_hyperparams.config
-            else:
-                raise NotImplementedError
-        elif 'resnet' in args.second_model_name:
-            if args.second_model_name == 'resnet18_nobias':
-                second_config= cifar10_resnet18_nobias_hyperparams.config
-            elif args.second_model_name == 'resnet18_nobias_nobn':
-                config = cifar10_resnet18_nobias_nobn_hyperparams.config
-            else:
-                raise  NotImplementedError
+        if args.second_model_name is not None:
+            if 'vgg' in args.second_model_name:
+                if 'half' in args.second_model_name:
+                    second_config = cifar10_vgg_hyperparams_half.config
+                elif 'doub' in args.second_model_name:
+                    second_config = cifar10_vgg_hyperparams_doub.config
+                elif 'quad' in args.second_model_name:
+                    second_config = cifar10_vgg_hyperparams_quad.config
+                elif args.second_model_name == 'vgg11_nobias':
+                    second_config = cifar10_vgg_hyperparams.config
+                else:
+                    raise NotImplementedError
+            elif 'resnet' in args.second_model_name:
+                if args.second_model_name == 'resnet18_nobias':
+                    second_config= cifar10_resnet18_nobias_hyperparams.config
+                elif args.second_model_name == 'resnet18_nobias_nobn':
+                    config = cifar10_resnet18_nobias_nobn_hyperparams.config
+                else:
+                    raise  NotImplementedError
+        else:
+            second_config = config
+
+        return config, second_config
     else:
-        second_config = config
-
-    return config, second_config
-
+        raise NotImplementedError
 def get_model_size(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
