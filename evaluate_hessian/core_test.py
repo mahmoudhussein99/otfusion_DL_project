@@ -34,15 +34,19 @@ def main():
 
     # Load Models
     parent1, parent2, fusion = load_models(CONFIG)
+    print("----- Loaded Models -----")
 
     # Dataset 
     test_loader = load_dataset(CONFIG)
+    print("----- Loaded Dataset -----")
     
     # Evaluate
     result, evs, traces, ev_density = evaluate_hessian(CONFIG, [parent1, parent2, fusion], test_loader)
+    print("----- Evaluation Done -----")
     
     # Output
     output_results(CONFIG, result, evs, traces, ev_density)
+    print("----- Output Results -----")
 
     return
 
