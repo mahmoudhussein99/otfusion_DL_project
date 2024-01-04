@@ -9,7 +9,7 @@ import numpy as np
 import sys
 import torch
 import prune
-
+import quantization
 PATH_TO_CIFAR = "./cifar/"
 sys.path.append(PATH_TO_CIFAR)
 import train as cifar_train
@@ -99,28 +99,33 @@ if __name__ == '__main__':
                 log_dict['test_losses'] = []
                 recheck_accuracies.append(routines.test(args, model, test_loader, log_dict))
             print("Rechecked accuracies are ", recheck_accuracies)
-        print('----------Prune the 2 Parent models now---------')
-        pruning_fraction = args.prune_frac
-        for model in models:
-            prune.prune_model(model,pruning_fraction)
+        # print('----------Prune the 2 Parent models now---------')
+        # pruning_fraction = args.prune_frac
+        # for model in models:
+        #     prune.prune_model(model,pruning_fraction)
 
-        print('--------Rechecking accuracies again!--------')
-        if args.recheck_cifar or args.recheck_acc:
-            recheck_accuracies = []
-            i=0
-            epoch =0
-            for model in models:
-                log_dict = {}
-                log_dict['test_losses'] = []
-                acc = routines.test(args, model, test_loader, log_dict)
-                print(f'----- Saving Pruned model{i}-------')
-                import os
-                output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
-                output_root_dir = os.path.join(output_root_dir, args.exp_name, "pruned_parents")
-                cifar_train.store_checkpoint(output_root_dir,f'model_{i}.pruned.intial.checkpoint',model,epoch,acc)
-                recheck_accuracies.append(acc)
-                i += 1
-            print("Rechecked accuracies are ", recheck_accuracies)
+        print('----------Quantize the 2 Parent models now---------')
+        if args.quantize:
+            for i, model in enumerate(models):
+                models[i]=quantization.quantize_model_ptq(model,test_loader)
+
+            print('--------Rechecking accuracies again!--------')
+            if args.recheck_cifar or args.recheck_acc:
+                recheck_accuracies = []
+                i=0
+                epoch =0
+                for model in models:
+                    log_dict = {}
+                    log_dict['test_losses'] = []
+                    acc = routines.test(args, model, test_loader, log_dict)
+                    print(f'----- Saving Quantized model{i}-------')
+                    import os
+                    output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
+                    output_root_dir = os.path.join(output_root_dir, args.exp_name, "quatize_parents")
+                    cifar_train.store_checkpoint(output_root_dir,f'model_{i}.quantized.intial.checkpoint',model,epoch,acc)
+                    recheck_accuracies.append(acc)
+                    i += 1
+                print("Rechecked accuracies are ", recheck_accuracies)
 
         # print('checking named modules of model0 for use in compute_activations!', list(models[0].named_modules()))
 

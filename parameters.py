@@ -154,6 +154,7 @@ def get_parser():
                         help='epochs at which retrain lr decay factor should be applied. underscore separated! ')
     parser.add_argument('--retrain-avg-only', action='store_true', help='retraining the model avgs only')
     parser.add_argument('--retrain-geometric-only', action='store_true', help='retraining the model geometric only')
+    parser.add_argument('--quantize', action='store_true', help='quantize the model ')
 
     parser.add_argument('--load-models', type=str, default='', help='path/name of directory from where to load the models')
     parser.add_argument('--ckpt-type', type=str, default='best', choices=['best', 'final'], help='which checkpoint to load')

@@ -10,7 +10,7 @@ from ground_metric import GroundMetric
 import math
 import sys
 import compute_activations
-
+import quantization
 def cost_matrix(x, y, p=2):
     "Returns the matrix of $|x_i-y_j|^p$."
     x_col = x.unsqueeze(1)
@@ -854,6 +854,7 @@ def get_network_from_param_list(args, param_list, test_loader):
 
     print("using independent method")
     new_network = get_model_from_name(args, idx=1)
+    new_network = quantization.quantize_model_ptq(new_network,test_loader)
     if args.gpu_id != -1:
         new_network = new_network.cuda(args.gpu_id)
 
