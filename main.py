@@ -106,10 +106,18 @@ if __name__ == '__main__':
         print('--------Rechecking accuracies again!--------')
         if args.recheck_cifar or args.recheck_acc:
             recheck_accuracies = []
+            i=0
+            epoch =0
             for model in models:
                 log_dict = {}
                 log_dict['test_losses'] = []
-                recheck_accuracies.append(routines.test(args, model, test_loader, log_dict))
+                acc = routines.test(args, model, test_loader, log_dict)
+                print(f'----- Saving Pruned model{i}-------')
+                import os
+                output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
+                output_root_dir = os.path.join(output_root_dir, args.exp_name, "pruned_parents")
+                cifar_train.store_checkpoint(output_root_dir,f'model_{i}.pruned.intial.checkpoint',model,epoch,acc)
+                recheck_accuracies.append(acc)
             print("Rechecked accuracies are ", recheck_accuracies)
 
         # print('checking named modules of model0 for use in compute_activations!', list(models[0].named_modules()))
