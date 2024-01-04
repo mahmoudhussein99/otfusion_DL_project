@@ -241,6 +241,7 @@ def get_parser():
     parser.add_argument('--dist-epochs', default=60, type=int, help='number of distillation epochs')
 
     parser.add_argument('--handle-skips', action='store_true', help='handle shortcut skips in resnet which decrease dimension')
+    parser.add_argument('--prune-frac', default=0.5, type=float, help='fraction of l1-norm layerwise pruning (default: 0.5)')
     return parser
 
 def get_parameters():
