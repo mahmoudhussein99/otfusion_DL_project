@@ -1,5 +1,5 @@
 {
-    "seed": 21,
+    "seed": 42,
     "architecture": "vgg11_nobias",
     "dataset": "Cifar10",
     "parent1_cp_path": "../cifar_models/model_0/best.checkpoint",
@@ -7,9 +7,9 @@
     "fusion_cp_path": "../cifar_models/fusion_retraining/best.checkpoint",
     "device_id": 0,
     "use_cuda": true,
-    "time_taken[s]": 9.806413412094116,
+    "time_taken[s]": 15.113699674606323,
     "batch_size": 16,
-    "num_batches": 2,
+    "num_batches": 4,
     "top_ev": 3,
     "lambdas": [
         -0.5,
