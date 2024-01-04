@@ -2,7 +2,6 @@
 /.vs
 __pycache__/
 cifar/
-cifar_models/
 data/
 files/
 mnist_models/
