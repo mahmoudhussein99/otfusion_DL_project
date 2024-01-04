@@ -8,7 +8,8 @@ import sys
 sys.path.append("../")
 import cifar.models
 
-from pyhessian import hessian # Hessian computation
+from pyhessian_mod import hessian # Hessian computation
+from density_plot import density_generate
 
 import matplotlib.pyplot as plt
 
@@ -100,6 +101,7 @@ def evaluate_hessian(config, models, loader):
     ev_total = []
     trace_total = []
     loss_list_total = []
+    ev_density_total = []
 
     for k, (inputs, targets) in enumerate(loader):
         if config['num_batches'] > 0 and k >= config['num_batches']: break
@@ -110,12 +112,20 @@ def evaluate_hessian(config, models, loader):
         ev_models = []
         trace_models = []
         loss_list_models = []
+        ev_density_models = []
         
         for i, model in enumerate(models):
             hessian_comp = hessian(model, criterion, data=(inputs, targets), cuda = config['use_cuda'])
             trace = hessian_comp.trace()
 
+            # EV Computation
             top_eigenvalues, top_eigenvector = hessian_comp.eigenvalues(top_n = config['top_ev'])
+
+            # Density Computation
+            if (config["compute_ev_density"]):
+                density_eigen, density_weight = hessian_comp.density()
+                ev_density_models.append([density_eigen, density_weight])
+
             loss_list = []
             
             # create a copy of the model
@@ -137,10 +147,11 @@ def evaluate_hessian(config, models, loader):
         ev_total.append(ev_models)
         loss_list_total.append(loss_list_models)
         trace_total.append(trace_models)
+        ev_density_total.append(ev_density_models)
 
-    return loss_list_total, ev_total, trace_total
+    return loss_list_total, ev_total, trace_total, ev_density_total
 
-def output_results(config, loss, evs, traces):
+def output_results(config, loss, evs, traces, ev_density):
 
     path = f"./results/{config['architecture']}_{config['dataset']}" + time.strftime("_%m-%d_%H-%M")
     os.makedirs(path, exist_ok=True)
@@ -191,3 +202,22 @@ def output_results(config, loss, evs, traces):
     plt.xlabel('Perturbation')
     plt.title('Loss landscape perturbed based on top Hessian eigenvector')
     plt.savefig(fname=f"{path}/hessian_ev_perturb.png")
+
+    # Density of EVs for each model and batch
+    if (config["compute_ev_density"]):
+        fig, axs = plt.subplots(len(ev_density), len(ev_density[0]))
+
+        for i, batch in enumerate(ev_density):
+            for j, [density_eigen, density_weight] in enumerate(batch):
+                density, grids = density_generate(density_eigen, density_weight)
+                axs[i, j].semilogy(density, grids + 1.0e-7, label=labels[j], color = colors[j])
+                axs[i, j].set_title(f"{labels[j]} - Batch {i}")
+                axs[i, j].set(xlim=(np.min(density_eigen) - 1, np.max(density_eigen) + 1), ylim=(None, None))
+                # plt.ylabel('Density (Log Scale)', fontsize=14, labelpad=10)
+                # aplt.xlabel('Eigenvlaue', fontsize=14, labelpad=10)
+                # plt.xticks(fontsize=12)
+                # plt.yticks(fontsize=12)
+                # plt.axis([np.min(eigenvalues) - 1, np.max(eigenvalues) + 1, None, None])
+                # plt.tight_layout()
+        fig.tight_layout()
+        fig.savefig(f'{path}/ev_density_plot.png')

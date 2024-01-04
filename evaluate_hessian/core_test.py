@@ -18,12 +18,13 @@ CONFIG = {
         'parent2_cp_path': "../cifar_models/model_1/best.checkpoint",
         'fusion_cp_path': "../cifar_models/fusion_retraining/best.checkpoint",
         'device_id' : 0,
-        'use_cuda' : True,
+        'use_cuda' : False,
         'time_taken[s]': time.time(),
-        'batch_size': 1000,
-        'num_batches': -1,
-        'top_ev': 100,
-        "lambdas": np.linspace(-0.5, 0.5, 21).astype(np.float32)
+        'batch_size': 2,
+        'num_batches': 2,
+        'top_ev': 1,
+        "lambdas": np.linspace(-0.5, 0.5, 21).astype(np.float32),
+        "compute_ev_density": True
     }
 ## <<<
 
@@ -38,10 +39,10 @@ def main():
     test_loader = load_dataset(CONFIG)
     
     # Evaluate
-    result, evs, traces = evaluate_hessian(CONFIG, [parent1, parent2, fusion], test_loader)
+    result, evs, traces, ev_density = evaluate_hessian(CONFIG, [parent1, parent2, fusion], test_loader)
     
     # Output
-    output_results(CONFIG, result, evs, traces)
+    output_results(CONFIG, result, evs, traces, ev_density)
 
     return
 
