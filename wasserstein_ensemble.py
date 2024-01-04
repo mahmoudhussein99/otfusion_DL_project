@@ -882,8 +882,26 @@ def get_network_from_param_list(args, param_list, test_loader):
     log_dict = {}
     log_dict['test_losses'] = []
     acc = routines.test(args, new_network, test_loader, log_dict)
-
+    import os
+    output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
+    output_root_dir = os.path.join(output_root_dir, args.exp_name, "geometric")
+    store_checkpoint(output_root_dir,"fused.initial.checkpoint",new_network,0,acc)
     return acc, new_network
+def store_checkpoint(output_dir, filename, model, epoch, test_accuracy):
+    """Store a checkpoint file to the output directory"""
+    path = os.path.join(output_dir, filename)
+
+    # Ensure the output directory exists
+    directory = os.path.dirname(path)
+    if not os.path.isdir(directory):
+        os.makedirs(directory, exist_ok=True)
+
+    time.sleep(1) # workaround for RuntimeError('Unknown Error -1') https://github.com/pytorch/pytorch/issues/10577
+    torch.save({
+        'epoch': epoch,
+        'test_accuracy': test_accuracy,
+        'model_state_dict': model.state_dict(),
+    }, path)
 
 def geometric_ensembling_modularized(args, networks, train_loader, test_loader, activations=None):
     
