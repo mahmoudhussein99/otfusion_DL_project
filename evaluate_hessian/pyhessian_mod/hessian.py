@@ -267,7 +267,7 @@ class hessian():
 
             eigen_list = a_.real
             weight_list = b_.real[0,:]**2
-            eigen_list_full.append(list(eigen_list.cpu().numpy()))
-            weight_list_full.append(list(weight_list.cpu().numpy()))
+            eigen_list_full.append(list(eigen_list.cpu().numpy().tolist()))
+            weight_list_full.append(list(weight_list.cpu().numpy().tolist()))
 
         return eigen_list_full, weight_list_full
