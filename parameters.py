@@ -182,7 +182,8 @@ def get_parser():
     parser.add_argument('--transform-acts', action='store_true',
                         help='transform activations by transport map for later use in bi_avg mode ')
     parser.add_argument('--center-acts', action='store_true',
-                        help='subtract mean only across the samples for use in act based alignment') parser.add_argument('--prelu-acts', action='store_true',
+                        help='subtract mean only across the samples for use in act based alignment')
+    parser.add_argument('--prelu-acts', action='store_true',
                         help='do activation based alignment based on pre-relu acts')
     parser.add_argument('--pool-acts', action='store_true',
                         help='do activation based alignment based on pooling acts')
