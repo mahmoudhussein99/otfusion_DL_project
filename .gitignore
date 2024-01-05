@@ -7,4 +7,7 @@ exp_sample/
 exp_sample_300_retrained/
 r10_models_ensembled/
 cifar_models/
+cifar
+mnist_models
+resnet_models
 ./logs.out
