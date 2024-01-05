@@ -243,6 +243,7 @@ def get_parser():
     parser.add_argument('--handle-skips', action='store_true', help='handle shortcut skips in resnet which decrease dimension')
     parser.add_argument('--prune-frac', default=0.5, type=float, help='fraction of l1-norm layerwise pruning (default: 0.5)')
     parser.add_argument('--prune-type', type=str, default='unstructured', choices=['unstructured', 'structured'], help='what type of pruning to use (default: unstructured)')
+    parser.add_argument('--experiment-name', type=str, default='youre-an-idiot-that-didnt-name-the-experiment', help='name of the experiment')
     return parser
 
 def get_parameters():
@@ -304,7 +305,7 @@ def get_parameters():
 
     args.config_dir = os.path.join(args.rootdir, 'configurations')
     args.result_dir = os.path.join(args.rootdir, 'results')
-    args.exp_name = "exp_" + args.timestamp
+    args.exp_name = "exp_" + args.experiment_name
     args.csv_dir = os.path.join(args.rootdir, 'csv')
     utils.mkdir(args.config_dir)
     utils.mkdir(args.result_dir)
