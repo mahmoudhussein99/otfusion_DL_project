@@ -4,7 +4,6 @@ __pycache__/
 data/
 files/
 mnist_models/
-resnet_models/
 .idea/
 .logs.out.swp
 batch.sh
