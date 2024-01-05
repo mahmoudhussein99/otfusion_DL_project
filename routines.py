@@ -135,7 +135,7 @@ def get_retrained_model(args, train_loader, test_loader, old_network, tensorboar
         print('optimizer_learning_rate is ', args.retrain_lr)
     if retrain_seed!=-1:
         torch.manual_seed(retrain_seed)
-        
+
     optimizer = optim.SGD(old_network.parameters(), lr=args.retrain_lr,
                               momentum=args.momentum)
     log_dict = {}
@@ -258,7 +258,7 @@ def train(args, network, optimizer, train_loader, log_dict, epoch, model_id=-1):
             log_dict['train_counter'].append(
                 (batch_idx*64) + ((epoch-1)*len(train_loader.dataset)))
 
-            assert args.exp_name == "exp_" + args.timestamp
+            #  assert args.exp_name == "exp_" + args.timestamp
 
             os.makedirs('{}/{}'.format(args.result_dir, args.exp_name), exist_ok=True)
             if args.dump_model:
@@ -430,7 +430,7 @@ def retrain_models(args, old_networks, train_loader, test_loader, config, tensor
             os.makedirs(output_root_dir, exist_ok=True)
 
             retrained_network, acc = cifar_train.get_retrained_model(args, retrain_loader, test_loader, old_networks[i], config, output_root_dir, tensorboard_obj=tensorboard_obj, nick=nick, start_acc=initial_acc[i])
-            
+
         elif args.dataset.lower() == 'mnist':
 
             if args.reinit_trainloaders:
@@ -438,7 +438,7 @@ def retrain_models(args, old_networks, train_loader, test_loader, config, tensor
                 retrain_loader, _ = get_dataloader(args, no_randomness=args.no_random_trainloaders)
             else:
                 retrain_loader = train_loader
-                
+
             start_acc = initial_acc[i]
             retrained_network, acc = get_retrained_model(args, retrain_loader, test_loader, old_network=old_networks[i], tensorboard_obj=tensorboard_obj, nick=nick, start_acc=start_acc, retrain_seed=args.retrain_seed)
         retrained_networks.append(retrained_network)

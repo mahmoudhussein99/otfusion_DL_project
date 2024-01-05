@@ -1,4 +1,5 @@
 import ot
+import time
 import torch
 import os
 import time
@@ -884,7 +885,6 @@ def get_network_from_param_list(args, param_list, test_loader):
     log_dict = {}
     log_dict['test_losses'] = []
     acc = routines.test(args, new_network, test_loader, log_dict)
-    import os
     output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
     output_root_dir = os.path.join(output_root_dir, args.exp_name, "geometric")
     store_checkpoint(output_root_dir,"fused.initial.checkpoint",new_network,0,acc)
