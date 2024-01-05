@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 log_dict['test_losses'] = []
                 recheck_accuracies.append(routines.test(args, model, test_loader, log_dict))
             print("Rechecked accuracies are ", recheck_accuracies)
-        if args.pruning:
+        if args.prune:
             print('----------Prune the 2 Parent models now---------')
             for model in models:
                 prune.prune_model(model, args.prune_frac, args.prune_type)
