@@ -182,8 +182,7 @@ def get_parser():
     parser.add_argument('--transform-acts', action='store_true',
                         help='transform activations by transport map for later use in bi_avg mode ')
     parser.add_argument('--center-acts', action='store_true',
-                        help='subtract mean only across the samples for use in act based alignment')
-    parser.add_argument('--prelu-acts', action='store_true',
+                        help='subtract mean only across the samples for use in act based alignment') parser.add_argument('--prelu-acts', action='store_true',
                         help='do activation based alignment based on pre-relu acts')
     parser.add_argument('--pool-acts', action='store_true',
                         help='do activation based alignment based on pooling acts')
@@ -242,7 +241,7 @@ def get_parser():
 
     parser.add_argument('--handle-skips', action='store_true', help='handle shortcut skips in resnet which decrease dimension')
     parser.add_argument('--prune-frac', default=0.5, type=float, help='fraction of l1-norm layerwise pruning (default: 0.5)')
-    parser.add_argument('--prune-type', default='unstructured', type=str, choices=['unstructured', 'structured'], help='what type of pruning to use (default: unstructured)')
+    parser.add_argument('--prune-type', type=str, default='unstructured', choices=['unstructured', 'structured'], help='what type of pruning to use (default: unstructured)')
     return parser
 
 def get_parameters():
