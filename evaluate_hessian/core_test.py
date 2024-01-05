@@ -9,17 +9,24 @@ import os
 
 
 ## >>> CONFIG -----
+# 'parent1_cp_path': "../cifar_models/pruning/pruned_parents/model_0.pruned.intial.checkpoint",
+# 'parent2_cp_path': "../cifar_models/pruning/pruned_parents/model_1.pruned.intial.checkpoint",
+# 'fusion_cp_path': "../cifar_models/pruning/geometric/fused.initial.checkpoint",
+
+# 'parent1_cp_path': "../cifar_models/non_pruning/model_0/best.checkpoint",
+# 'parent2_cp_path': "../cifar_models/non_pruning/model_1/best.checkpoint",
+# 'fusion_cp_path': "../cifar_models/non_pruning/fusion/initial.checkpoint",
 config = {
         'seed': 42,
         'architecture': "vgg11_nobias",
         'dataset': "Cifar10",
         'parent1_cp_path': "../cifar_models/pruning/pruned_parents/model_0.pruned.intial.checkpoint",
         'parent2_cp_path': "../cifar_models/pruning/pruned_parents/model_1.pruned.intial.checkpoint",
-        'fusion_cp_path': "../cifar_models/pruning/geometric/fused.initial.checkpoint", #../cifar_models/non_pruning/fusion_retraining/best.checkpoint
+        'fusion_cp_path': "../cifar_models/pruning/geometric/fused.initial.checkpoint",
         'device_id' : 0,
-        'use_cuda' : False,
-        'batch_size': 4,
-        'num_batches': 2,
+        'use_cuda' : True,
+        'batch_size': 1000,
+        'num_batches': -1,
         'top_ev': 3,
         "lambdas": np.linspace(-0.5, 0.5, 21).astype(np.float32).tolist(),
         "compute_ev_density": True
