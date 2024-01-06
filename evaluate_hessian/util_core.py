@@ -1,6 +1,6 @@
 import numpy as np
 
-import torch 
+import torch
 from torchvision import datasets, transforms
 
 import sys
@@ -17,7 +17,7 @@ import json
 
 def get_model(config):
     num_classes = 100 if config['dataset'] == 'Cifar100' else 10
-    
+
     relu_inplace=True
 
     model = {
@@ -39,14 +39,16 @@ def get_model(config):
 def load_models(config):
     parent1 = get_model(config)
     parent2 = get_model(config)
-    fusion = get_model(config)
+    fusion_initial = get_model(config)
+    fusion_retrained = get_model(config)
 
     device = 'cpu'
 
     if(config['use_cuda']):
         parent1.cuda(config['device_id'])
         parent2.cuda(config['device_id'])
-        fusion.cuda(config['device_id'])
+        fusion_initial.cuda(config['device_id'])
+        fusion_retrained.cuda(config['device_id'])
 
         device = 'cuda:' + str(config['device_id'])
 
@@ -56,15 +58,19 @@ def load_models(config):
     state2 = torch.load(config['parent2_cp_path'], map_location=(
                 lambda s, _: torch.serialization.default_restore_location(s, device)
             ))
-    state3 = torch.load(config['fusion_cp_path'], map_location=(
+    state3 = torch.load(config['fusion_initial_cp_path'], map_location=(
+                lambda s, _: torch.serialization.default_restore_location(s, device)
+            ))
+    state4 = torch.load(config['fusion_retrained_cp_path'], map_location=(
                 lambda s, _: torch.serialization.default_restore_location(s, device)
             ))
 
     parent1.load_state_dict(state1['model_state_dict'])
     parent2.load_state_dict(state2['model_state_dict'])
-    fusion.load_state_dict(state3['model_state_dict'])
-    
-    return parent1, parent2, fusion
+    fusion_initial.load_state_dict(state3['model_state_dict'])
+    fusion_retrained.load_state_dict(state4['model_state_dict'])
+
+    return parent1, parent2, fusion_initial, fusion_retrained
 
 def load_dataset(config):
     if(config['dataset'] == 'Cifar100'):
@@ -94,12 +100,13 @@ def get_params(model,  model_perturbed, direction, alpha):
 
 def evaluate_hessian(config, models, loader):
     criterion = torch.nn.CrossEntropyLoss()
-    labels = ["parent1", "parent2", "fusion"]
+    # labels for dumping dict
+    labels = ["parent1", "parent2", "fusion_initial", "fusion_retrained"]
 
     eigenvalues = {}
     traces = {}
     loss_landscape = {'lambdas': config['lambdas']}
-    
+
     eigenvalue_density = {}
 
     for i, model in enumerate(models):
@@ -107,16 +114,16 @@ def evaluate_hessian(config, models, loader):
         traces[f"{labels[i]}"] = {}
         loss_landscape[f"{labels[i]}"] = {}
         eigenvalue_density[f"{labels[i]}"] = {}
-        
+
         for k, (inputs, targets) in enumerate(loader):
             if config['num_batches'] > 0 and k >= config['num_batches']: break
-            
+
             if(config['use_cuda']):
                 inputs, targets = inputs.cuda(config['device_id']), targets.cuda(config['device_id'])
 
             # Hessian
             hessian_comp = hessian(model, criterion, data=(inputs, targets), cuda = config['use_cuda'])
-            
+
             # Trace Computation
             trace = hessian_comp.trace()
 
@@ -130,11 +137,11 @@ def evaluate_hessian(config, models, loader):
 
             # Loss Landscape Perturbation Computation
             loss_list = []
-            
+
             # create a copy of the model
             model_perburbed = copy.deepcopy(model)
             model_perburbed.eval()
-            
+
             if config['use_cuda']:
                 model_perburbed = model_perburbed.cuda(config['device_id'])
 
@@ -142,23 +149,26 @@ def evaluate_hessian(config, models, loader):
                 # Perturb by eigenvector corresponding with largest eigenvalue!
                 model_perburbed = get_params(model, model_perburbed, top_eigenvector[0], lam)
                 loss_list.append(criterion(model_perburbed(inputs), targets).item())
-            
+
             eigenvalues[f"{labels[i]}"][f"batch_{k}"] = top_eigenvalues
             traces[f"{labels[i]}"][f"batch_{k}"] = np.mean(trace)
             loss_landscape[f"{labels[i]}"][f"batch_{k}"] = loss_list
-        
+
     return loss_landscape, eigenvalues, traces, eigenvalue_density
 
 def dump_as_json(path, file_name, dict):
     with open(f"{path}/{file_name}.json", "w") as outfile:
-        outfile.write(json.dumps(dict, indent=4))    
+        outfile.write(json.dumps(dict, indent=4))
 
+# DO NOT CHANGE (for consistent plotting)
+labels = ["Parent 1", "Parent 2", "Fusion (init)", "Fusion (retrain)"]
+colors = ["tab:blue", "tab:orange", "tab:red", "tab:purple"]
 
 def plot_loss_landscape(config, loss_landscape, path):
     # Loss Landscape Perturbed by Top EV of Hessian
     figsize = (4.5, 3.5)
     plt.figure(figsize=figsize, dpi=300)
-    
+
     loss = []
     for key, value in loss_landscape.items():
         if "lambdas" not in key:
@@ -167,9 +177,6 @@ def plot_loss_landscape(config, loss_landscape, path):
     loss_np = np.array(loss)
     mean_loss = loss_np.mean(axis=1)
     std_loss = loss_np.std(axis=1)
-
-    labels = ["Parent 1", "Parent 2", "Fusion"]
-    colors = ["tab:blue", "tab:orange", "tab:red"]
 
     # or use loss_landscape['lambdas']
     for i in range(mean_loss.shape[0]):
@@ -181,15 +188,12 @@ def plot_loss_landscape(config, loss_landscape, path):
     plt.xlabel('Weight Perturbation')
     plt.locator_params(axis='y', nbins=5)
     # plt.suptitle('Cross-Entropy Loss Landscape\n Model parameters perturbed by top Hessian eigenvector')
-    plt.savefig(fname=f"{path}/hessian_ev_perturb.png", bbox_inches='tight')
+    plt.savefig(fname=f"{path}/hessian_ev_perturb.pdf", bbox_inches='tight')
 
 def plot_ev_density(eigenvalue_density, path):
     # Density of EVs for each model and batch
     figsize = (4.5, 2.0)
     plt.figure(figsize=figsize, dpi=300)
-    
-    labels = ["Parent 1", "Parent 2", "Fusion"]
-    colors = ["tab:blue", "tab:orange", "tab:red"]
 
     density_eigens_total = []
     for i, (model_k, model_v) in enumerate(data.items()):
@@ -204,7 +208,7 @@ def plot_ev_density(eigenvalue_density, path):
 
         plt.plot(grids, density + 1.0e-7, color = colors[i], label= labels[i], alpha = 0.75)
         plt.yscale('log')
-        
+
         mask = density > 0
         for m in reversed(range(len(mask))):
             if not mask[m]: continue
@@ -215,7 +219,7 @@ def plot_ev_density(eigenvalue_density, path):
     plt.yticks([0.000001, 0.001, 10.0])
     plt.axis([np.min(density_eigens_total) - 1, np.max(density_eigens_total) + 1, None, None])
     plt.legend()
-    plt.savefig(f'./ev_density_plot.pdf',  bbox_inches='tight')
+    plt.savefig(fname=f"{path}/ev_density_plot.pdf", bbox_inches='tight')
 
     # # Traces of models
     # traces_np = np.array(traces)
@@ -230,11 +234,11 @@ def plot_ev_density(eigenvalue_density, path):
 
     # # Store as .csv
     # trace_df = pd.DataFrame({"Model" : ["Parent 1", "Parent 2", "Fusion"],
-    #                         "Trace mean": mean_traces, 
+    #                         "Trace mean": mean_traces,
     #                          "Trace std": std_traces})
 
-    # ev_df = pd.DataFrame({"Parent 1": mean_evs[0], 
-    #                         "Parent 2" : mean_evs[1], 
+    # ev_df = pd.DataFrame({"Parent 1": mean_evs[0],
+    #                         "Parent 2" : mean_evs[1],
     #                         "Fusion": mean_evs[2]})
 
     # trace_df.to_csv(f"{path}/trace.csv", index=False)
