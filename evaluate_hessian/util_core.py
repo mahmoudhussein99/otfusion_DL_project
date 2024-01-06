@@ -156,6 +156,9 @@ def dump_as_json(path, file_name, dict):
 
 def plot_loss_landscape(config, loss_landscape, path):
     # Loss Landscape Perturbed by Top EV of Hessian
+    figsize = (4.5, 3.5)
+    plt.figure(figsize=figsize, dpi=300)
+    
     loss = []
     for key, value in loss_landscape.items():
         if "lambdas" not in key:
@@ -166,7 +169,7 @@ def plot_loss_landscape(config, loss_landscape, path):
     std_loss = loss_np.std(axis=1)
 
     labels = ["Parent 1", "Parent 2", "Fusion"]
-    colors = ["blue", "orange", "red"]
+    colors = ["tab:blue", "tab:orange", "tab:red"]
 
     # or use loss_landscape['lambdas']
     for i in range(mean_loss.shape[0]):
@@ -175,31 +178,44 @@ def plot_loss_landscape(config, loss_landscape, path):
 
     plt.legend()
     plt.ylabel('Loss')
-    plt.xlabel('Perturbation by lambda')
-    plt.suptitle('Cross-Entropy Loss Landscape\n Model parameters perturbed by top Hessian eigenvector')
+    plt.xlabel('Weight Perturbation')
+    plt.locator_params(axis='y', nbins=5)
+    # plt.suptitle('Cross-Entropy Loss Landscape\n Model parameters perturbed by top Hessian eigenvector')
     plt.savefig(fname=f"{path}/hessian_ev_perturb.png", bbox_inches='tight')
 
 def plot_ev_density(eigenvalue_density, path):
     # Density of EVs for each model and batch
-    fig, axs = plt.subplots(len(eigenvalue_density))
-    fig.tight_layout(h_pad=2)
+    figsize = (4.5, 2.0)
+    plt.figure(figsize=figsize, dpi=300)
+    
     labels = ["Parent 1", "Parent 2", "Fusion"]
-    colors = ["blue", "orange", "red"]
+    colors = ["tab:blue", "tab:orange", "tab:red"]
 
-    for i, (model_k, model_v) in enumerate(eigenvalue_density.items()):
+    density_eigens_total = []
+    for i, (model_k, model_v) in enumerate(data.items()):
         density_eigens = []
         density_weights = []
-        for j, (batch_k, [density_eigen, density_weight]) in enumerate(model_v.items()): 
+        for j, (batch_k, [density_eigen, density_weight]) in enumerate(model_v.items()):
             density_eigens += density_eigen
             density_weights += density_weight
-        density, grids = density_generate(density_eigens, density_weights)
-        axs[i].semilogy(grids, density + 1.0e-7, color = colors[i], label= labels[i])
-        axs[i].set(xlim=(np.min(density_eigens) - 1, np.max(density_eigens) + 1), ylim=(None, None))
-    fig.text(0.5, 0.0, 'Eigenvalue', ha='center', va='center')
-    fig.text(0.0, 0.5, 'Density [Log Scale]', ha='center', va='center', rotation='vertical')
-    fig.legend()
 
-    fig.savefig(f'{path}/ev_density_plot.png', bbox_inches='tight')
+        density_eigens_total.append(density_eigens)
+        density, grids = density_generate(density_eigens, density_weights)
+
+        plt.plot(grids, density + 1.0e-7, color = colors[i], label= labels[i], alpha = 0.75)
+        plt.yscale('log')
+        
+        mask = density > 0
+        for m in reversed(range(len(mask))):
+            if not mask[m]: continue
+            else: break
+        plt.axvline(grids[m], ymin=0, ymax=1, color = colors[i], linestyle = '-.')
+    plt.xlabel('Eigenvalue')
+    plt.ylabel('Density [%]')
+    plt.yticks([0.000001, 0.001, 10.0])
+    plt.axis([np.min(density_eigens_total) - 1, np.max(density_eigens_total) + 1, None, None])
+    plt.legend()
+    plt.savefig(f'./ev_density_plot.pdf',  bbox_inches='tight')
 
     # # Traces of models
     # traces_np = np.array(traces)

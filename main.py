@@ -10,8 +10,6 @@ import sys
 import torch
 import prune
 
-from util_core import load_models, load_dataset, evaluate_hessian, output_results
-
 PATH_TO_CIFAR = "./cifar/"
 sys.path.append(PATH_TO_CIFAR)
 import cifar.train as cifar_train
