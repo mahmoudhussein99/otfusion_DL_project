@@ -121,6 +121,10 @@ if __name__ == '__main__':
                     recheck_accuracies.append(acc)
                     i += 1
                 print("Rechecked accuracies are ", recheck_accuracies)
+        if args.retrain_parents:
+            for i in range(len(models)):
+                models[i], accuracies[i] = routines.get_retrained_model(args,config, i,train_loader,test_loader,models[i],start_acc=accuracies[i],retrain_seed=i)
+                
 
         # print('checking named modules of model0 for use in compute_activations!', list(models[0].named_modules()))
 

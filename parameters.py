@@ -242,7 +242,7 @@ def get_parser():
 
     parser.add_argument('--handle-skips', action='store_true', help='handle shortcut skips in resnet which decrease dimension')
     parser.add_argument('--prune', action='store_true', help='use pruning in the load models')
-
+    parser.add_argument('--retrain-parents', action='store_true', help='retrain the parents')
     parser.add_argument('--prune-frac', default=0.5, type=float, help='fraction of l1-norm layerwise pruning (default: 0.5)')
     parser.add_argument('--prune-type', type=str, default='unstructured', choices=['unstructured', 'structured'], help='what type of pruning to use (default: unstructured)')
     parser.add_argument('--experiment-name', type=str, default='youre-an-idiot-that-didnt-name-the-experiment', help='name of the experiment')
