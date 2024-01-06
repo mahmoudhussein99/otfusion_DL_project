@@ -162,7 +162,7 @@ def get_retrained_model(args, config,id,train_loader, test_loader, old_network, 
     path = os.path.join(args.result_dir, args.exp_name, 'model_{}'.format(id))
     
 
-    best_acc = start_acc
+    best_acc = acc
     for epoch in range(1, args.retrain + 1):
         scheduler.step(epoch)
         train(args, old_network, optimizer, train_loader, log_dict, epoch, model_id=str(id))
