@@ -196,7 +196,7 @@ def plot_ev_density(eigenvalue_density, path):
     plt.figure(figsize=figsize, dpi=300)
 
     density_eigens_total = []
-    for i, (model_k, model_v) in enumerate(data.items()):
+    for i, (model_k, model_v) in enumerate(eigenvalue_density.items()):
         density_eigens = []
         density_weights = []
         for j, (batch_k, [density_eigen, density_weight]) in enumerate(model_v.items()):
