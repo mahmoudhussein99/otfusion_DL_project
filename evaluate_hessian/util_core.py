@@ -110,6 +110,8 @@ def evaluate_hessian(config, models, loader):
     eigenvalue_density = {}
 
     for i, model in enumerate(models):
+        print(f'* analysing {labels[i]}')
+
         eigenvalues[f"{labels[i]}"] = {}
         traces[f"{labels[i]}"] = {}
         loss_landscape[f"{labels[i]}"] = {}
@@ -132,8 +134,10 @@ def evaluate_hessian(config, models, loader):
 
             # Eigenvalue Density Computation
             if (config["compute_ev_density"]):
+                print(f'* computing ev density @ batch {k}', end=' ')
                 density_eigen, density_weight = hessian_comp.density()
                 eigenvalue_density[f"{labels[i]}"][f"batch_{k}"] = [density_eigen, density_weight]
+                print(f'DONE!')
 
             # Loss Landscape Perturbation Computation
             loss_list = []
@@ -153,6 +157,8 @@ def evaluate_hessian(config, models, loader):
             eigenvalues[f"{labels[i]}"][f"batch_{k}"] = top_eigenvalues
             traces[f"{labels[i]}"][f"batch_{k}"] = np.mean(trace)
             loss_landscape[f"{labels[i]}"][f"batch_{k}"] = loss_list
+
+        print(f'* done analysing {labels[i]}', end='\n\n')
 
     return loss_landscape, eigenvalues, traces, eigenvalue_density
 
