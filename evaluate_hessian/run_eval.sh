@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --gpus=1
-#SBATCH --time=01:00:00
-#SBATCH --output=logs_pruned.out
+#SBATCH --time=10:00:00
+#SBATCH --output=logs.analysis_pruned_experiments_DEBUG.out
 
-python3 ./core_test.py
+python3 analyse_multiple_experiments.py 
