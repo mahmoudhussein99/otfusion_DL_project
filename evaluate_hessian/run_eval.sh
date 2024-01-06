@@ -2,6 +2,7 @@
 
 #SBATCH --gpus=1
 #SBATCH --time=10:00:00
-#SBATCH --output=logs.analysis_pruned_experiments_DEBUG.out
+#SBATCH --account=deep_learning
+#SBATCH --output=logs.analysis_cifar10_vgg11_pruned_experiments.out
 
 python3 analyse_multiple_experiments.py 
