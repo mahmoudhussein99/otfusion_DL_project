@@ -10,6 +10,7 @@ experiments = [
     'exp_cifar10_vgg11_unstructured_pruned_30_retrained',
     'exp_cifar10_vgg11_unstructured_pruned_50_retrained',
     'exp_cifar10_vgg11_unstructured_pruned_70_retrained',
+    'exp_cifar10_vgg11_unpruned_retrained',
 ]
 config = {
     'seed': 21, # used for torch and statistical computation of trace
