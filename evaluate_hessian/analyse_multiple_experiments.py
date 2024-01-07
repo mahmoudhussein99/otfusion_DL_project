@@ -2,7 +2,7 @@ import os
 import numpy as np
 from core_test import analyse_hessian
 
-basepath = '../cifar10_models_ensembled'
+basepath = '../../models_for_evaluation' # DO NOT CHANGE
 experiments = [
     'exp_cifar10_vgg11_unpruned_retrained',
     'exp_cifar10_vgg11_structured_pruned_30_retrained',
@@ -16,8 +16,8 @@ config = {
     'seed': 21, # used for torch and statistical computation of trace
     # DO NOT SET MANUALLY
     'experiment_name': '',
-    'architecture': 'vgg11_nobias',
-    'dataset': 'Cifar10',
+    'architecture': 'vgg11_nobias', # TODO: change me
+    'dataset': 'Cifar10', # TODO: change me
     # DO NOT SET MANUALLY
     'parent1_cp_path': '',
     # DO NOT SET MANUALLY
