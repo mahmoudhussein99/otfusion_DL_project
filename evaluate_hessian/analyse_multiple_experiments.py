@@ -42,7 +42,7 @@ for exp in experiments:
     config['parent1_cp_path'] = f"{path}/pruned_parents/model_0.pruned.initial.checkpoint"
     config['parent2_cp_path'] = f"{path}/pruned_parents/model_1.pruned.initial.checkpoint"
     config['fusion_initial_cp_path'] = f"{path}/geometric/fused.initial.checkpoint"
-    config['fusion_retrained_cp_path'] = f"{path}/geometric/fused.initial.checkpoint"
+    config['fusion_retrained_cp_path'] = f"{path}/geometric/best.checkpoint"
 
     print(f'EXPERIMENT: {exp[4:]}')
     print('* analysing hessian', end = ' ')
