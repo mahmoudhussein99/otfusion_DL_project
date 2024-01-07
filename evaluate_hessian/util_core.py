@@ -175,57 +175,74 @@ def plot_loss_landscape(config, loss_landscape, path):
     figsize = (4.5, 3.5)
     plt.figure(figsize=figsize, dpi=300)
 
-    loss = []
-    for key, value in loss_landscape.items():
-        if "lambdas" not in key:
-            loss.append(list(value.values()))
+    for run in range(2):
 
-    loss_np = np.array(loss)
-    mean_loss = loss_np.mean(axis=1)
-    std_loss = loss_np.std(axis=1)
+        loss = []
+        for key, value in loss_landscape.items():
 
-    # or use loss_landscape['lambdas']
-    for i in range(mean_loss.shape[0]):
-        plt.fill_between(config['lambdas'], mean_loss[i] + std_loss[i], mean_loss[i] - std_loss[i], alpha = 0.25, color = colors[i])
-        plt.plot(config['lambdas'], mean_loss[i], label=labels[i], color = colors[i])
+            if "lambdas" not in key:
+                loss.append(list(value.values()))
 
-    plt.legend()
-    plt.ylabel('Loss')
-    plt.xlabel('Weight Perturbation')
-    plt.locator_params(axis='y', nbins=5)
-    # plt.suptitle('Cross-Entropy Loss Landscape\n Model parameters perturbed by top Hessian eigenvector')
-    plt.savefig(fname=f"{path}/hessian_ev_perturb.pdf", bbox_inches='tight')
+        loss_np = np.array(loss)
+
+        # drop fused_retrained on first run
+        if run == 0:
+            loss_np = loss_np[:-1]
+
+        mean_loss = loss_np.mean(axis=1)
+        std_loss = loss_np.std(axis=1)
+
+        # or use loss_landscape['lambdas']
+        for i in range(mean_loss.shape[0]):
+            plt.fill_between(config['lambdas'], mean_loss[i] + std_loss[i], mean_loss[i] - std_loss[i], alpha = 0.25, color = colors[i])
+            plt.plot(config['lambdas'], mean_loss[i], label=labels[i], color = colors[i])
+
+        plt.legend()
+        plt.ylabel('Loss')
+        plt.xlabel('Weight Perturbation')
+        plt.locator_params(axis='y', nbins=5)
+        # plt.suptitle('Cross-Entropy Loss Landscape\n Model parameters perturbed by top Hessian eigenvector')
+        plt.savefig(fname=f"{path}/hessian_ev_perturb{'_initial' if run == 0 else '_initial_and_retrained'}.pdf", bbox_inches='tight')
+        plt.close()
 
 def plot_ev_density(eigenvalue_density, path):
     # Density of EVs for each model and batch
     figsize = (4.5, 2.0)
     plt.figure(figsize=figsize, dpi=300)
 
-    density_eigens_total = []
-    for i, (model_k, model_v) in enumerate(eigenvalue_density.items()):
-        density_eigens = []
-        density_weights = []
-        for j, (batch_k, [density_eigen, density_weight]) in enumerate(model_v.items()):
-            density_eigens += density_eigen
-            density_weights += density_weight
+    for run in range(2):
 
-        density_eigens_total.append(density_eigens)
-        density, grids = density_generate(density_eigens, density_weights)
+        density_eigens_total = []
+        for i, (model_k, model_v) in enumerate(eigenvalue_density.items()):
 
-        plt.plot(grids, density + 1.0e-7, color = colors[i], label= labels[i], alpha = 0.75)
-        plt.yscale('log')
+            if run == 0 and model_k == 'fusion_retrained':
+                continue
 
-        mask = density > 0
-        for m in reversed(range(len(mask))):
-            if not mask[m]: continue
-            else: break
-        plt.axvline(grids[m], ymin=0, ymax=1, color = colors[i], linestyle = '-.')
-    plt.xlabel('Eigenvalue')
-    plt.ylabel('Density [%]')
-    plt.yticks([0.000001, 0.001, 10.0])
-    plt.axis([np.min(density_eigens_total) - 1, np.max(density_eigens_total) + 1, None, None])
-    plt.legend()
-    plt.savefig(fname=f"{path}/ev_density_plot.pdf", bbox_inches='tight')
+            density_eigens = []
+            density_weights = []
+            for j, (batch_k, [density_eigen, density_weight]) in enumerate(model_v.items()):
+                density_eigens += density_eigen
+                density_weights += density_weight
+
+            density_eigens_total.append(density_eigens)
+            density, grids = density_generate(density_eigens, density_weights)
+
+            plt.plot(grids, density + 1.0e-7, color = colors[i], label= labels[i], alpha = 0.75)
+            plt.yscale('log')
+
+            mask = density > 0
+            for m in reversed(range(len(mask))):
+                if not mask[m]: continue
+                else: break
+            plt.axvline(grids[m], ymin=0, ymax=1, color = colors[i], linestyle = '-.')
+        plt.xlabel('Eigenvalue')
+        plt.ylabel('Density [%]')
+        plt.yticks([0.000001, 0.001, 10.0])
+        plt.axis([np.min(density_eigens_total) - 1, np.max(density_eigens_total) + 1, None, None])
+        plt.legend()
+        plt.savefig(fname=f"{path}/ev_density_plot{'_initial' if run == 0 else '_initial_and_retrained'}.pdf", bbox_inches='tight')
+
+        plt.close()
 
     # # Traces of models
     # traces_np = np.array(traces)
