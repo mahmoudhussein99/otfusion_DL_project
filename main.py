@@ -121,6 +121,10 @@ if __name__ == '__main__':
                     recheck_accuracies.append(acc)
                     i += 1
                 print("Rechecked accuracies are ", recheck_accuracies)
+        if args.retrain_parents:
+            for i in range(len(models)):
+                models[i], accuracies[i] = routines.get_retrained_model(args,config, i,train_loader,test_loader,models[i],start_acc=accuracies[i],retrain_seed=i)
+                
 
         # print('checking named modules of model0 for use in compute_activations!', list(models[0].named_modules()))
 
@@ -178,8 +182,23 @@ if __name__ == '__main__':
     print("Timer start")
     st_time = time.perf_counter()
 
-    geometric_acc, geometric_model = wasserstein_ensemble.geometric_ensembling_modularized(args, models, train_loader, test_loader, activations)
+    if args.load_geometric_models != '':
+        print("------- Loading Geometric pre-trained models -------")
+        if args.dataset.lower()[0:7] == 'cifar10' and (args.model_name.lower()[0:5] == 'vgg11' or args.model_name.lower()[0:6] == 'resnet'):
 
+            geometric_model, geometric_acc = cifar_train.get_pretrained_model(
+                    config, args.load_geometric_models,
+                    args.gpu_id, relu_inplace=not args.prelu_acts # if you want pre-relu acts, set relu_inplace to False
+            )
+        if args.recheck_cifar or args.recheck_acc:
+            recheck_accuracies = []
+            print('-----Rechecking loaded geometric----')
+            log_dict = {}
+            log_dict['test_losses'] = []
+            recheck_accuracies.append(routines.test(args, geometric_model, test_loader, log_dict))
+            print("Rechecked accuracies are ", recheck_accuracies)
+    else:
+        geometric_acc, geometric_model = wasserstein_ensemble.geometric_ensembling_modularized(args, models, train_loader, test_loader, activations)
     end_time = time.perf_counter()
     print("Timer ends")
     setattr(args, 'geometric_time', end_time - st_time)
