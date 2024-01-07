@@ -4,13 +4,13 @@ from core_test import analyse_hessian
 
 basepath = '../cifar10_models_ensembled'
 experiments = [
+    'exp_cifar10_vgg11_unpruned_retrained',
     'exp_cifar10_vgg11_structured_pruned_30_retrained',
     'exp_cifar10_vgg11_structured_pruned_50_retrained',
     'exp_cifar10_vgg11_structured_pruned_70_retrained',
     'exp_cifar10_vgg11_unstructured_pruned_30_retrained',
     'exp_cifar10_vgg11_unstructured_pruned_50_retrained',
     'exp_cifar10_vgg11_unstructured_pruned_70_retrained',
-    'exp_cifar10_vgg11_unpruned_retrained',
 ]
 config = {
     'seed': 21, # used for torch and statistical computation of trace
@@ -39,8 +39,8 @@ for exp in experiments:
     path = os.path.join(basepath, exp)
 
     config['experiment_name'] = exp
-    config['parent1_cp_path'] = f"{path}/pruned_parents/model_0.pruned.intial.checkpoint"
-    config['parent2_cp_path'] = f"{path}/pruned_parents/model_1.pruned.intial.checkpoint"
+    config['parent1_cp_path'] = f"{path}/pruned_parents/model_0.pruned.initial.checkpoint"
+    config['parent2_cp_path'] = f"{path}/pruned_parents/model_1.pruned.initial.checkpoint"
     config['fusion_initial_cp_path'] = f"{path}/geometric/fused.initial.checkpoint"
     config['fusion_retrained_cp_path'] = f"{path}/geometric/fused.initial.checkpoint"
 
