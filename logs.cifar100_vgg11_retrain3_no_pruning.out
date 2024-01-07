@@ -1,0 +1,370 @@
+/home/mhussein/.local/lib/python3.10/site-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 2 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+------- Setting up parameters -------
+dumping parameters at  /home/mhussein/otfusion_DL_project/exp_cifar100_vgg11_retrain3_no_pruning/configurations
+The parameters are: 
+ Namespace(n_epochs=300, batch_size_train=64, batch_size_test=1000, learning_rate=0.01, momentum=0.5, log_interval=100, to_download=False, disable_bias=True, dataset='Cifar100', num_models=1, model_name='vgg11_nobias', config_file=None, config_dir='/home/mhussein/otfusion_DL_project/exp_cifar100_vgg11_retrain3_no_pruning/configurations', num_hidden_nodes=400, num_hidden_nodes1=400, num_hidden_nodes2=200, num_hidden_nodes3=100, num_hidden_nodes4=50, sweep_id=90, gpu_id=0, skip_last_layer=False, skip_last_layer_type='average', debug=False, cifar_style_data=False, activation_histograms=False, act_num_samples=100, softmax_temperature=1, activation_mode=None, options_type='generic', deprecated=None, save_result_file='sample_cifar100_vgg11_retrain3_no_pruning.csv', sweep_name='exp_cifar100_vgg11_retrain3_no_pruning', reg=0.01, reg_m=0.001, ground_metric='euclidean', ground_metric_normalize='none', not_squared=True, clip_gm=False, clip_min=0, clip_max=5, tmap_stats=False, ensemble_step=0.5, ground_metric_eff=True, retrain=300, retrain_lr_decay=2.0, retrain_lr_decay_factor=2.0, retrain_lr_decay_epochs='30', retrain_avg_only=False, retrain_geometric_only=True, load_models='./exp_cifar100_vgg11_retrain2_no_pruning/results/exp_cifar100_vgg11_retrain2_no_pruning/', ckpt_type='best', recheck_cifar=True, recheck_acc=False, eval_aligned=False, enable_dropout=False, dump_model=False, dump_final_models=False, correction=True, activation_seed=21, weight_stats=True, sinkhorn_type='normal', geom_ensemble_type='wts', act_bug=False, standardize_acts=False, transform_acts=False, center_acts=False, prelu_acts=True, pool_acts=False, pool_relu=False, normalize_acts=False, normalize_wts=False, gromov=False, gromov_loss='square_loss', tensorboard_root='./tensorboard', tensorboard=False, same_model=-1, dist_normalize=False, update_acts=False, past_correction=True, partial_reshape=False, choice='0 2 4 6 8', diff_init=False, partition_type='labels', personal_class_idx=9, partition_dataloader=-1, personal_split_frac=0.1, exact=True, skip_personal_idx=False, prediction_wts=False, width_ratio=1, proper_marginals=False, retrain_seed=-1, no_random_trainloaders=False, reinit_trainloaders=False, second_model_name=None, print_distances=False, deterministic=False, skip_retrain=-1, importance=None, unbalanced=False, temperature=20, alpha=0.7, dist_epochs=60, handle_skips=False, prune=False, retrain_parents=True, prune_frac=0.5, prune_type='unstructured', experiment_name='cifar100_vgg11_retrain3_no_pruning', timestamp='2024-01-07_01-59-10_719102', rootdir='/home/mhussein/otfusion_DL_project/exp_cifar100_vgg11_retrain3_no_pruning', baseroot='/home/mhussein/otfusion_DL_project', result_dir='/home/mhussein/otfusion_DL_project/exp_cifar100_vgg11_retrain3_no_pruning/results', exp_name='exp_cifar100_vgg11_retrain3_no_pruning', csv_dir='/home/mhussein/otfusion_DL_project/exp_cifar100_vgg11_retrain3_no_pruning/csv')
+refactored get_config
+------- Loading pre-trained models -------
+loading cifar100 dataloaders
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+loading model with idx 0 and checkpoint_type is best
+in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
+Relu Inplace is  False
+model parameters are 
+ [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([100, 512])]
+Loading model at path ./exp_cifar100_vgg11_retrain2_no_pruning/results/exp_cifar100_vgg11_retrain2_no_pruning/model_0/best.checkpoint which had accuracy 60.43 and at epoch 69
+Done loading all the models
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0186, Accuracy: 6043/10000 (60%)
+
+Rechecked accuracies are  [60.43]
+optimizer_learning_rate is  0.005
+
+--------- Testing in global mode ---------
+/home/mhussein/.local/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:136: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+/home/mhussein/.local/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:149: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0186, Accuracy: 6043/10000 (60%)
+
+check accuracy once again before retraining starts:  60.43
+Train Epoch: 1 [0/50000 (0%)]	Loss: 0.461356
+Train Epoch: 1 [12800/50000 (26%)]	Loss: 0.583684
+Train Epoch: 1 [25600/50000 (51%)]	Loss: 0.449687
+Train Epoch: 1 [38400/50000 (77%)]	Loss: 0.446907
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0187, Accuracy: 6004/10000 (60%)
+
+At retrain epoch the accuracy is :  60.04
+Train Epoch: 2 [0/50000 (0%)]	Loss: 0.417561
+Train Epoch: 2 [12800/50000 (26%)]	Loss: 0.600365
+Train Epoch: 2 [25600/50000 (51%)]	Loss: 0.397692
+Train Epoch: 2 [38400/50000 (77%)]	Loss: 0.342129
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0191, Accuracy: 6041/10000 (60%)
+
+At retrain epoch the accuracy is :  60.41
+Train Epoch: 3 [0/50000 (0%)]	Loss: 0.524474
+Train Epoch: 3 [12800/50000 (26%)]	Loss: 0.553006
+Train Epoch: 3 [25600/50000 (51%)]	Loss: 0.296871
+Train Epoch: 3 [38400/50000 (77%)]	Loss: 0.436630
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0192, Accuracy: 6006/10000 (60%)
+
+At retrain epoch the accuracy is :  60.06
+Train Epoch: 4 [0/50000 (0%)]	Loss: 0.494179
+Train Epoch: 4 [12800/50000 (26%)]	Loss: 0.484691
+Train Epoch: 4 [25600/50000 (51%)]	Loss: 0.394083
+Train Epoch: 4 [38400/50000 (77%)]	Loss: 0.565831
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0191, Accuracy: 5989/10000 (60%)
+
+At retrain epoch the accuracy is :  59.89
+Train Epoch: 5 [0/50000 (0%)]	Loss: 0.462287
+Train Epoch: 5 [12800/50000 (26%)]	Loss: 0.410933
+Train Epoch: 5 [25600/50000 (51%)]	Loss: 0.552299
+Train Epoch: 5 [38400/50000 (77%)]	Loss: 0.433032
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0193, Accuracy: 5975/10000 (60%)
+
+At retrain epoch the accuracy is :  59.75
+Train Epoch: 6 [0/50000 (0%)]	Loss: 0.397552
+Train Epoch: 6 [12800/50000 (26%)]	Loss: 0.420660
+Train Epoch: 6 [25600/50000 (51%)]	Loss: 0.447926
+Train Epoch: 6 [38400/50000 (77%)]	Loss: 0.614847
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0193, Accuracy: 5972/10000 (60%)
+
+At retrain epoch the accuracy is :  59.72
+Train Epoch: 7 [0/50000 (0%)]	Loss: 0.478848
+Train Epoch: 7 [12800/50000 (26%)]	Loss: 0.350305
+Train Epoch: 7 [25600/50000 (51%)]	Loss: 0.456957
+Train Epoch: 7 [38400/50000 (77%)]	Loss: 0.344922
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0196, Accuracy: 6007/10000 (60%)
+
+At retrain epoch the accuracy is :  60.07
+Train Epoch: 8 [0/50000 (0%)]	Loss: 0.504533
+Train Epoch: 8 [12800/50000 (26%)]	Loss: 0.360926
+Train Epoch: 8 [25600/50000 (51%)]	Loss: 0.449142
+Train Epoch: 8 [38400/50000 (77%)]	Loss: 0.568197
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0199, Accuracy: 6002/10000 (60%)
+
+At retrain epoch the accuracy is :  60.02
+Train Epoch: 9 [0/50000 (0%)]	Loss: 0.491927
+Train Epoch: 9 [12800/50000 (26%)]	Loss: 0.461472
+Train Epoch: 9 [25600/50000 (51%)]	Loss: 0.322416
+Train Epoch: 9 [38400/50000 (77%)]	Loss: 0.545054
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0198, Accuracy: 6021/10000 (60%)
+
+At retrain epoch the accuracy is :  60.21
+Train Epoch: 10 [0/50000 (0%)]	Loss: 0.402735
+Train Epoch: 10 [12800/50000 (26%)]	Loss: 0.361383
+Train Epoch: 10 [25600/50000 (51%)]	Loss: 0.405661
+Train Epoch: 10 [38400/50000 (77%)]	Loss: 0.680207
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0198, Accuracy: 6015/10000 (60%)
+
+At retrain epoch the accuracy is :  60.15
+Train Epoch: 11 [0/50000 (0%)]	Loss: 0.379943
+Train Epoch: 11 [12800/50000 (26%)]	Loss: 0.450836
+Train Epoch: 11 [25600/50000 (51%)]	Loss: 0.396593
+Train Epoch: 11 [38400/50000 (77%)]	Loss: 0.539504
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0201, Accuracy: 5968/10000 (60%)
+
+At retrain epoch the accuracy is :  59.68
+Train Epoch: 12 [0/50000 (0%)]	Loss: 0.649453
+Train Epoch: 12 [12800/50000 (26%)]	Loss: 0.303940
+Train Epoch: 12 [25600/50000 (51%)]	Loss: 0.266999
+Train Epoch: 12 [38400/50000 (77%)]	Loss: 0.327603
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0204, Accuracy: 6001/10000 (60%)
+
+At retrain epoch the accuracy is :  60.01
+Train Epoch: 13 [0/50000 (0%)]	Loss: 0.219234
+Train Epoch: 13 [12800/50000 (26%)]	Loss: 0.338039
+Train Epoch: 13 [25600/50000 (51%)]	Loss: 0.338324
+Train Epoch: 13 [38400/50000 (77%)]	Loss: 0.467042
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0205, Accuracy: 6011/10000 (60%)
+
+At retrain epoch the accuracy is :  60.11
+Train Epoch: 14 [0/50000 (0%)]	Loss: 0.506245
+Train Epoch: 14 [12800/50000 (26%)]	Loss: 0.468688
+Train Epoch: 14 [25600/50000 (51%)]	Loss: 0.383581
+Train Epoch: 14 [38400/50000 (77%)]	Loss: 0.229832
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0205, Accuracy: 6007/10000 (60%)
+
+At retrain epoch the accuracy is :  60.07
+Train Epoch: 15 [0/50000 (0%)]	Loss: 0.290392
+Train Epoch: 15 [12800/50000 (26%)]	Loss: 0.244131
+Train Epoch: 15 [25600/50000 (51%)]	Loss: 0.458356
+Train Epoch: 15 [38400/50000 (77%)]	Loss: 0.451889
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0206, Accuracy: 5990/10000 (60%)
+
+At retrain epoch the accuracy is :  59.9
+Train Epoch: 16 [0/50000 (0%)]	Loss: 0.163726
+Train Epoch: 16 [12800/50000 (26%)]	Loss: 0.375913
+Train Epoch: 16 [25600/50000 (51%)]	Loss: 0.245924
+Train Epoch: 16 [38400/50000 (77%)]	Loss: 0.343947
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0212, Accuracy: 6006/10000 (60%)
+
+At retrain epoch the accuracy is :  60.06
+Train Epoch: 17 [0/50000 (0%)]	Loss: 0.368616
+Train Epoch: 17 [12800/50000 (26%)]	Loss: 0.265148
+Train Epoch: 17 [25600/50000 (51%)]	Loss: 0.260524
+Train Epoch: 17 [38400/50000 (77%)]	Loss: 0.362523
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0209, Accuracy: 6009/10000 (60%)
+
+At retrain epoch the accuracy is :  60.09
+Train Epoch: 18 [0/50000 (0%)]	Loss: 0.312170
+Train Epoch: 18 [12800/50000 (26%)]	Loss: 0.331341
+Train Epoch: 18 [25600/50000 (51%)]	Loss: 0.371079
+Train Epoch: 18 [38400/50000 (77%)]	Loss: 0.399354
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0210, Accuracy: 5996/10000 (60%)
+
+At retrain epoch the accuracy is :  59.96
+Train Epoch: 19 [0/50000 (0%)]	Loss: 0.255138
+Train Epoch: 19 [12800/50000 (26%)]	Loss: 0.296845
+Train Epoch: 19 [25600/50000 (51%)]	Loss: 0.292924
+Train Epoch: 19 [38400/50000 (77%)]	Loss: 0.443198
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0214, Accuracy: 5981/10000 (60%)
+
+At retrain epoch the accuracy is :  59.81
+Train Epoch: 20 [0/50000 (0%)]	Loss: 0.247875
+Train Epoch: 20 [12800/50000 (26%)]	Loss: 0.287199
+Train Epoch: 20 [25600/50000 (51%)]	Loss: 0.278418
+Train Epoch: 20 [38400/50000 (77%)]	Loss: 0.251340
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0214, Accuracy: 5993/10000 (60%)
+
+At retrain epoch the accuracy is :  59.93
+Train Epoch: 21 [0/50000 (0%)]	Loss: 0.374415
+Train Epoch: 21 [12800/50000 (26%)]	Loss: 0.328185
+Train Epoch: 21 [25600/50000 (51%)]	Loss: 0.242538
+Train Epoch: 21 [38400/50000 (77%)]	Loss: 0.290614
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0219, Accuracy: 5949/10000 (59%)
+
+At retrain epoch the accuracy is :  59.49
+Train Epoch: 22 [0/50000 (0%)]	Loss: 0.462019
+Train Epoch: 22 [12800/50000 (26%)]	Loss: 0.258548
+Train Epoch: 22 [25600/50000 (51%)]	Loss: 0.314541
+Train Epoch: 22 [38400/50000 (77%)]	Loss: 0.299226
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0218, Accuracy: 5974/10000 (60%)
+
+At retrain epoch the accuracy is :  59.74
+Train Epoch: 23 [0/50000 (0%)]	Loss: 0.309164
+Train Epoch: 23 [12800/50000 (26%)]	Loss: 0.358888
+Train Epoch: 23 [25600/50000 (51%)]	Loss: 0.285071
+Train Epoch: 23 [38400/50000 (77%)]	Loss: 0.370762
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0222, Accuracy: 5966/10000 (60%)
+
+At retrain epoch the accuracy is :  59.66
+Train Epoch: 24 [0/50000 (0%)]	Loss: 0.303628
+Train Epoch: 24 [12800/50000 (26%)]	Loss: 0.292589
+Train Epoch: 24 [25600/50000 (51%)]	Loss: 0.388698
+Train Epoch: 24 [38400/50000 (77%)]	Loss: 0.321733
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0222, Accuracy: 6026/10000 (60%)
+
+At retrain epoch the accuracy is :  60.26
+Train Epoch: 25 [0/50000 (0%)]	Loss: 0.169509
+Train Epoch: 25 [12800/50000 (26%)]	Loss: 0.322318
+Train Epoch: 25 [25600/50000 (51%)]	Loss: 0.233327
+Train Epoch: 25 [38400/50000 (77%)]	Loss: 0.222291
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0223, Accuracy: 5986/10000 (60%)
+
+At retrain epoch the accuracy is :  59.86
+Train Epoch: 26 [0/50000 (0%)]	Loss: 0.198817
+Train Epoch: 26 [12800/50000 (26%)]	Loss: 0.296718
+Train Epoch: 26 [25600/50000 (51%)]	Loss: 0.169003
+Train Epoch: 26 [38400/50000 (77%)]	Loss: 0.220817
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0228, Accuracy: 5971/10000 (60%)
+
+At retrain epoch the accuracy is :  59.71
+Train Epoch: 27 [0/50000 (0%)]	Loss: 0.206163
+Train Epoch: 27 [12800/50000 (26%)]	Loss: 0.275656
+Train Epoch: 27 [25600/50000 (51%)]	Loss: 0.298527
+Train Epoch: 27 [38400/50000 (77%)]	Loss: 0.288648
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0225, Accuracy: 5999/10000 (60%)
+
+At retrain epoch the accuracy is :  59.99
+Train Epoch: 28 [0/50000 (0%)]	Loss: 0.244972
+Train Epoch: 28 [12800/50000 (26%)]	Loss: 0.248075
+Train Epoch: 28 [25600/50000 (51%)]	Loss: 0.192197
+Train Epoch: 28 [38400/50000 (77%)]	Loss: 0.336498
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0227, Accuracy: 5970/10000 (60%)
+
+At retrain epoch the accuracy is :  59.7
+Train Epoch: 29 [0/50000 (0%)]	Loss: 0.243915
+Train Epoch: 29 [12800/50000 (26%)]	Loss: 0.247574
+Train Epoch: 29 [25600/50000 (51%)]	Loss: 0.150519
+Train Epoch: 29 [38400/50000 (77%)]	Loss: 0.180086
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0229, Accuracy: 6000/10000 (60%)
+
+At retrain epoch the accuracy is :  60.0
+Train Epoch: 30 [0/50000 (0%)]	Loss: 0.220444
+Train Epoch: 30 [12800/50000 (26%)]	Loss: 0.229602
+Train Epoch: 30 [25600/50000 (51%)]	Loss: 0.224825
+Train Epoch: 30 [38400/50000 (77%)]	Loss: 0.116435
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0230, Accuracy: 5965/10000 (60%)
+
+At retrain epoch the accuracy is :  59.65
+slurmstepd: error: *** STEP 4931.0 ON studgpu-node09 CANCELLED AT 2024-01-07T02:31:20 ***

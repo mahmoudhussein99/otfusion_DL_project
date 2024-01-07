@@ -156,6 +156,8 @@ def get_parser():
     parser.add_argument('--retrain-geometric-only', action='store_true', help='retraining the model geometric only')
 
     parser.add_argument('--load-models', type=str, default='', help='path/name of directory from where to load the models')
+    parser.add_argument('--load-geometric-models', type=str, default='', help='path/name of directory from where to load the geometric models')
+
     parser.add_argument('--ckpt-type', type=str, default='best', choices=['best', 'final'], help='which checkpoint to load')
 
     parser.add_argument('--recheck-cifar', action='store_true', help='recheck cifar accuracies')

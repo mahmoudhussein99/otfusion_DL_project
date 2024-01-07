@@ -130,6 +130,8 @@ def get_trained_data_separated_model(args, id, local_train_loader, local_test_lo
 
 def get_retrained_model(args, config,id,train_loader, test_loader, old_network, tensorboard_obj=None, nick='', start_acc=-1, retrain_seed=-1):
     torch.backends.cudnn.enabled = False
+    torch.manual_seed(id+1)
+
     if args.retrain_lr_decay > 0:
         args.retrain_lr = args.learning_rate / args.retrain_lr_decay
         print('optimizer_learning_rate is ', args.retrain_lr)
@@ -354,7 +356,7 @@ def train_models(args,config, second_config,train_loader, test_loader):
     accuracies = []
     for i in range(args.num_models):
         if(i==0):
-            network, acc = get_trained_model(args, i, i, train_loader, test_loader,config)
+            network, acc = get_trained_model(args, i+1, i+1, train_loader, test_loader,config)
             networks.append(network)
             accuracies.append(acc)
             if args.dump_final_models:
