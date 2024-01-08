@@ -1,6 +1,6 @@
 # Unveiling Generalization Prospects in OT Fused Neural Networks
 
-This repo contains code for the paper 'Unveiling Generalization Prospects in OT Fused Neural Networks', which is based on ![Model Fusion](Unveiling Generalization Prospects in OT Fused Neural Networks).
+This repo contains code for the paper 'Unveiling Generalization Prospects in OT Fused Neural Networks', which is based on ![Model Fusion](https://github.com/sidak/otfusion).
 
 Some of our work can be seen in these plots.
 
