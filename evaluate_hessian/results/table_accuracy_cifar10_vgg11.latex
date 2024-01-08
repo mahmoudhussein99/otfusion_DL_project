@@ -1,0 +1,19 @@
+\begin{table}[!ht]
+  \centering\small\resizebox{\columnwidth}{!}{
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{l c c c c c c}
+  \toprule
+    ~ & Parent 1 & Parent 2 & Parent 1 (pruned) & Parent 2 (pruned) & Fused & Fused (retrained) \\
+  \midrule
+    C10 V11 unP  & 90.31\% & 90.50\% & n/a     & n/a     & MISSING & MISSING \\
+    C10 V11 uP30 & 90.31\% & 90.50\% & 73.14\% & 63.14\% & 62.11\% & 10.00\% \\
+    C10 V11 uP50 & 90.31\% & 90.50\% & 39.13\% & 32.78\% & 36.86\% & 88.76\% \\
+    C10 V11 uP70 & 90.31\% & 90.50\% & 20.80\% & 13.67\% & 13.22\% & 87.96\% \\
+    C10 V11 sP30 & 90.31\% & 90.50\% & 89.89\% & 90.41\% & 86.00\% & 90.91\% \\
+    C10 V11 sP50 & 90.31\% & 90.50\% & 83.86\% & 86.50\% & 81.48\% & 10.50\% \\
+    C10 V11 sP70 & 90.31\% & 90.50\% & 50.77\% & 39.50\% & 47.39\% & 90.52\% \\
+  \bottomrule
+  \end{tabular}}
+\caption{accuracy caption. state that unP means unPruned, check also other tables}
+\label{acc_table}
+\end{table}

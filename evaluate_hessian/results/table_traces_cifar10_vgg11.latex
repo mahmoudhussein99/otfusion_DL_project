@@ -1,0 +1,20 @@
+
+\begin{table}[!ht]
+  \centering\small\resizebox{\columnwidth}{!}{
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{l c c c c}
+  \toprule
+    ~ & Parent 1 & Parent 2 & Child & Child (retrained) \\
+  \midrule
+    C10 V11 unP & 1086.87 {\scriptsize $\pm$ 49.63} & 1151.05 {\scriptsize $\pm$ 50.81} & 119.22 {\scriptsize $\pm$ 13.71} & 1321.05 {\scriptsize $\pm$ 65.19} \\
+    C10 V11 uP30 & 1121.06 {\scriptsize $\pm$ 63.55} & 1157.43 {\scriptsize $\pm$ 64.01} & 113.19 {\scriptsize $\pm$ 11.7} & 983.89 {\scriptsize $\pm$ 54.5} \\
+    C10 V11 uP50 & 1620.47 {\scriptsize $\pm$ 127.09} & 1543.27 {\scriptsize $\pm$ 116.88} & 134.51 {\scriptsize $\pm$ 11.88} & n/a \\
+    C10 V11 uP70 & 4742.11 {\scriptsize $\pm$ 256.66} & 5216.08 {\scriptsize $\pm$ 400.72} & 428.89 {\scriptsize $\pm$ 50.18} & 1438.86 {\scriptsize $\pm$ 45.74} \\
+    C10 V11 sP30 & 863.9 {\scriptsize $\pm$ 48.37} & 758.43 {\scriptsize $\pm$ 41.41} & 28.26 {\scriptsize $\pm$ 4.21} & n/a \\
+    C10 V11 sP50 & 257.13 {\scriptsize $\pm$ 21.62} & 75.93 {\scriptsize $\pm$ 9.12} & 3.85 {\scriptsize $\pm$ 1.85} & 1646.16 {\scriptsize $\pm$ 90.41} \\
+    C10 V11 sP70 & 2.56 {\scriptsize $\pm$ 0.92} & 3.44 {\scriptsize $\pm$ 1.19} & 0.03 {\scriptsize $\pm$ 0.14} & 1612.8 {\scriptsize $\pm$ 126.71} \\
+  \bottomrule
+  \end{tabular}}
+\caption{Trace caption.}
+\label{mylabel1}
+\end{table}

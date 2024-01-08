@@ -1,0 +1,20 @@
+
+\begin{table}[!ht]
+  \centering\small\resizebox{\columnwidth}{!}{
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{l c c c c}
+  \toprule
+    ~ & Parent 1 & Parent 2 & Child & Child (retrained) \\
+  \midrule
+    C10 V11 unP & 25.63 {\scriptsize $\pm$ 2.66} & 29.35 {\scriptsize $\pm$ 2.52} & 4.72 {\scriptsize $\pm$ 0.29} & 36.52 {\scriptsize $\pm$ 4.47} \\
+    C10 V11 uP30 & 26.98 {\scriptsize $\pm$ 2.57} & 30.43 {\scriptsize $\pm$ 2.44} & 4.69 {\scriptsize $\pm$ 0.31} & 23.23 {\scriptsize $\pm$ 2.8} \\
+    C10 V11 uP50 & 51.78 {\scriptsize $\pm$ 9.47} & 49.22 {\scriptsize $\pm$ 4.58} & 5.86 {\scriptsize $\pm$ 0.73} & -0.0 {\scriptsize $\pm$ 0.01} \\
+    C10 V11 uP70 & 415.95 {\scriptsize $\pm$ 93.95} & 590.04 {\scriptsize $\pm$ 313.17} & 37.29 {\scriptsize $\pm$ 12.08} & 42.63 {\scriptsize $\pm$ 4.71} \\
+    C10 V11 sP30 & 30.5 {\scriptsize $\pm$ 4.01} & 30.99 {\scriptsize $\pm$ 7.86} & 1.67 {\scriptsize $\pm$ 2.62} & 0.0 {\scriptsize $\pm$ 0.0} \\
+    C10 V11 sP50 & 18.13 {\scriptsize $\pm$ 4.76} & 6.41 {\scriptsize $\pm$ 1.1} & 0.39 {\scriptsize $\pm$ 0.84} & 44.31 {\scriptsize $\pm$ 4.41} \\
+    C10 V11 sP70 & 0.39 {\scriptsize $\pm$ 0.52} & 0.76 {\scriptsize $\pm$ 0.28} & 0.01 {\scriptsize $\pm$ 0.08} & 46.51 {\scriptsize $\pm$ 5.25} \\
+  \bottomrule
+  \end{tabular}}
+\caption{Eigenvalues caption.}
+\label{mylabel2}
+\end{table}
