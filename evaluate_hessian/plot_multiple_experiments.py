@@ -11,13 +11,7 @@ TABLES = True
 basepath = './results' # DO NOT CHANGE
 # used for plots
 experiments = [
-    'exp_cifar10_vgg11_unpruned_retrained',
-    'exp_cifar10_vgg11_structured_pruned_30_retrained',
-    'exp_cifar10_vgg11_structured_pruned_50_retrained',
-    'exp_cifar10_vgg11_structured_pruned_70_retrained',
-    'exp_cifar10_vgg11_unstructured_pruned_30_retrained',
-    'exp_cifar10_vgg11_unstructured_pruned_50_retrained',
-    'exp_cifar10_vgg11_unstructured_pruned_70_retrained',
+    'exp_cifar10_resnet18_nobias_nobn_no_pruning'
 ]
 # used for tables
 experiment_names = [
@@ -66,8 +60,25 @@ for exp in experiments:
 
     if TABLES:
         dict_of_dicts['configs'].append(config)
-        dict_of_dicts['eigenvalues'].append(eigenvalues)
-        dict_of_dicts['traces'].append(traces)
+
+        # Trace Table
+        traces_dict = {}
+        for key_m, value_m in traces.items():
+            trace = np.array(list(value_m.values()))
+            trace_mean = str(round(trace.mean(axis=0), 2))
+            trace_std = str(round(trace.std(axis=0), 2))
+            traces_dict[key_m] = trace_mean + " \pm " + trace_std
+        dict_of_dicts['traces'].append(traces_dict)
+
+        # Eigenvalue Table
+        eigenvalues_dict = {}
+        for key_m, value_m in eigenvalues.items():
+            eigenvalues = np.array(list(value_m.values()))
+            eigenvalues_mean = str(round(eigenvalues.mean(), 2)) # over batches and top k
+            eigenvalues_std = str(round(eigenvalues.std(), 2)) # over batches and top k
+            eigenvalues_dict[key_m] = eigenvalues_mean + " \pm " + eigenvalues_std
+        dict_of_dicts['eigenvalues'].append(eigenvalues_dict)
+
 
 
 if TABLES:
@@ -75,8 +86,17 @@ if TABLES:
     output_table(
         row_names=experiment_names,
         col_names=model_names,
-        dicts=dict_of_dicts['eigenvalues'],
+        dicts=dict_of_dicts['traces'],
         caption='Trace caption',
-        label='mylabel',
+        label='mylabel1',
         path = os.path.join(basepath, 'table_traces.latex')
+    )
+
+    output_table(
+        row_names=experiment_names,
+        col_names=model_names,
+        dicts=dict_of_dicts['eigenvalues'],
+        caption='Eigenvalues caption',
+        label='mylabel2',
+        path = os.path.join(basepath, 'table_eigenvalues.latex')
     )
