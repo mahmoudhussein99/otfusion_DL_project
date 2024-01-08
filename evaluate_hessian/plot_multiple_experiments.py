@@ -24,6 +24,7 @@ for exp in experiments:
     print('* Plotting Experiment', end = ' ')
 
     plot_path = os.path.join(path, "final_plots")
+    os.makedirs(plot_path, exist_ok=True)
     plot_loss_landscape(config, loss_landscape, plot_path)
     plot_ev_density(eigenvalue_density, plot_path)
 
