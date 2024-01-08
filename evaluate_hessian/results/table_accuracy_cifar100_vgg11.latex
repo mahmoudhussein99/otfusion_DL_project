@@ -1,0 +1,36 @@
+
+\begin{table}[!ht]
+  \centering\small\resizebox{\columnwidth}{!}{
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{l c c c c c c}
+  \toprule
+    ~ & Parent 1 & Parent 2 & Parent 1 (pruned) & Parent 2 (pruned) & Fused & Fused (retrained) \\
+  \midrule
+    C100 V11 unP  & 60.43\% & 60.05\% & n/a     & n/a     & 60.11\% & 64.25\% \\
+    C100 V11 sP30 & 60.43\% & 60.05\% & 29.34\% & 30.21\% & 29.57\% & 62.71\% \\
+    C100 V11 sP50 & 60.43\% & 60.05\% &  9.48\% &  9.45\% & 09.23\% & 61.20\% \\
+    C100 V11 sP70 & 60.43\% & 60.05\% &  2.13\% &  2.00\% & 02.07\% & 55.96\% \\
+    C100 V11 uP30 & 60.43\% & 60.05\% & 59.58\% & 59.47\% & 59.59\% & 63.56\% \\
+    C100 V11 uP50 & 60.43\% & 60.05\% & 54.55\% & 55.04\% & 54.84\% & 63.67\% \\
+    C100 V11 uP70 & 60.43\% & 60.05\% & 24.74\% & 25.22\% & 25.19\% &  1.00\% \\
+  \bottomrule
+  \end{tabular}}
+\caption{RESNET18 accuracy caption. state that unP means unPruned, check also other tables}
+\label{acc_table_resnet18}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
