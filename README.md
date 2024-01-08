@@ -10,7 +10,12 @@ Some of our work can be seen in these plots.
 Most of our models were trained using the following sort of command.
 
 ```
-python3 main.py --gpu-id 0 --model-name vgg11_nobias --n-epochs 300 --save-result-file sample_cifar10_vgg11_structured_pruned_30_retrained.csv --sweep-name exp_cifar10_vgg11_structured_pruned_30_retrained --correction --ground-metric euclidean --weight-stats --geom-ensemble-type wts --ground-metric-normalize none --sweep-id 90 --load-models ./cifar_models/ --ckpt-type best --dataset Cifar10 --ground-metric-eff --recheck-cifar --activation-seed 21 --prelu-acts --past-correction --not-squared --exact --experiment-name cifar10_vgg11_structured_pruned_30_retrained --retrain 300 --retrain-geometric-only --prune-frac 0.3 --prune-type structured --prune
+python3 main.py --gpu-id 0 --model-name vgg11_nobias --n-epochs 300 --save-result-file sample.csv \
+--sweep-name exp_sample --correction --ground-metric euclidean --weight-stats \
+--geom-ensemble-type wts --ground-metric-normalize none --sweep-id 90 --load-models ./cifar_models/ \
+--ckpt-type best --dataset Cifar10 --ground-metric-eff --recheck-cifar --activation-seed 21 \
+--prelu-acts --past-correction --not-squared --exact --experiment-name sample_exp_name \
+--retrain 300 --retrain-geometric-only --prune --prune-frac 0.3 --prune-type structured
 ```
 
 ## Model Fusion via Optimal Transport 
