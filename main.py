@@ -8,11 +8,11 @@ import utils
 import numpy as np
 import sys
 import torch
-
+import prune
 
 PATH_TO_CIFAR = "./cifar/"
 sys.path.append(PATH_TO_CIFAR)
-import train as cifar_train
+import cifar.train as cifar_train
 from tensorboardX import SummaryWriter
 
 if __name__ == '__main__':
@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
         # ensemble_experiment = "exp_2019-04-23_18-08-48/"
         # ensemble_experiment = "exp_2019-04-24_02-20-26"
-        
+
         ensemble_experiment = args.load_models.split('/')
         if len(ensemble_experiment) > 1:
             # both the path and name of the experiment have been specified
@@ -77,7 +77,7 @@ if __name__ == '__main__':
                     config_used = config
                 elif idx == 1:
                     config_used = second_config
-                    
+
                 model, accuracy = cifar_train.get_pretrained_model(
                         config_used, os.path.join(ensemble_dir, 'model_{}/{}.checkpoint'.format(idx, args.ckpt_type)),
                         args.gpu_id, relu_inplace=not args.prelu_acts # if you want pre-relu acts, set relu_inplace to False
@@ -99,6 +99,28 @@ if __name__ == '__main__':
                 log_dict['test_losses'] = []
                 recheck_accuracies.append(routines.test(args, model, test_loader, log_dict))
             print("Rechecked accuracies are ", recheck_accuracies)
+        if args.prune:
+            print('----------Prune the 2 Parent models now---------')
+            for model in models:
+                prune.prune_model(model, args.prune_frac, args.prune_type)
+
+            print('--------Rechecking accuracies again!--------')
+            if args.recheck_cifar or args.recheck_acc:
+                recheck_accuracies = []
+                i=0
+                epoch =0
+                for model in models:
+                    log_dict = {}
+                    log_dict['test_losses'] = []
+                    acc = routines.test(args, model, test_loader, log_dict)
+                    print(f'----- Saving Pruned model{i}-------')
+                    import os
+                    output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
+                    output_root_dir = os.path.join(output_root_dir, args.exp_name, "pruned_parents")
+                    cifar_train.store_checkpoint(output_root_dir,f'model_{i}.pruned.intial.checkpoint',model,epoch,acc)
+                    recheck_accuracies.append(acc)
+                    i += 1
+                print("Rechecked accuracies are ", recheck_accuracies)
 
         # print('checking named modules of model0 for use in compute_activations!', list(models[0].named_modules()))
 
@@ -111,7 +133,7 @@ if __name__ == '__main__':
         retrain_loader, _ = get_dataloader(args, no_randomness=args.no_random_trainloaders)
 
         print("------- Training independent models -------")
-        models, accuracies = routines.train_models(args, train_loader, test_loader)
+        models, accuracies = routines.train_models(args, config,second_config,train_loader, test_loader)
 
     # if args.debug:
     #     print(list(models[0].parameters()))
@@ -157,7 +179,7 @@ if __name__ == '__main__':
     st_time = time.perf_counter()
 
     geometric_acc, geometric_model = wasserstein_ensemble.geometric_ensembling_modularized(args, models, train_loader, test_loader, activations)
-    
+
     end_time = time.perf_counter()
     print("Timer ends")
     setattr(args, 'geometric_time', end_time - st_time)

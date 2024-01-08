@@ -1,0 +1,1859 @@
+/home/thmeier/.local/lib/python3.10/site-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 2 worker processes in total. Our suggested max number of worker in current system is 1, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+------- Setting up parameters -------
+dumping parameters at  /home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained/configurations
+The parameters are: 
+ Namespace(n_epochs=300, batch_size_train=64, batch_size_test=1000, learning_rate=0.01, momentum=0.5, log_interval=100, to_download=False, disable_bias=True, dataset='Cifar10', num_models=2, model_name='vgg11_nobias', config_file=None, config_dir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained/configurations', num_hidden_nodes=400, num_hidden_nodes1=400, num_hidden_nodes2=200, num_hidden_nodes3=100, num_hidden_nodes4=50, sweep_id=90, gpu_id=0, skip_last_layer=False, skip_last_layer_type='average', debug=False, cifar_style_data=False, activation_histograms=False, act_num_samples=100, softmax_temperature=1, activation_mode=None, options_type='generic', deprecated=None, save_result_file='sample_cifar10_vgg11_structured_pruned_30_retrained.csv', sweep_name='exp_cifar10_vgg11_structured_pruned_30_retrained', reg=0.01, reg_m=0.001, ground_metric='euclidean', ground_metric_normalize='none', not_squared=True, clip_gm=False, clip_min=0, clip_max=5, tmap_stats=False, ensemble_step=0.5, ground_metric_eff=True, retrain=300, retrain_lr_decay=-1, retrain_lr_decay_factor=None, retrain_lr_decay_epochs=None, retrain_avg_only=False, retrain_geometric_only=True, load_models='./cifar_models/', ckpt_type='best', recheck_cifar=True, recheck_acc=False, eval_aligned=False, enable_dropout=False, dump_model=False, dump_final_models=False, correction=True, activation_seed=21, weight_stats=True, sinkhorn_type='normal', geom_ensemble_type='wts', act_bug=False, standardize_acts=False, transform_acts=False, center_acts=False, prelu_acts=True, pool_acts=False, pool_relu=False, normalize_acts=False, normalize_wts=False, gromov=False, gromov_loss='square_loss', tensorboard_root='./tensorboard', tensorboard=False, same_model=-1, dist_normalize=False, update_acts=False, past_correction=True, partial_reshape=False, choice='0 2 4 6 8', diff_init=False, partition_type='labels', personal_class_idx=9, partition_dataloader=-1, personal_split_frac=0.1, exact=True, skip_personal_idx=False, prediction_wts=False, width_ratio=1, proper_marginals=False, retrain_seed=-1, no_random_trainloaders=False, reinit_trainloaders=False, second_model_name=None, print_distances=False, deterministic=False, skip_retrain=-1, importance=None, unbalanced=False, temperature=20, alpha=0.7, dist_epochs=60, handle_skips=False, prune=True, prune_frac=0.3, prune_type='structured', experiment_name='cifar10_vgg11_structured_pruned_30_retrained', timestamp='2024-01-06_23-08-09_755816', rootdir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained', baseroot='/home/thmeier/otfusion', result_dir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained/results', exp_name='exp_cifar10_vgg11_structured_pruned_30_retrained', csv_dir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained/csv')
+refactored get_config
+------- Loading pre-trained models -------
+loading cifar10 dataloaders
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+loading model with idx 0 and checkpoint_type is best
+in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
+Relu Inplace is  False
+model parameters are 
+ [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
+Loading model at path ./cifar_models/model_0/best.checkpoint which had accuracy 0.9030999821424489 and at epoch 127
+loading model with idx 1 and checkpoint_type is best
+in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
+Relu Inplace is  False
+model parameters are 
+ [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
+Loading model at path ./cifar_models/model_1/best.checkpoint which had accuracy 0.9049999803304669 and at epoch 134
+Done loading all the models
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0041, Accuracy: 9031/10000 (90%)
+
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0039, Accuracy: 9050/10000 (90%)
+
+Rechecked accuracies are  [90.31, 90.5]
+----------Prune the 2 Parent models now---------
+---------let's see result after pruning-------------
+dict_keys([])
+---------let's see result after pruning-------------
+dict_keys([])
+--------Rechecking accuracies again!--------
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0086, Accuracy: 7314/10000 (73%)
+
+----- Saving Pruned model0-------
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0117, Accuracy: 6314/10000 (63%)
+
+----- Saving Pruned model1-------
+Rechecked accuracies are  [73.14, 63.14]
+layer features.0.weight has #params  1728
+layer features.3.weight has #params  73728
+layer features.6.weight has #params  294912
+layer features.8.weight has #params  589824
+layer features.11.weight has #params  1179648
+layer features.13.weight has #params  2359296
+layer features.16.weight has #params  2359296
+layer features.18.weight has #params  2359296
+layer classifier.weight has #params  5120
+Activation Timer start
+Activation Timer ends
+------- Geometric Ensembling -------
+Timer start
+Previous layer shape is  None
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  64
+returns a uniform measure of cardinality:  64
+the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        ...,
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0.0312, device='cuda:0')
+Here, trace is 1.9999871253967285 and matrix sum is 63.99958801269531 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([64, 3, 9])
+Shape of fc_layer0_weight_data is  torch.Size([64, 3, 9])
+Previous layer shape is  torch.Size([64, 3, 3, 3])
+shape of layer: model 0 torch.Size([128, 64, 9])
+shape of layer: model 1 torch.Size([128, 64, 9])
+shape of previous transport map torch.Size([64, 64])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  128
+returns a uniform measure of cardinality:  128
+the transport map is  tensor([[0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        ...,
+        [0.0078, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000]],
+       device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0.0391, device='cuda:0')
+Here, trace is 4.999936103820801 and matrix sum is 127.99836730957031 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([128, 64, 9])
+Shape of fc_layer0_weight_data is  torch.Size([128, 64, 9])
+Previous layer shape is  torch.Size([128, 64, 3, 3])
+shape of layer: model 0 torch.Size([256, 128, 9])
+shape of layer: model 1 torch.Size([256, 128, 9])
+shape of previous transport map torch.Size([128, 128])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  256
+returns a uniform measure of cardinality:  256
+the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        ...,
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0., device='cuda:0')
+Here, trace is 0.0 and matrix sum is 255.99343872070312 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([256, 128, 9])
+Shape of fc_layer0_weight_data is  torch.Size([256, 128, 9])
+Previous layer shape is  torch.Size([256, 128, 3, 3])
+shape of layer: model 0 torch.Size([256, 256, 9])
+shape of layer: model 1 torch.Size([256, 256, 9])
+shape of previous transport map torch.Size([256, 256])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  256
+returns a uniform measure of cardinality:  256
+the transport map is  tensor([[0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        ...,
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0039, 0.0000, 0.0000],
+        [0.0000, 0.0000, 0.0000,  ..., 0.0000, 0.0000, 0.0000]],
+       device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0.0117, device='cuda:0')
+Here, trace is 2.9999232292175293 and matrix sum is 255.99343872070312 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([256, 256, 9])
+Shape of fc_layer0_weight_data is  torch.Size([256, 256, 9])
+Previous layer shape is  torch.Size([256, 256, 3, 3])
+shape of layer: model 0 torch.Size([512, 256, 9])
+shape of layer: model 1 torch.Size([512, 256, 9])
+shape of previous transport map torch.Size([256, 256])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  512
+returns a uniform measure of cardinality:  512
+the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        ...,
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0.0020, device='cuda:0')
+Here, trace is 0.9999488592147827 and matrix sum is 511.97381591796875 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([512, 256, 9])
+Shape of fc_layer0_weight_data is  torch.Size([512, 256, 9])
+Previous layer shape is  torch.Size([512, 256, 3, 3])
+shape of layer: model 0 torch.Size([512, 512, 9])
+shape of layer: model 1 torch.Size([512, 512, 9])
+shape of previous transport map torch.Size([512, 512])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  512
+returns a uniform measure of cardinality:  512
+the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        ...,
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0., device='cuda:0')
+Here, trace is 0.0 and matrix sum is 511.97381591796875 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([512, 512, 9])
+Shape of fc_layer0_weight_data is  torch.Size([512, 512, 9])
+Previous layer shape is  torch.Size([512, 512, 3, 3])
+shape of layer: model 0 torch.Size([512, 512, 9])
+shape of layer: model 1 torch.Size([512, 512, 9])
+shape of previous transport map torch.Size([512, 512])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  512
+returns a uniform measure of cardinality:  512
+the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        ...,
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0.0059, device='cuda:0')
+Here, trace is 2.9998464584350586 and matrix sum is 511.97381591796875 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([512, 512, 9])
+Shape of fc_layer0_weight_data is  torch.Size([512, 512, 9])
+Previous layer shape is  torch.Size([512, 512, 3, 3])
+shape of layer: model 0 torch.Size([512, 512, 9])
+shape of layer: model 1 torch.Size([512, 512, 9])
+shape of previous transport map torch.Size([512, 512])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+returns a uniform measure of cardinality:  512
+returns a uniform measure of cardinality:  512
+the transport map is  tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        ...,
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.]], device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(0.0020, device='cuda:0')
+Here, trace is 0.9999488592147827 and matrix sum is 511.97381591796875 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([512, 512, 9])
+Shape of fc_layer0_weight_data is  torch.Size([512, 512, 9])
+Previous layer shape is  torch.Size([512, 512, 3, 3])
+shape of layer: model 0 torch.Size([10, 512])
+shape of layer: model 1 torch.Size([10, 512])
+shape of previous transport map torch.Size([512, 512])
+Processing the coordinates to form ground_metric
+dont leave off the squaring of the ground metric
+ground metric is  tensor([[1.6642, 2.5029, 2.7458, 2.8476, 2.6476, 2.8511, 2.7391, 2.6419, 2.5849,
+         2.5815],
+        [2.4276, 1.4904, 2.6829, 2.5579, 2.7686, 2.5049, 2.4092, 2.5224, 2.3121,
+         2.4361],
+        [2.7418, 2.6812, 1.5030, 2.9236, 2.9285, 2.8685, 2.7146, 2.8069, 2.7496,
+         2.7785],
+        [2.8253, 2.6431, 2.9114, 1.7466, 2.9005, 2.8518, 2.7576, 2.7891, 2.7822,
+         2.6045],
+        [2.7659, 2.5396, 2.8283, 2.7942, 1.6583, 2.7929, 2.8016, 2.7036, 2.6801,
+         2.7054],
+        [2.8964, 2.5805, 2.9760, 2.9360, 2.7100, 1.5265, 2.7519, 2.7181, 2.7447,
+         2.6453],
+        [2.6492, 2.4401, 2.6981, 2.8682, 2.6679, 2.9072, 1.4653, 2.6803, 2.4996,
+         2.5470],
+        [2.7200, 2.5388, 2.7826, 2.7789, 2.6412, 2.6688, 2.6847, 1.5186, 2.5994,
+         2.5427],
+        [2.5940, 2.3419, 2.7475, 2.7111, 2.7295, 2.8373, 2.5433, 2.5943, 1.3688,
+         2.3831],
+        [2.6033, 2.2430, 2.7676, 2.7020, 2.6355, 2.7555, 2.5522, 2.5339, 2.5315,
+         1.4286]], device='cuda:0', grad_fn=<PowBackward0>)
+returns a uniform measure of cardinality:  10
+returns a uniform measure of cardinality:  10
+the transport map is  tensor([[0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+         0.0000],
+        [0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+         0.0000],
+        [0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+         0.0000],
+        [0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+         0.0000],
+        [0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000, 0.0000,
+         0.0000],
+        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000, 0.0000,
+         0.0000],
+        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000, 0.0000,
+         0.0000],
+        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000, 0.0000,
+         0.0000],
+        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.1000,
+         0.0000],
+        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+         0.1000]], device='cuda:0')
+Ratio of trace to the matrix sum:  tensor(1., device='cuda:0')
+Here, trace is 9.999990463256836 and matrix sum is 9.999990463256836 
+this is past correction for weight mode
+Shape of aligned wt is  torch.Size([10, 512])
+Shape of fc_layer0_weight_data is  torch.Size([10, 512])
+using independent method
+in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
+Relu Inplace is  False
+model parameters are 
+ [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0230, Accuracy: 809/10000 (8%)
+
+len of model parameters and avg aligned layers is  9 9
+len of model_state_dict is  9
+len of param_list is  9
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0173, Accuracy: 6211/10000 (62%)
+
+Timer ends
+Time taken for geometric ensembling is 13.261126386001706 seconds
+------- Prediction based ensembling -------
+
+Test set: Avg. loss: 0.0086, Accuracy: 7255/10000 (73%)
+
+------- Naive ensembling of weights -------
+[torch.Size([64, 3, 3, 3]), torch.Size([64, 3, 3, 3])]
+torch.Size([64, 3, 3, 3])
+[torch.Size([128, 64, 3, 3]), torch.Size([128, 64, 3, 3])]
+torch.Size([128, 64, 3, 3])
+[torch.Size([256, 128, 3, 3]), torch.Size([256, 128, 3, 3])]
+torch.Size([256, 128, 3, 3])
+[torch.Size([256, 256, 3, 3]), torch.Size([256, 256, 3, 3])]
+torch.Size([256, 256, 3, 3])
+[torch.Size([512, 256, 3, 3]), torch.Size([512, 256, 3, 3])]
+torch.Size([512, 256, 3, 3])
+[torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3])]
+torch.Size([512, 512, 3, 3])
+[torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3])]
+torch.Size([512, 512, 3, 3])
+[torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3])]
+torch.Size([512, 512, 3, 3])
+[torch.Size([10, 512]), torch.Size([10, 512])]
+torch.Size([10, 512])
+in _make_layers [Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), ReLU(), MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False), AvgPool2d(kernel_size=1, stride=1, padding=0)]
+Relu Inplace is  False
+model parameters are 
+ [torch.Size([64, 3, 3, 3]), torch.Size([128, 64, 3, 3]), torch.Size([256, 128, 3, 3]), torch.Size([256, 256, 3, 3]), torch.Size([512, 256, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([512, 512, 3, 3]), torch.Size([10, 512])]
+
+--------- Testing in global mode ---------
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0230, Accuracy: 1000/10000 (10%)
+
+
+--------- Testing in global mode ---------
+/home/thmeier/.local/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:136: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+/home/thmeier/.local/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:149: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+size of test_loader dataset:  10000
+
+Test set: Avg. loss: 0.0230, Accuracy: 1994/10000 (20%)
+
+-------- Retraining the models ---------
+Retraining model :  geometric
+lr is  0.05
+number of epochs would be  300
+Epoch 000
+accuracy: {'epoch': 0, 'value': 0.10794000000476839} ({'split': 'train'})
+cross_entropy: {'epoch': 0, 'value': 2.852279527130126} ({'split': 'train'})
+accuracy: {'epoch': 0, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 0, 'value': 2.3025858402252197} ({'split': 'test'})
+We have a new best! with accuracy::0.09999999716877937 and at epoch::0, let's save it!
+Epoch 001
+accuracy: {'epoch': 1, 'value': 0.10000000000476833} ({'split': 'train'})
+cross_entropy: {'epoch': 1, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 1, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 1, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 002
+accuracy: {'epoch': 2, 'value': 0.10000000000238417} ({'split': 'train'})
+cross_entropy: {'epoch': 2, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 2, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 2, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 003
+accuracy: {'epoch': 3, 'value': 0.10000000000715248} ({'split': 'train'})
+cross_entropy: {'epoch': 3, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 3, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 3, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 004
+accuracy: {'epoch': 4, 'value': 0.1000000000023842} ({'split': 'train'})
+cross_entropy: {'epoch': 4, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 4, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 4, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 005
+accuracy: {'epoch': 5, 'value': 0.10000000000000005} ({'split': 'train'})
+cross_entropy: {'epoch': 5, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 5, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 5, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 006
+accuracy: {'epoch': 6, 'value': 0.10000000000715263} ({'split': 'train'})
+cross_entropy: {'epoch': 6, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 6, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 6, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 007
+accuracy: {'epoch': 7, 'value': 0.10000000000238422} ({'split': 'train'})
+cross_entropy: {'epoch': 7, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 7, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 7, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 008
+accuracy: {'epoch': 8, 'value': 0.09999999999761587} ({'split': 'train'})
+cross_entropy: {'epoch': 8, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 8, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 8, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 009
+accuracy: {'epoch': 9, 'value': 0.0999999999976159} ({'split': 'train'})
+cross_entropy: {'epoch': 9, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 9, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 9, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 010
+accuracy: {'epoch': 10, 'value': 0.1000000000071525} ({'split': 'train'})
+cross_entropy: {'epoch': 10, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 10, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 10, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 011
+accuracy: {'epoch': 11, 'value': 0.10000000000238417} ({'split': 'train'})
+cross_entropy: {'epoch': 11, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 11, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 11, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 012
+accuracy: {'epoch': 12, 'value': 0.10000000000238417} ({'split': 'train'})
+cross_entropy: {'epoch': 12, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 12, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 12, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 013
+accuracy: {'epoch': 13, 'value': 0.10000000000119202} ({'split': 'train'})
+cross_entropy: {'epoch': 13, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 13, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 13, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 014
+accuracy: {'epoch': 14, 'value': 0.09999999999761577} ({'split': 'train'})
+cross_entropy: {'epoch': 14, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 14, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 14, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 015
+accuracy: {'epoch': 15, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 15, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 15, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 15, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 016
+accuracy: {'epoch': 16, 'value': 0.10000000000476833} ({'split': 'train'})
+cross_entropy: {'epoch': 16, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 16, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 16, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 017
+accuracy: {'epoch': 17, 'value': 0.10000000000476837} ({'split': 'train'})
+cross_entropy: {'epoch': 17, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 17, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 17, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 018
+accuracy: {'epoch': 18, 'value': 0.10000000000953667} ({'split': 'train'})
+cross_entropy: {'epoch': 18, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 18, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 18, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 019
+accuracy: {'epoch': 19, 'value': 0.10000000000715253} ({'split': 'train'})
+cross_entropy: {'epoch': 19, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 19, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 19, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 020
+accuracy: {'epoch': 20, 'value': 0.10000000000476836} ({'split': 'train'})
+cross_entropy: {'epoch': 20, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 20, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 20, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 021
+accuracy: {'epoch': 21, 'value': 0.1000000000023842} ({'split': 'train'})
+cross_entropy: {'epoch': 21, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 21, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 21, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 022
+accuracy: {'epoch': 22, 'value': 0.10000000000119207} ({'split': 'train'})
+cross_entropy: {'epoch': 22, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 22, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 22, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 023
+accuracy: {'epoch': 23, 'value': 0.1000000000011921} ({'split': 'train'})
+cross_entropy: {'epoch': 23, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 23, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 23, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 024
+accuracy: {'epoch': 24, 'value': 0.1} ({'split': 'train'})
+cross_entropy: {'epoch': 24, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 24, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 24, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 025
+accuracy: {'epoch': 25, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 25, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 25, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 25, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 026
+accuracy: {'epoch': 26, 'value': 0.10000000000476843} ({'split': 'train'})
+cross_entropy: {'epoch': 26, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 26, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 26, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 027
+accuracy: {'epoch': 27, 'value': 0.10000000000476839} ({'split': 'train'})
+cross_entropy: {'epoch': 27, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 27, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 27, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 028
+accuracy: {'epoch': 28, 'value': 0.10000000000476839} ({'split': 'train'})
+cross_entropy: {'epoch': 28, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 28, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 28, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 029
+accuracy: {'epoch': 29, 'value': 0.10000000000000009} ({'split': 'train'})
+cross_entropy: {'epoch': 29, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 29, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 29, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 030
+accuracy: {'epoch': 30, 'value': 0.1000000000023842} ({'split': 'train'})
+cross_entropy: {'epoch': 30, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 30, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 30, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 031
+accuracy: {'epoch': 31, 'value': 0.10000000000238425} ({'split': 'train'})
+cross_entropy: {'epoch': 31, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 31, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 31, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 032
+accuracy: {'epoch': 32, 'value': 0.10000000000953678} ({'split': 'train'})
+cross_entropy: {'epoch': 32, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 32, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 32, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 033
+accuracy: {'epoch': 33, 'value': 0.10000000000238414} ({'split': 'train'})
+cross_entropy: {'epoch': 33, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 33, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 33, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 034
+accuracy: {'epoch': 34, 'value': 0.10000000000953675} ({'split': 'train'})
+cross_entropy: {'epoch': 34, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 34, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 34, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 035
+accuracy: {'epoch': 35, 'value': 0.10000000000953675} ({'split': 'train'})
+cross_entropy: {'epoch': 35, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 35, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 35, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 036
+accuracy: {'epoch': 36, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 36, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 36, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 36, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 037
+accuracy: {'epoch': 37, 'value': 0.10000000000715259} ({'split': 'train'})
+cross_entropy: {'epoch': 37, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 37, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 37, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 038
+accuracy: {'epoch': 38, 'value': 0.10000000000476841} ({'split': 'train'})
+cross_entropy: {'epoch': 38, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 38, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 38, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 039
+accuracy: {'epoch': 39, 'value': 0.09999999999761577} ({'split': 'train'})
+cross_entropy: {'epoch': 39, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 39, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 39, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 040
+accuracy: {'epoch': 40, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 40, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 40, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 40, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 041
+accuracy: {'epoch': 41, 'value': 0.1000000000071525} ({'split': 'train'})
+cross_entropy: {'epoch': 41, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 41, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 41, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 042
+accuracy: {'epoch': 42, 'value': 0.10000000000715259} ({'split': 'train'})
+cross_entropy: {'epoch': 42, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 42, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 42, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 043
+accuracy: {'epoch': 43, 'value': 0.10000000000476841} ({'split': 'train'})
+cross_entropy: {'epoch': 43, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 43, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 43, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 044
+accuracy: {'epoch': 44, 'value': 0.1} ({'split': 'train'})
+cross_entropy: {'epoch': 44, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 44, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 44, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 045
+accuracy: {'epoch': 45, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 45, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 45, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 45, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 046
+accuracy: {'epoch': 46, 'value': 0.09999999999999998} ({'split': 'train'})
+cross_entropy: {'epoch': 46, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 46, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 46, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 047
+accuracy: {'epoch': 47, 'value': 0.10000000000238422} ({'split': 'train'})
+cross_entropy: {'epoch': 47, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 47, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 47, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 048
+accuracy: {'epoch': 48, 'value': 0.09999999999523165} ({'split': 'train'})
+cross_entropy: {'epoch': 48, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 48, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 48, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 049
+accuracy: {'epoch': 49, 'value': 0.10000000000238418} ({'split': 'train'})
+cross_entropy: {'epoch': 49, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 49, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 49, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 050
+accuracy: {'epoch': 50, 'value': 0.10000000000715263} ({'split': 'train'})
+cross_entropy: {'epoch': 50, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 50, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 50, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 051
+accuracy: {'epoch': 51, 'value': 0.10000000000238418} ({'split': 'train'})
+cross_entropy: {'epoch': 51, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 51, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 51, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 052
+accuracy: {'epoch': 52, 'value': 0.09999999999761586} ({'split': 'train'})
+cross_entropy: {'epoch': 52, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 52, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 52, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 053
+accuracy: {'epoch': 53, 'value': 0.10000000000119212} ({'split': 'train'})
+cross_entropy: {'epoch': 53, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 53, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 53, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 054
+accuracy: {'epoch': 54, 'value': 0.10000000000715246} ({'split': 'train'})
+cross_entropy: {'epoch': 54, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 54, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 54, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 055
+accuracy: {'epoch': 55, 'value': 0.09999999999999994} ({'split': 'train'})
+cross_entropy: {'epoch': 55, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 55, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 55, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 056
+accuracy: {'epoch': 56, 'value': 0.09999999999761582} ({'split': 'train'})
+cross_entropy: {'epoch': 56, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 56, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 56, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 057
+accuracy: {'epoch': 57, 'value': 0.1000000000047683} ({'split': 'train'})
+cross_entropy: {'epoch': 57, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 57, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 57, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 058
+accuracy: {'epoch': 58, 'value': 0.10000000000238418} ({'split': 'train'})
+cross_entropy: {'epoch': 58, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 58, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 58, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 059
+accuracy: {'epoch': 59, 'value': 0.10000000000715252} ({'split': 'train'})
+cross_entropy: {'epoch': 59, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 59, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 59, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 060
+accuracy: {'epoch': 60, 'value': 0.09999999999761579} ({'split': 'train'})
+cross_entropy: {'epoch': 60, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 60, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 60, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 061
+accuracy: {'epoch': 61, 'value': 0.09999999999523164} ({'split': 'train'})
+cross_entropy: {'epoch': 61, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 61, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 61, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 062
+accuracy: {'epoch': 62, 'value': 0.10000000000000002} ({'split': 'train'})
+cross_entropy: {'epoch': 62, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 62, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 62, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 063
+accuracy: {'epoch': 63, 'value': 0.09999999999761582} ({'split': 'train'})
+cross_entropy: {'epoch': 63, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 63, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 63, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 064
+accuracy: {'epoch': 64, 'value': 0.10000000000715252} ({'split': 'train'})
+cross_entropy: {'epoch': 64, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 64, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 64, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 065
+accuracy: {'epoch': 65, 'value': 0.10000000000238424} ({'split': 'train'})
+cross_entropy: {'epoch': 65, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 65, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 65, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 066
+accuracy: {'epoch': 66, 'value': 0.09999999999761583} ({'split': 'train'})
+cross_entropy: {'epoch': 66, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 66, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 66, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 067
+accuracy: {'epoch': 67, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 67, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 67, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 67, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 068
+accuracy: {'epoch': 68, 'value': 0.09999999999761573} ({'split': 'train'})
+cross_entropy: {'epoch': 68, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 68, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 68, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 069
+accuracy: {'epoch': 69, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 69, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 69, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 69, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 070
+accuracy: {'epoch': 70, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 70, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 70, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 70, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 071
+accuracy: {'epoch': 71, 'value': 0.10000000000476836} ({'split': 'train'})
+cross_entropy: {'epoch': 71, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 71, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 71, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 072
+accuracy: {'epoch': 72, 'value': 0.10000000000476841} ({'split': 'train'})
+cross_entropy: {'epoch': 72, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 72, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 72, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 073
+accuracy: {'epoch': 73, 'value': 0.1000000000143051} ({'split': 'train'})
+cross_entropy: {'epoch': 73, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 73, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 73, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 074
+accuracy: {'epoch': 74, 'value': 0.10000000000715248} ({'split': 'train'})
+cross_entropy: {'epoch': 74, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 74, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 74, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 075
+accuracy: {'epoch': 75, 'value': 0.09999999999761577} ({'split': 'train'})
+cross_entropy: {'epoch': 75, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 75, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 75, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 076
+accuracy: {'epoch': 76, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 76, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 76, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 76, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 077
+accuracy: {'epoch': 77, 'value': 0.10000000000715244} ({'split': 'train'})
+cross_entropy: {'epoch': 77, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 77, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 77, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 078
+accuracy: {'epoch': 78, 'value': 0.10000000000476839} ({'split': 'train'})
+cross_entropy: {'epoch': 78, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 78, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 78, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 079
+accuracy: {'epoch': 79, 'value': 0.10000000001430516} ({'split': 'train'})
+cross_entropy: {'epoch': 79, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 79, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 79, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 080
+accuracy: {'epoch': 80, 'value': 0.10000000000238418} ({'split': 'train'})
+cross_entropy: {'epoch': 80, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 80, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 80, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 081
+accuracy: {'epoch': 81, 'value': 0.10000000000715252} ({'split': 'train'})
+cross_entropy: {'epoch': 81, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 81, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 81, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 082
+accuracy: {'epoch': 82, 'value': 0.09999999999999998} ({'split': 'train'})
+cross_entropy: {'epoch': 82, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 82, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 82, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 083
+accuracy: {'epoch': 83, 'value': 0.10000000000476844} ({'split': 'train'})
+cross_entropy: {'epoch': 83, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 83, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 83, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 084
+accuracy: {'epoch': 84, 'value': 0.09999999999761573} ({'split': 'train'})
+cross_entropy: {'epoch': 84, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 84, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 84, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 085
+accuracy: {'epoch': 85, 'value': 0.10000000000000002} ({'split': 'train'})
+cross_entropy: {'epoch': 85, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 85, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 85, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 086
+accuracy: {'epoch': 86, 'value': 0.10000000000000003} ({'split': 'train'})
+cross_entropy: {'epoch': 86, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 86, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 86, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 087
+accuracy: {'epoch': 87, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 87, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 87, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 87, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 088
+accuracy: {'epoch': 88, 'value': 0.10000000000000002} ({'split': 'train'})
+cross_entropy: {'epoch': 88, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 88, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 88, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 089
+accuracy: {'epoch': 89, 'value': 0.09999999999999998} ({'split': 'train'})
+cross_entropy: {'epoch': 89, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 89, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 89, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 090
+accuracy: {'epoch': 90, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 90, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 90, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 90, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 091
+accuracy: {'epoch': 91, 'value': 0.10000000000119205} ({'split': 'train'})
+cross_entropy: {'epoch': 91, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 91, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 91, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 092
+accuracy: {'epoch': 92, 'value': 0.10000000000476837} ({'split': 'train'})
+cross_entropy: {'epoch': 92, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 92, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 92, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 093
+accuracy: {'epoch': 93, 'value': 0.10000000000953672} ({'split': 'train'})
+cross_entropy: {'epoch': 93, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 93, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 93, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 094
+accuracy: {'epoch': 94, 'value': 0.10000000000119202} ({'split': 'train'})
+cross_entropy: {'epoch': 94, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 94, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 94, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 095
+accuracy: {'epoch': 95, 'value': 0.10000000000000003} ({'split': 'train'})
+cross_entropy: {'epoch': 95, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 95, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 95, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 096
+accuracy: {'epoch': 96, 'value': 0.10000000000238415} ({'split': 'train'})
+cross_entropy: {'epoch': 96, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 96, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 96, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 097
+accuracy: {'epoch': 97, 'value': 0.10000000000715255} ({'split': 'train'})
+cross_entropy: {'epoch': 97, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 97, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 97, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 098
+accuracy: {'epoch': 98, 'value': 0.10000000000000007} ({'split': 'train'})
+cross_entropy: {'epoch': 98, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 98, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 98, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 099
+accuracy: {'epoch': 99, 'value': 0.10000000000238417} ({'split': 'train'})
+cross_entropy: {'epoch': 99, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 99, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 99, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 100
+accuracy: {'epoch': 100, 'value': 0.10000000000715255} ({'split': 'train'})
+cross_entropy: {'epoch': 100, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 100, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 100, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 101
+accuracy: {'epoch': 101, 'value': 0.10000000000000003} ({'split': 'train'})
+cross_entropy: {'epoch': 101, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 101, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 101, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 102
+accuracy: {'epoch': 102, 'value': 0.10000000000238424} ({'split': 'train'})
+cross_entropy: {'epoch': 102, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 102, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 102, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 103
+accuracy: {'epoch': 103, 'value': 0.1000000000023842} ({'split': 'train'})
+cross_entropy: {'epoch': 103, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 103, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 103, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 104
+accuracy: {'epoch': 104, 'value': 0.09999999999761579} ({'split': 'train'})
+cross_entropy: {'epoch': 104, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 104, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 104, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 105
+accuracy: {'epoch': 105, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 105, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 105, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 105, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 106
+accuracy: {'epoch': 106, 'value': 0.09999999999761579} ({'split': 'train'})
+cross_entropy: {'epoch': 106, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 106, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 106, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 107
+accuracy: {'epoch': 107, 'value': 0.10000000000119207} ({'split': 'train'})
+cross_entropy: {'epoch': 107, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 107, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 107, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 108
+accuracy: {'epoch': 108, 'value': 0.10000000000119208} ({'split': 'train'})
+cross_entropy: {'epoch': 108, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 108, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 108, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 109
+accuracy: {'epoch': 109, 'value': 0.10000000000000003} ({'split': 'train'})
+cross_entropy: {'epoch': 109, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 109, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 109, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 110
+accuracy: {'epoch': 110, 'value': 0.10000000000238422} ({'split': 'train'})
+cross_entropy: {'epoch': 110, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 110, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 110, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 111
+accuracy: {'epoch': 111, 'value': 0.09999999999523158} ({'split': 'train'})
+cross_entropy: {'epoch': 111, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 111, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 111, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 112
+accuracy: {'epoch': 112, 'value': 0.1000000000023843} ({'split': 'train'})
+cross_entropy: {'epoch': 112, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 112, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 112, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 113
+accuracy: {'epoch': 113, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 113, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 113, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 113, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 114
+accuracy: {'epoch': 114, 'value': 0.10000000000715255} ({'split': 'train'})
+cross_entropy: {'epoch': 114, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 114, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 114, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 115
+accuracy: {'epoch': 115, 'value': 0.10000000000476832} ({'split': 'train'})
+cross_entropy: {'epoch': 115, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 115, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 115, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 116
+accuracy: {'epoch': 116, 'value': 0.10000000000238421} ({'split': 'train'})
+cross_entropy: {'epoch': 116, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 116, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 116, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 117
+accuracy: {'epoch': 117, 'value': 0.1} ({'split': 'train'})
+cross_entropy: {'epoch': 117, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 117, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 117, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 118
+accuracy: {'epoch': 118, 'value': 0.10000000000476833} ({'split': 'train'})
+cross_entropy: {'epoch': 118, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 118, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 118, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 119
+accuracy: {'epoch': 119, 'value': 0.10000000000476841} ({'split': 'train'})
+cross_entropy: {'epoch': 119, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 119, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 119, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 120
+accuracy: {'epoch': 120, 'value': 0.10000000000476827} ({'split': 'train'})
+cross_entropy: {'epoch': 120, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 120, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 120, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 121
+accuracy: {'epoch': 121, 'value': 0.09999999999761587} ({'split': 'train'})
+cross_entropy: {'epoch': 121, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 121, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 121, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 122
+accuracy: {'epoch': 122, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 122, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 122, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 122, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 123
+accuracy: {'epoch': 123, 'value': 0.10000000000715253} ({'split': 'train'})
+cross_entropy: {'epoch': 123, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 123, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 123, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 124
+accuracy: {'epoch': 124, 'value': 0.10000000001430512} ({'split': 'train'})
+cross_entropy: {'epoch': 124, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 124, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 124, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 125
+accuracy: {'epoch': 125, 'value': 0.09999999999761586} ({'split': 'train'})
+cross_entropy: {'epoch': 125, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 125, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 125, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 126
+accuracy: {'epoch': 126, 'value': 0.10000000000238415} ({'split': 'train'})
+cross_entropy: {'epoch': 126, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 126, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 126, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 127
+accuracy: {'epoch': 127, 'value': 0.10000000000119201} ({'split': 'train'})
+cross_entropy: {'epoch': 127, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 127, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 127, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 128
+accuracy: {'epoch': 128, 'value': 0.10000000000238414} ({'split': 'train'})
+cross_entropy: {'epoch': 128, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 128, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 128, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 129
+accuracy: {'epoch': 129, 'value': 0.10000000000238415} ({'split': 'train'})
+cross_entropy: {'epoch': 129, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 129, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 129, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 130
+accuracy: {'epoch': 130, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 130, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 130, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 130, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 131
+accuracy: {'epoch': 131, 'value': 0.10000000000238424} ({'split': 'train'})
+cross_entropy: {'epoch': 131, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 131, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 131, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 132
+accuracy: {'epoch': 132, 'value': 0.1000000000071525} ({'split': 'train'})
+cross_entropy: {'epoch': 132, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 132, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 132, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 133
+accuracy: {'epoch': 133, 'value': 0.09999999999761587} ({'split': 'train'})
+cross_entropy: {'epoch': 133, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 133, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 133, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 134
+accuracy: {'epoch': 134, 'value': 0.10000000000476839} ({'split': 'train'})
+cross_entropy: {'epoch': 134, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 134, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 134, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 135
+accuracy: {'epoch': 135, 'value': 0.10000000000238414} ({'split': 'train'})
+cross_entropy: {'epoch': 135, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 135, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 135, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 136
+accuracy: {'epoch': 136, 'value': 0.10000000000715253} ({'split': 'train'})
+cross_entropy: {'epoch': 136, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 136, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 136, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 137
+accuracy: {'epoch': 137, 'value': 0.10000000000476834} ({'split': 'train'})
+cross_entropy: {'epoch': 137, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 137, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 137, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 138
+accuracy: {'epoch': 138, 'value': 0.10000000000476836} ({'split': 'train'})
+cross_entropy: {'epoch': 138, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 138, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 138, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 139
+accuracy: {'epoch': 139, 'value': 0.1} ({'split': 'train'})
+cross_entropy: {'epoch': 139, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 139, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 139, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 140
+accuracy: {'epoch': 140, 'value': 0.10000000000000003} ({'split': 'train'})
+cross_entropy: {'epoch': 140, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 140, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 140, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 141
+accuracy: {'epoch': 141, 'value': 0.10000000000119205} ({'split': 'train'})
+cross_entropy: {'epoch': 141, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 141, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 141, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 142
+accuracy: {'epoch': 142, 'value': 0.10000000000715258} ({'split': 'train'})
+cross_entropy: {'epoch': 142, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 142, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 142, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 143
+accuracy: {'epoch': 143, 'value': 0.10000000000476834} ({'split': 'train'})
+cross_entropy: {'epoch': 143, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 143, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 143, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 144
+accuracy: {'epoch': 144, 'value': 0.09999999999999998} ({'split': 'train'})
+cross_entropy: {'epoch': 144, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 144, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 144, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 145
+accuracy: {'epoch': 145, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 145, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 145, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 145, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 146
+accuracy: {'epoch': 146, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 146, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 146, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 146, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 147
+accuracy: {'epoch': 147, 'value': 0.10000000000238428} ({'split': 'train'})
+cross_entropy: {'epoch': 147, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 147, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 147, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 148
+accuracy: {'epoch': 148, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 148, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 148, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 148, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 149
+accuracy: {'epoch': 149, 'value': 0.10000000000476833} ({'split': 'train'})
+cross_entropy: {'epoch': 149, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 149, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 149, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 150
+accuracy: {'epoch': 150, 'value': 0.09999999999761588} ({'split': 'train'})
+cross_entropy: {'epoch': 150, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 150, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 150, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 151
+accuracy: {'epoch': 151, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 151, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 151, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 151, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 152
+accuracy: {'epoch': 152, 'value': 0.0999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 152, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 152, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 152, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 153
+accuracy: {'epoch': 153, 'value': 0.10000000001430523} ({'split': 'train'})
+cross_entropy: {'epoch': 153, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 153, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 153, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 154
+accuracy: {'epoch': 154, 'value': 0.10000000000476836} ({'split': 'train'})
+cross_entropy: {'epoch': 154, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 154, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 154, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 155
+accuracy: {'epoch': 155, 'value': 0.09999999999761584} ({'split': 'train'})
+cross_entropy: {'epoch': 155, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 155, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 155, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 156
+accuracy: {'epoch': 156, 'value': 0.10000000000953677} ({'split': 'train'})
+cross_entropy: {'epoch': 156, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 156, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 156, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 157
+accuracy: {'epoch': 157, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 157, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 157, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 157, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 158
+accuracy: {'epoch': 158, 'value': 0.10000000000238428} ({'split': 'train'})
+cross_entropy: {'epoch': 158, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 158, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 158, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 159
+accuracy: {'epoch': 159, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 159, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 159, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 159, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 160
+accuracy: {'epoch': 160, 'value': 0.09999999999999998} ({'split': 'train'})
+cross_entropy: {'epoch': 160, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 160, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 160, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 161
+accuracy: {'epoch': 161, 'value': 0.09999999999761579} ({'split': 'train'})
+cross_entropy: {'epoch': 161, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 161, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 161, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 162
+accuracy: {'epoch': 162, 'value': 0.09999999999999992} ({'split': 'train'})
+cross_entropy: {'epoch': 162, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 162, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 162, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 163
+accuracy: {'epoch': 163, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 163, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 163, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 163, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 164
+accuracy: {'epoch': 164, 'value': 0.10000000000238427} ({'split': 'train'})
+cross_entropy: {'epoch': 164, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 164, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 164, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 165
+accuracy: {'epoch': 165, 'value': 0.10000000000238425} ({'split': 'train'})
+cross_entropy: {'epoch': 165, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 165, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 165, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 166
+accuracy: {'epoch': 166, 'value': 0.10000000000476837} ({'split': 'train'})
+cross_entropy: {'epoch': 166, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 166, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 166, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 167
+accuracy: {'epoch': 167, 'value': 0.10000000000715244} ({'split': 'train'})
+cross_entropy: {'epoch': 167, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 167, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 167, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 168
+accuracy: {'epoch': 168, 'value': 0.10000000000715245} ({'split': 'train'})
+cross_entropy: {'epoch': 168, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 168, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 168, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 169
+accuracy: {'epoch': 169, 'value': 0.10000000000238422} ({'split': 'train'})
+cross_entropy: {'epoch': 169, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 169, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 169, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 170
+accuracy: {'epoch': 170, 'value': 0.10000000000476836} ({'split': 'train'})
+cross_entropy: {'epoch': 170, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 170, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 170, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 171
+accuracy: {'epoch': 171, 'value': 0.10000000000715252} ({'split': 'train'})
+cross_entropy: {'epoch': 171, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 171, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 171, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 172
+accuracy: {'epoch': 172, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 172, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 172, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 172, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 173
+accuracy: {'epoch': 173, 'value': 0.10000000000238413} ({'split': 'train'})
+cross_entropy: {'epoch': 173, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 173, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 173, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 174
+accuracy: {'epoch': 174, 'value': 0.10000000000715265} ({'split': 'train'})
+cross_entropy: {'epoch': 174, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 174, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 174, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 175
+accuracy: {'epoch': 175, 'value': 0.10000000000000006} ({'split': 'train'})
+cross_entropy: {'epoch': 175, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 175, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 175, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 176
+accuracy: {'epoch': 176, 'value': 0.10000000000000006} ({'split': 'train'})
+cross_entropy: {'epoch': 176, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 176, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 176, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 177
+accuracy: {'epoch': 177, 'value': 0.10000000000476834} ({'split': 'train'})
+cross_entropy: {'epoch': 177, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 177, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 177, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 178
+accuracy: {'epoch': 178, 'value': 0.09999999999761579} ({'split': 'train'})
+cross_entropy: {'epoch': 178, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 178, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 178, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 179
+accuracy: {'epoch': 179, 'value': 0.10000000000238422} ({'split': 'train'})
+cross_entropy: {'epoch': 179, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 179, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 179, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 180
+accuracy: {'epoch': 180, 'value': 0.10000000000000006} ({'split': 'train'})
+cross_entropy: {'epoch': 180, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 180, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 180, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 181
+accuracy: {'epoch': 181, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 181, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 181, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 181, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 182
+accuracy: {'epoch': 182, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 182, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 182, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 182, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 183
+accuracy: {'epoch': 183, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 183, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 183, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 183, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 184
+accuracy: {'epoch': 184, 'value': 0.10000000000238421} ({'split': 'train'})
+cross_entropy: {'epoch': 184, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 184, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 184, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 185
+accuracy: {'epoch': 185, 'value': 0.10000000000953677} ({'split': 'train'})
+cross_entropy: {'epoch': 185, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 185, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 185, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 186
+accuracy: {'epoch': 186, 'value': 0.10000000000715255} ({'split': 'train'})
+cross_entropy: {'epoch': 186, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 186, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 186, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 187
+accuracy: {'epoch': 187, 'value': 0.1000000000143051} ({'split': 'train'})
+cross_entropy: {'epoch': 187, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 187, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 187, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 188
+accuracy: {'epoch': 188, 'value': 0.10000000000238424} ({'split': 'train'})
+cross_entropy: {'epoch': 188, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 188, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 188, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 189
+accuracy: {'epoch': 189, 'value': 0.09999999999761582} ({'split': 'train'})
+cross_entropy: {'epoch': 189, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 189, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 189, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 190
+accuracy: {'epoch': 190, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 190, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 190, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 190, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 191
+accuracy: {'epoch': 191, 'value': 0.10000000000119205} ({'split': 'train'})
+cross_entropy: {'epoch': 191, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 191, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 191, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 192
+accuracy: {'epoch': 192, 'value': 0.10000000000715258} ({'split': 'train'})
+cross_entropy: {'epoch': 192, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 192, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 192, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 193
+accuracy: {'epoch': 193, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 193, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 193, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 193, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 194
+accuracy: {'epoch': 194, 'value': 0.09999999999761582} ({'split': 'train'})
+cross_entropy: {'epoch': 194, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 194, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 194, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 195
+accuracy: {'epoch': 195, 'value': 0.09999999999999992} ({'split': 'train'})
+cross_entropy: {'epoch': 195, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 195, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 195, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 196
+accuracy: {'epoch': 196, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 196, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 196, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 196, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 197
+accuracy: {'epoch': 197, 'value': 0.1} ({'split': 'train'})
+cross_entropy: {'epoch': 197, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 197, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 197, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 198
+accuracy: {'epoch': 198, 'value': 0.10000000000000002} ({'split': 'train'})
+cross_entropy: {'epoch': 198, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 198, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 198, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 199
+accuracy: {'epoch': 199, 'value': 0.1000000000047683} ({'split': 'train'})
+cross_entropy: {'epoch': 199, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 199, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 199, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 200
+accuracy: {'epoch': 200, 'value': 0.10000000000953684} ({'split': 'train'})
+cross_entropy: {'epoch': 200, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 200, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 200, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 201
+accuracy: {'epoch': 201, 'value': 0.10000000000476839} ({'split': 'train'})
+cross_entropy: {'epoch': 201, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 201, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 201, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 202
+accuracy: {'epoch': 202, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 202, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 202, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 202, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 203
+accuracy: {'epoch': 203, 'value': 0.10000000000238413} ({'split': 'train'})
+cross_entropy: {'epoch': 203, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 203, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 203, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 204
+accuracy: {'epoch': 204, 'value': 0.10000000000476836} ({'split': 'train'})
+cross_entropy: {'epoch': 204, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 204, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 204, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 205
+accuracy: {'epoch': 205, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 205, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 205, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 205, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 206
+accuracy: {'epoch': 206, 'value': 0.1000000000047684} ({'split': 'train'})
+cross_entropy: {'epoch': 206, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 206, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 206, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 207
+accuracy: {'epoch': 207, 'value': 0.1000000000047683} ({'split': 'train'})
+cross_entropy: {'epoch': 207, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 207, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 207, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 208
+accuracy: {'epoch': 208, 'value': 0.10000000000476841} ({'split': 'train'})
+cross_entropy: {'epoch': 208, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 208, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 208, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 209
+accuracy: {'epoch': 209, 'value': 0.10000000000476841} ({'split': 'train'})
+cross_entropy: {'epoch': 209, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 209, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 209, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 210
+accuracy: {'epoch': 210, 'value': 0.10000000001430509} ({'split': 'train'})
+cross_entropy: {'epoch': 210, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 210, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 210, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 211
+accuracy: {'epoch': 211, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 211, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 211, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 211, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 212
+accuracy: {'epoch': 212, 'value': 0.10000000000715258} ({'split': 'train'})
+cross_entropy: {'epoch': 212, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 212, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 212, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 213
+accuracy: {'epoch': 213, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 213, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 213, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 213, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 214
+accuracy: {'epoch': 214, 'value': 0.0999999999976158} ({'split': 'train'})
+cross_entropy: {'epoch': 214, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 214, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 214, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 215
+accuracy: {'epoch': 215, 'value': 0.10000000000238425} ({'split': 'train'})
+cross_entropy: {'epoch': 215, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 215, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 215, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 216
+accuracy: {'epoch': 216, 'value': 0.10000000000238414} ({'split': 'train'})
+cross_entropy: {'epoch': 216, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 216, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 216, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 217
+accuracy: {'epoch': 217, 'value': 0.09999999999999998} ({'split': 'train'})
+cross_entropy: {'epoch': 217, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 217, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 217, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 218
+accuracy: {'epoch': 218, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 218, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 218, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 218, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 219
+accuracy: {'epoch': 219, 'value': 0.10000000000715263} ({'split': 'train'})
+cross_entropy: {'epoch': 219, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 219, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 219, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 220
+accuracy: {'epoch': 220, 'value': 0.1000000000071526} ({'split': 'train'})
+cross_entropy: {'epoch': 220, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 220, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 220, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 221
+accuracy: {'epoch': 221, 'value': 0.10000000000476834} ({'split': 'train'})
+cross_entropy: {'epoch': 221, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 221, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 221, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 222
+accuracy: {'epoch': 222, 'value': 0.10000000000238411} ({'split': 'train'})
+cross_entropy: {'epoch': 222, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 222, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 222, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 223
+accuracy: {'epoch': 223, 'value': 0.10000000000238418} ({'split': 'train'})
+cross_entropy: {'epoch': 223, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 223, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 223, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 224
+accuracy: {'epoch': 224, 'value': 0.1000000000071525} ({'split': 'train'})
+cross_entropy: {'epoch': 224, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 224, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 224, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 225
+accuracy: {'epoch': 225, 'value': 0.10000000000059607} ({'split': 'train'})
+cross_entropy: {'epoch': 225, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 225, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 225, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 226
+accuracy: {'epoch': 226, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 226, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 226, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 226, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 227
+accuracy: {'epoch': 227, 'value': 0.10000000000119205} ({'split': 'train'})
+cross_entropy: {'epoch': 227, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 227, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 227, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 228
+accuracy: {'epoch': 228, 'value': 0.10000000000238418} ({'split': 'train'})
+cross_entropy: {'epoch': 228, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 228, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 228, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 229
+accuracy: {'epoch': 229, 'value': 0.1000000000023842} ({'split': 'train'})
+cross_entropy: {'epoch': 229, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 229, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 229, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 230
+accuracy: {'epoch': 230, 'value': 0.09999999999999991} ({'split': 'train'})
+cross_entropy: {'epoch': 230, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 230, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 230, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 231
+accuracy: {'epoch': 231, 'value': 0.10000000000476832} ({'split': 'train'})
+cross_entropy: {'epoch': 231, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 231, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 231, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 232
+accuracy: {'epoch': 232, 'value': 0.1000000000047684} ({'split': 'train'})
+cross_entropy: {'epoch': 232, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 232, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 232, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 233
+accuracy: {'epoch': 233, 'value': 0.10000000000715252} ({'split': 'train'})
+cross_entropy: {'epoch': 233, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 233, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 233, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 234
+accuracy: {'epoch': 234, 'value': 0.09999999999999994} ({'split': 'train'})
+cross_entropy: {'epoch': 234, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 234, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 234, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 235
+accuracy: {'epoch': 235, 'value': 0.1000000000071526} ({'split': 'train'})
+cross_entropy: {'epoch': 235, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 235, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 235, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 236
+accuracy: {'epoch': 236, 'value': 0.10000000000238414} ({'split': 'train'})
+cross_entropy: {'epoch': 236, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 236, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 236, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 237
+accuracy: {'epoch': 237, 'value': 0.10000000000238427} ({'split': 'train'})
+cross_entropy: {'epoch': 237, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 237, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 237, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 238
+accuracy: {'epoch': 238, 'value': 0.10000000000715262} ({'split': 'train'})
+cross_entropy: {'epoch': 238, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 238, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 238, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 239
+accuracy: {'epoch': 239, 'value': 0.10000000000715245} ({'split': 'train'})
+cross_entropy: {'epoch': 239, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 239, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 239, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 240
+accuracy: {'epoch': 240, 'value': 0.10000000000059611} ({'split': 'train'})
+cross_entropy: {'epoch': 240, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 240, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 240, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 241
+accuracy: {'epoch': 241, 'value': 0.10000000000715255} ({'split': 'train'})
+cross_entropy: {'epoch': 241, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 241, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 241, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 242
+accuracy: {'epoch': 242, 'value': 0.10000000000476836} ({'split': 'train'})
+cross_entropy: {'epoch': 242, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 242, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 242, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 243
+accuracy: {'epoch': 243, 'value': 0.100000000000596} ({'split': 'train'})
+cross_entropy: {'epoch': 243, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 243, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 243, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 244
+accuracy: {'epoch': 244, 'value': 0.10000000000238417} ({'split': 'train'})
+cross_entropy: {'epoch': 244, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 244, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 244, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 245
+accuracy: {'epoch': 245, 'value': 0.10000000000715256} ({'split': 'train'})
+cross_entropy: {'epoch': 245, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 245, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 245, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 246
+accuracy: {'epoch': 246, 'value': 0.10000000000000005} ({'split': 'train'})
+cross_entropy: {'epoch': 246, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 246, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 246, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 247
+accuracy: {'epoch': 247, 'value': 0.10000000000119207} ({'split': 'train'})
+cross_entropy: {'epoch': 247, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 247, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 247, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 248
+accuracy: {'epoch': 248, 'value': 0.10000000000000003} ({'split': 'train'})
+cross_entropy: {'epoch': 248, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 248, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 248, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 249
+accuracy: {'epoch': 249, 'value': 0.10000000000476839} ({'split': 'train'})
+cross_entropy: {'epoch': 249, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 249, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 249, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 250
+accuracy: {'epoch': 250, 'value': 0.10000000000476837} ({'split': 'train'})
+cross_entropy: {'epoch': 250, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 250, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 250, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 251
+accuracy: {'epoch': 251, 'value': 0.10000000000715249} ({'split': 'train'})
+cross_entropy: {'epoch': 251, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 251, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 251, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 252
+accuracy: {'epoch': 252, 'value': 0.09999999999761577} ({'split': 'train'})
+cross_entropy: {'epoch': 252, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 252, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 252, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 253
+accuracy: {'epoch': 253, 'value': 0.09999999999999991} ({'split': 'train'})
+cross_entropy: {'epoch': 253, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 253, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 253, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 254
+accuracy: {'epoch': 254, 'value': 0.10000000000238417} ({'split': 'train'})
+cross_entropy: {'epoch': 254, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 254, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 254, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 255
+accuracy: {'epoch': 255, 'value': 0.10000000000953674} ({'split': 'train'})
+cross_entropy: {'epoch': 255, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 255, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 255, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 256
+accuracy: {'epoch': 256, 'value': 0.09999999999761576} ({'split': 'train'})
+cross_entropy: {'epoch': 256, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 256, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 256, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 257
+accuracy: {'epoch': 257, 'value': 0.10000000000476843} ({'split': 'train'})
+cross_entropy: {'epoch': 257, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 257, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 257, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 258
+accuracy: {'epoch': 258, 'value': 0.09999999999999992} ({'split': 'train'})
+cross_entropy: {'epoch': 258, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 258, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 258, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 259
+accuracy: {'epoch': 259, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 259, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 259, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 259, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 260
+accuracy: {'epoch': 260, 'value': 0.09999999999761579} ({'split': 'train'})
+cross_entropy: {'epoch': 260, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 260, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 260, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 261
+accuracy: {'epoch': 261, 'value': 0.10000000000953672} ({'split': 'train'})
+cross_entropy: {'epoch': 261, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 261, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 261, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 262
+accuracy: {'epoch': 262, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 262, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 262, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 262, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 263
+accuracy: {'epoch': 263, 'value': 0.10000000000715258} ({'split': 'train'})
+cross_entropy: {'epoch': 263, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 263, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 263, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 264
+accuracy: {'epoch': 264, 'value': 0.09999999999761579} ({'split': 'train'})
+cross_entropy: {'epoch': 264, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 264, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 264, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 265
+accuracy: {'epoch': 265, 'value': 0.1000000000047683} ({'split': 'train'})
+cross_entropy: {'epoch': 265, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 265, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 265, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 266
+accuracy: {'epoch': 266, 'value': 0.09999999999761584} ({'split': 'train'})
+cross_entropy: {'epoch': 266, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 266, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 266, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 267
+accuracy: {'epoch': 267, 'value': 0.10000000000476841} ({'split': 'train'})
+cross_entropy: {'epoch': 267, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 267, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 267, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 268
+accuracy: {'epoch': 268, 'value': 0.10000000000476832} ({'split': 'train'})
+cross_entropy: {'epoch': 268, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 268, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 268, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 269
+accuracy: {'epoch': 269, 'value': 0.09999999999761587} ({'split': 'train'})
+cross_entropy: {'epoch': 269, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 269, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 269, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 270
+accuracy: {'epoch': 270, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 270, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 270, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 270, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 271
+accuracy: {'epoch': 271, 'value': 0.10000000000476833} ({'split': 'train'})
+cross_entropy: {'epoch': 271, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 271, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 271, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 272
+accuracy: {'epoch': 272, 'value': 0.09999999999761583} ({'split': 'train'})
+cross_entropy: {'epoch': 272, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 272, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 272, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 273
+accuracy: {'epoch': 273, 'value': 0.10000000001430508} ({'split': 'train'})
+cross_entropy: {'epoch': 273, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 273, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 273, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 274
+accuracy: {'epoch': 274, 'value': 0.10000000000715258} ({'split': 'train'})
+cross_entropy: {'epoch': 274, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 274, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 274, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 275
+accuracy: {'epoch': 275, 'value': 0.10000000000238425} ({'split': 'train'})
+cross_entropy: {'epoch': 275, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 275, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 275, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 276
+accuracy: {'epoch': 276, 'value': 0.10000000000953664} ({'split': 'train'})
+cross_entropy: {'epoch': 276, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 276, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 276, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 277
+accuracy: {'epoch': 277, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 277, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 277, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 277, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 278
+accuracy: {'epoch': 278, 'value': 0.09999999999523161} ({'split': 'train'})
+cross_entropy: {'epoch': 278, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 278, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 278, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 279
+accuracy: {'epoch': 279, 'value': 0.10000000000238417} ({'split': 'train'})
+cross_entropy: {'epoch': 279, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 279, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 279, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 280
+accuracy: {'epoch': 280, 'value': 0.10000000000238413} ({'split': 'train'})
+cross_entropy: {'epoch': 280, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 280, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 280, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 281
+accuracy: {'epoch': 281, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 281, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 281, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 281, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 282
+accuracy: {'epoch': 282, 'value': 0.10000000001430516} ({'split': 'train'})
+cross_entropy: {'epoch': 282, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 282, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 282, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 283
+accuracy: {'epoch': 283, 'value': 0.10000000000238415} ({'split': 'train'})
+cross_entropy: {'epoch': 283, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 283, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 283, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 284
+accuracy: {'epoch': 284, 'value': 0.10000000000238422} ({'split': 'train'})
+cross_entropy: {'epoch': 284, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 284, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 284, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 285
+accuracy: {'epoch': 285, 'value': 0.10000000000000005} ({'split': 'train'})
+cross_entropy: {'epoch': 285, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 285, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 285, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 286
+accuracy: {'epoch': 286, 'value': 0.09999999999523165} ({'split': 'train'})
+cross_entropy: {'epoch': 286, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 286, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 286, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 287
+accuracy: {'epoch': 287, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 287, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 287, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 287, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 288
+accuracy: {'epoch': 288, 'value': 0.09999999999999995} ({'split': 'train'})
+cross_entropy: {'epoch': 288, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 288, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 288, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 289
+accuracy: {'epoch': 289, 'value': 0.10000000000953671} ({'split': 'train'})
+cross_entropy: {'epoch': 289, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 289, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 289, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 290
+accuracy: {'epoch': 290, 'value': 0.10000000000715252} ({'split': 'train'})
+cross_entropy: {'epoch': 290, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 290, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 290, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 291
+accuracy: {'epoch': 291, 'value': 0.09999999999999999} ({'split': 'train'})
+cross_entropy: {'epoch': 291, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 291, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 291, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 292
+accuracy: {'epoch': 292, 'value': 0.10000000000953674} ({'split': 'train'})
+cross_entropy: {'epoch': 292, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 292, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 292, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 293
+accuracy: {'epoch': 293, 'value': 0.09999999999761586} ({'split': 'train'})
+cross_entropy: {'epoch': 293, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 293, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 293, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 294
+accuracy: {'epoch': 294, 'value': 0.10000000000000003} ({'split': 'train'})
+cross_entropy: {'epoch': 294, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 294, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 294, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 295
+accuracy: {'epoch': 295, 'value': 0.10000000000953668} ({'split': 'train'})
+cross_entropy: {'epoch': 295, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 295, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 295, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 296
+accuracy: {'epoch': 296, 'value': 0.09999999999523157} ({'split': 'train'})
+cross_entropy: {'epoch': 296, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 296, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 296, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 297
+accuracy: {'epoch': 297, 'value': 0.10000000000000005} ({'split': 'train'})
+cross_entropy: {'epoch': 297, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 297, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 297, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 298
+accuracy: {'epoch': 298, 'value': 0.09999999999999996} ({'split': 'train'})
+cross_entropy: {'epoch': 298, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 298, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 298, 'value': 2.3025858402252197} ({'split': 'test'})
+Epoch 299
+accuracy: {'epoch': 299, 'value': 0.10000000000000006} ({'split': 'train'})
+cross_entropy: {'epoch': 299, 'value': 2.3025848854064943} ({'split': 'train'})
+accuracy: {'epoch': 299, 'value': 0.09999999716877937} ({'split': 'test'})
+cross_entropy: {'epoch': 299, 'value': 2.3025858402252197} ({'split': 'test'})
+----- Saved results at sample_cifar10_vgg11_structured_pruned_30_retrained.csv ------
+{'exp_name': 'exp_cifar10_vgg11_structured_pruned_30_retrained', 'model0_acc': 90.30999821424489, 'model1_acc': 90.4999980330467, 'geometric_acc': 62.11, 'prediction_acc': 72.55, 'naive_acc': 19.94, 'geometric_gain': -28.389998033046695, 'geometric_gain_%': -31.370164254235554, 'prediction_gain': -17.949998033046697, 'prediction_gain_%': -19.834252401300752, 'relative_loss_wrt_prediction': 11.535911852934802, 'geometric_time': 13.261126386001706, 'retrain_geometric_best': 9.999999716877937, 'retrain_naive_best': -100, 'retrain_model0_best': -100, 'retrain_model1_best': -100, 'retrain_epochs': 300}
+FYI: the parameters were: 
+ Namespace(n_epochs=300, batch_size_train=64, batch_size_test=1000, learning_rate=0.01, momentum=0.5, log_interval=100, to_download=False, disable_bias=True, dataset='Cifar10', num_models=2, model_name='vgg11_nobias', config_file=None, config_dir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained/configurations', num_hidden_nodes=400, num_hidden_nodes1=400, num_hidden_nodes2=200, num_hidden_nodes3=100, num_hidden_nodes4=50, sweep_id=90, gpu_id=0, skip_last_layer=False, skip_last_layer_type='average', debug=False, cifar_style_data=False, activation_histograms=False, act_num_samples=100, softmax_temperature=1, activation_mode=None, options_type='generic', deprecated=None, save_result_file='sample_cifar10_vgg11_structured_pruned_30_retrained.csv', sweep_name='exp_cifar10_vgg11_structured_pruned_30_retrained', reg=0.01, reg_m=0.001, ground_metric='euclidean', ground_metric_normalize='none', not_squared=True, clip_gm=False, clip_min=0, clip_max=5, tmap_stats=False, ensemble_step=0.5, ground_metric_eff=True, retrain=300, retrain_lr_decay=-1, retrain_lr_decay_factor=None, retrain_lr_decay_epochs=None, retrain_avg_only=False, retrain_geometric_only=True, load_models='./cifar_models/', ckpt_type='best', recheck_cifar=True, recheck_acc=False, eval_aligned=False, enable_dropout=False, dump_model=False, dump_final_models=False, correction=True, activation_seed=21, weight_stats=True, sinkhorn_type='normal', geom_ensemble_type='wts', act_bug=False, standardize_acts=False, transform_acts=False, center_acts=False, prelu_acts=True, pool_acts=False, pool_relu=False, normalize_acts=False, normalize_wts=False, gromov=False, gromov_loss='square_loss', tensorboard_root='./tensorboard', tensorboard=False, same_model=-1, dist_normalize=False, update_acts=False, past_correction=True, partial_reshape=False, choice='0 2 4 6 8', diff_init=False, partition_type='labels', personal_class_idx=9, partition_dataloader=-1, personal_split_frac=0.1, exact=True, skip_personal_idx=False, prediction_wts=False, width_ratio=1, proper_marginals=False, retrain_seed=-1, no_random_trainloaders=False, reinit_trainloaders=False, second_model_name=None, print_distances=False, deterministic=False, skip_retrain=-1, importance=None, unbalanced=False, temperature=20, alpha=0.7, dist_epochs=60, handle_skips=False, prune=True, prune_frac=0.3, prune_type='structured', experiment_name='cifar10_vgg11_structured_pruned_30_retrained', timestamp='2024-01-06_23-08-09_755816', rootdir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained', baseroot='/home/thmeier/otfusion', result_dir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained/results', exp_name='exp_cifar10_vgg11_structured_pruned_30_retrained', csv_dir='/home/thmeier/otfusion/exp_cifar10_vgg11_structured_pruned_30_retrained/csv', config={'dataset': 'Cifar10', 'model': 'vgg11_nobias', 'optimizer': 'SGD', 'optimizer_decay_at_epochs': [30, 60, 90, 120, 150, 180, 210, 240, 270], 'optimizer_decay_with_factor': 2.0, 'optimizer_learning_rate': 0.05, 'optimizer_momentum': 0.9, 'optimizer_weight_decay': 0.0005, 'batch_size': 128, 'num_epochs': 300, 'seed': 42, 'nick': 'geometric_21', 'start_acc': 62.11}, second_config={'dataset': 'Cifar10', 'model': 'vgg11_nobias', 'optimizer': 'SGD', 'optimizer_decay_at_epochs': [30, 60, 90, 120, 150, 180, 210, 240, 270], 'optimizer_decay_with_factor': 2.0, 'optimizer_learning_rate': 0.05, 'optimizer_momentum': 0.9, 'optimizer_weight_decay': 0.0005, 'batch_size': 128, 'num_epochs': 300, 'seed': 42, 'nick': 'geometric_21', 'start_acc': 62.11}, cifar_init_lr=0.05, activation_time=5.2236951887607574e-05, params_model_0=9222848, params_model_1=9222848, geometric_time=13.261126386001706, params_geometric=9222848, retrain_geometric_best=0.09999999716877937, retrain_naive_best=-1, retrain_model0_best=-1, retrain_model1_best=-1, **{'trace_sum_ratio_features.0.weight': 0.03125, 'trace_sum_ratio_features.3.weight': 0.0390625, 'trace_sum_ratio_features.6.weight': 0.0, 'trace_sum_ratio_features.8.weight': 0.011718750931322575, 'trace_sum_ratio_features.11.weight': 0.001953125, 'trace_sum_ratio_features.13.weight': 0.0, 'trace_sum_ratio_features.16.weight': 0.005859374534338713, 'trace_sum_ratio_features.18.weight': 0.001953125, 'trace_sum_ratio_classifier.weight': 1.0})

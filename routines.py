@@ -10,13 +10,37 @@ sys.path.append(PATH_TO_CIFAR)
 import train as cifar_train
 import copy
 
-def get_trained_model(args, id, random_seed, train_loader, test_loader):
+def get_optimizer(config, model_parameters):
+    """
+    Create an optimizer for a given model
+    :param model_parameters: a list of parameters to be trained
+    :return: Tuple (optimizer, scheduler)
+    """
+    print('lr is ', config['optimizer_learning_rate'])
+    if config['optimizer'] == 'SGD':
+        optimizer = torch.optim.SGD(
+            model_parameters,
+            lr=config['optimizer_learning_rate'],
+            momentum=config['optimizer_momentum'],
+            weight_decay=config['optimizer_weight_decay'],
+        )
+    else:
+        raise ValueError('Unexpected value for optimizer')
+
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(
+        optimizer,
+        milestones=config['optimizer_decay_at_epochs'],
+        gamma=1.0/config['optimizer_decay_with_factor'],
+    )
+
+    return optimizer, scheduler
+
+def get_trained_model(args, id, random_seed, train_loader, test_loader,config):
     torch.backends.cudnn.enabled = False
     torch.manual_seed(random_seed)
     network = get_model_from_name(args, idx=id)
 
-    optimizer = optim.SGD(network.parameters(), lr=args.learning_rate,
-                          momentum=args.momentum)
+    optimizer,scheduler = get_optimizer(config,network.parameters())
     if args.gpu_id!=-1:
         network = network.cuda(args.gpu_id)
     log_dict = {}
@@ -25,10 +49,18 @@ def get_trained_model(args, id, random_seed, train_loader, test_loader):
     log_dict['test_losses'] = []
     # log_dict['test_counter'] = [i * len(test_loader.dataset) for i in range(args.n_epochs + 1)]
     # print(list(network.parameters()))
+    path = os.path.join(args.result_dir, args.exp_name, 'model_{}'.format(id))
+    best_acc=-1
     acc = test(args, network, test_loader, log_dict)
     for epoch in range(1, args.n_epochs + 1):
+        scheduler.step(epoch)
         train(args, network, optimizer, train_loader, log_dict, epoch, model_id=str(id))
-        acc = test(args, network, test_loader, log_dict)
+        acc,loss = test(args, network, test_loader, log_dict,return_loss=True)
+        if acc>best_acc:
+            best_acc=acc
+            print(f"A new best at epoch:: {epoch}, with test acc:: {acc}, let's save it!")
+            store_checkpoint(path, "best.checkpoint", network, epoch, acc,loss)
+
     return network, acc
 
 def check_freezed_params(model, frozen):
@@ -103,7 +135,7 @@ def get_retrained_model(args, train_loader, test_loader, old_network, tensorboar
         print('optimizer_learning_rate is ', args.retrain_lr)
     if retrain_seed!=-1:
         torch.manual_seed(retrain_seed)
-        
+
     optimizer = optim.SGD(old_network.parameters(), lr=args.retrain_lr,
                               momentum=args.momentum)
     log_dict = {}
@@ -132,9 +164,34 @@ def get_retrained_model(args, train_loader, test_loader, old_network, tensorboar
             tensorboard_obj.add_scalars('test_accuracy_percent/', {nick: acc}, global_step=epoch)
 
         print("At retrain epoch the accuracy is : ", acc)
+        if acc>best_acc:
+            model_id="fused_best"
+            print(f"We have a new best! with accuracy::{acc} and at epoch::{epoch}, let's save it!")
+            torch.save(old_network.state_dict(),
+                       '{}/{}/model_{}_{}.pth'.format(args.result_dir, args.exp_name, args.model_name, model_id))
+            torch.save(optimizer.state_dict(),
+                       '{}/{}/optimizer_{}_{}.pth'.format(args.result_dir, args.exp_name, args.model_name, model_id))
+            best_acc = acc
+
         best_acc = max(best_acc, acc)
 
     return old_network, best_acc
+def store_checkpoint(output_dir, filename, model, epoch, test_accuracy,test_loss):
+    """Store a checkpoint file to the output directory"""
+    path = os.path.join(output_dir, filename)
+
+    # Ensure the output directory exists
+    directory = os.path.dirname(path)
+    if not os.path.isdir(directory):
+        os.makedirs(directory, exist_ok=True)
+    import time
+    time.sleep(1) # workaround for RuntimeError('Unknown Error -1') https://github.com/pytorch/pytorch/issues/10577
+    torch.save({
+        'epoch': epoch,
+        'test_accuracy': test_accuracy,
+        'test_loss': test_loss,
+        'model_state_dict': model.state_dict(),
+    }, path)
 
 def get_pretrained_model(args, path, data_separated=False, idx=-1):
     model = get_model_from_name(args, idx=idx)
@@ -182,13 +239,15 @@ def get_pretrained_model(args, path, data_separated=False, idx=-1):
 
 def train(args, network, optimizer, train_loader, log_dict, epoch, model_id=-1):
     network.train()
+    criterion = torch.nn.CrossEntropyLoss()
+
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.gpu_id!=-1:
             data = data.cuda(args.gpu_id)
             target = target.cuda(args.gpu_id)
         optimizer.zero_grad()
         output = network(data)
-        loss = F.nll_loss(output, target)
+        loss = criterion(output, target)
         loss.backward()
         optimizer.step()
         if batch_idx % args.log_interval == 0:
@@ -199,7 +258,7 @@ def train(args, network, optimizer, train_loader, log_dict, epoch, model_id=-1):
             log_dict['train_counter'].append(
                 (batch_idx*64) + ((epoch-1)*len(train_loader.dataset)))
 
-            assert args.exp_name == "exp_" + args.timestamp
+            #  assert args.exp_name == "exp_" + args.timestamp
 
             os.makedirs('{}/{}'.format(args.result_dir, args.exp_name), exist_ok=True)
             if args.dump_model:
@@ -217,7 +276,7 @@ def test(args, network, test_loader, log_dict, debug=False, return_loss=False, i
     else:
         print("\n--------- Testing in global mode ---------")
 
-    if args.dataset.lower() == 'cifar10':
+    if args.dataset.lower()[0:7] == 'cifar10':
         cifar_criterion = torch.nn.CrossEntropyLoss()
 
     #   with torch.no_grad():
@@ -235,10 +294,10 @@ def test(args, network, test_loader, log_dict, debug=False, return_loss=False, i
         if debug:
             print("output is ", output)
 
-        if args.dataset.lower() == 'cifar10':
+        if args.dataset.lower()[0:7] == 'cifar10':
             # mnist models return log_softmax outputs, while cifar ones return raw values!
             test_loss += cifar_criterion(output, target).item()
-        elif args.dataset.lower() == 'mnist':
+        elif args.dataset.lower()[0:7] == 'mnist':
             test_loss += F.nll_loss(output, target, size_average=False).item()
 
         pred = output.data.max(1, keepdim=True)[1]
@@ -286,15 +345,23 @@ def train_data_separated_models(args, local_train_loaders, local_test_loaders, t
     return networks, accuracies, local_accuracies
 
 
-def train_models(args, train_loader, test_loader):
+def train_models(args,config, second_config,train_loader, test_loader):
     networks = []
     accuracies = []
     for i in range(args.num_models):
-        network, acc = get_trained_model(args, i, i, train_loader, test_loader)
-        networks.append(network)
-        accuracies.append(acc)
-        if args.dump_final_models:
-            save_final_model(args, i, network, acc)
+        if(i==0):
+            network, acc = get_trained_model(args, i, i, train_loader, test_loader,config)
+            networks.append(network)
+            accuracies.append(acc)
+            if args.dump_final_models:
+                save_final_model(args, i, network, acc)
+        else:
+            network, acc = get_trained_model(args, i, i, train_loader, test_loader, second_config)
+            networks.append(network)
+            accuracies.append(acc)
+            if args.dump_final_models:
+                save_final_model(args, i, network, acc)
+
     return networks, accuracies
 
 def save_final_data_separated_model(args, idx, model, local_test_accuracy, test_accuracy, choice):
@@ -363,7 +430,7 @@ def retrain_models(args, old_networks, train_loader, test_loader, config, tensor
             os.makedirs(output_root_dir, exist_ok=True)
 
             retrained_network, acc = cifar_train.get_retrained_model(args, retrain_loader, test_loader, old_networks[i], config, output_root_dir, tensorboard_obj=tensorboard_obj, nick=nick, start_acc=initial_acc[i])
-            
+
         elif args.dataset.lower() == 'mnist':
 
             if args.reinit_trainloaders:
@@ -371,7 +438,7 @@ def retrain_models(args, old_networks, train_loader, test_loader, config, tensor
                 retrain_loader, _ = get_dataloader(args, no_randomness=args.no_random_trainloaders)
             else:
                 retrain_loader = train_loader
-                
+
             start_acc = initial_acc[i]
             retrained_network, acc = get_retrained_model(args, retrain_loader, test_loader, old_network=old_networks[i], tensorboard_obj=tensorboard_obj, nick=nick, start_acc=start_acc, retrain_seed=args.retrain_seed)
         retrained_networks.append(retrained_network)
@@ -395,7 +462,7 @@ def intmd_retrain_models(args, old_networks, aligned_wts, train_loader, test_loa
             start_acc = initial_acc[i]
         else:
             start_acc = -1
-        if args.dataset.lower() == 'cifar10':
+        if args.dataset.lower()[0:7] == 'cifar10':
 
             output_root_dir = "{}/{}_models_ensembled/".format(args.baseroot, (args.dataset).lower())
             output_root_dir = os.path.join(output_root_dir, args.exp_name, nick)

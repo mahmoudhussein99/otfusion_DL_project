@@ -85,7 +85,7 @@ def get_parser():
 
     parser.add_argument('--to-download', action='store_true', help='download the dataset (typically mnist)')
     parser.add_argument('--disable_bias', action='store_false', help='disable bias in the neural network layers')
-    parser.add_argument('--dataset', default='mnist', type=str, choices=['mnist', 'Cifar10'],
+    parser.add_argument('--dataset', default='mnist', type=str, choices=['mnist', 'Cifar10','Cifar100'],
                         help='dataset to use for the task')
     parser.add_argument('--num-models', default=2, type=int, help='number of models to ensemble')
     parser.add_argument('--model-name', type=str, default='simplenet',
@@ -241,6 +241,11 @@ def get_parser():
     parser.add_argument('--dist-epochs', default=60, type=int, help='number of distillation epochs')
 
     parser.add_argument('--handle-skips', action='store_true', help='handle shortcut skips in resnet which decrease dimension')
+    parser.add_argument('--prune', action='store_true', help='use pruning in the load models')
+
+    parser.add_argument('--prune-frac', default=0.5, type=float, help='fraction of l1-norm layerwise pruning (default: 0.5)')
+    parser.add_argument('--prune-type', type=str, default='unstructured', choices=['unstructured', 'structured'], help='what type of pruning to use (default: unstructured)')
+    parser.add_argument('--experiment-name', type=str, default='youre-an-idiot-that-didnt-name-the-experiment', help='name of the experiment')
     return parser
 
 def get_parameters():
@@ -302,7 +307,7 @@ def get_parameters():
 
     args.config_dir = os.path.join(args.rootdir, 'configurations')
     args.result_dir = os.path.join(args.rootdir, 'results')
-    args.exp_name = "exp_" + args.timestamp
+    args.exp_name = "exp_" + args.experiment_name
     args.csv_dir = os.path.join(args.rootdir, 'csv')
     utils.mkdir(args.config_dir)
     utils.mkdir(args.result_dir)

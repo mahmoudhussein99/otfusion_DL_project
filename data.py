@@ -87,5 +87,32 @@ def get_dataloader(args, unit_batch = False, no_randomness=False):
                                            ])),
                 batch_size=bsz[1], shuffle=enable_shuffle
             )
+    elif args.dataset.lower() == 'cifar100':
+        if args.cifar_style_data:
+            train_loader, test_loader = cifar_train.get_dataset(args.config)
+        else:
+
+            train_loader = torch.utils.data.DataLoader(
+                torchvision.datasets.CIFAR100('./data/', train=True, download=args.to_download,
+                                             transform=torchvision.transforms.Compose([
+                                                 torchvision.transforms.ToTensor(),
+                                                 torchvision.transforms.Normalize(
+                                                     # Note this normalization is not same as in MNIST
+                                                     # (mean_ch1, mean_ch2, mean_ch3), (std1, std2, std3)
+                                                     (0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+                                             ])),
+                batch_size=bsz[0], shuffle=enable_shuffle
+            )
+
+            test_loader = torch.utils.data.DataLoader(
+                torchvision.datasets.CIFAR100('./data/', train=False, download=args.to_download,
+                                             transform=torchvision.transforms.Compose([
+                                                 torchvision.transforms.ToTensor(),
+                                                 torchvision.transforms.Normalize(
+                                                     # (mean_ch1, mean_ch2, mean_ch3), (std1, std2, std3)
+                                                     (0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+                                             ])),
+                batch_size=bsz[1], shuffle=enable_shuffle
+            )
 
         return train_loader, test_loader
