@@ -173,10 +173,9 @@ colors = ["tab:blue", "tab:orange", "tab:red", "tab:purple"]
 def plot_loss_landscape(config, loss_landscape, path):
     # Loss Landscape Perturbed by Top EV of Hessian
     figsize = (4.5, 3.5)
-    plt.figure(figsize=figsize, dpi=300)
 
     for run in range(2):
-
+        plt.figure(figsize=figsize, dpi=300)
         loss = []
         for key, value in loss_landscape.items():
 
@@ -208,10 +207,9 @@ def plot_loss_landscape(config, loss_landscape, path):
 def plot_ev_density(eigenvalue_density, path):
     # Density of EVs for each model and batch
     figsize = (4.5, 2.0)
-    plt.figure(figsize=figsize, dpi=300)
 
     for run in range(2):
-
+        plt.figure(figsize=figsize, dpi=300)
         density_eigens_total = []
         for i, (model_k, model_v) in enumerate(eigenvalue_density.items()):
 
