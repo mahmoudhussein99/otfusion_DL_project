@@ -128,8 +128,10 @@ def get_trained_data_separated_model(args, id, local_train_loader, local_test_lo
         local_acc = test(args, network, local_test_loader, log_dict, is_local=True)
     return network, acc, local_acc
 
-def get_retrained_model(args, train_loader, test_loader, old_network, tensorboard_obj=None, nick='', start_acc=-1, retrain_seed=-1):
+def get_retrained_model(args, config,id,train_loader, test_loader, old_network, tensorboard_obj=None, nick='', start_acc=-1, retrain_seed=-1):
     torch.backends.cudnn.enabled = False
+    torch.manual_seed(id+1)
+
     if args.retrain_lr_decay > 0:
         args.retrain_lr = args.learning_rate / args.retrain_lr_decay
         print('optimizer_learning_rate is ', args.retrain_lr)
@@ -138,6 +140,11 @@ def get_retrained_model(args, train_loader, test_loader, old_network, tensorboar
 
     optimizer = optim.SGD(old_network.parameters(), lr=args.retrain_lr,
                               momentum=args.momentum)
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(
+        optimizer,
+        milestones=config['optimizer_decay_at_epochs'],
+        gamma=1.0/config['optimizer_decay_with_factor'],
+    )
     log_dict = {}
     log_dict['train_losses'] = []
     log_dict['train_counter'] = []
@@ -151,29 +158,28 @@ def get_retrained_model(args, train_loader, test_loader, old_network, tensorboar
         tensorboard_obj.add_scalars('test_accuracy_percent/', {nick: start_acc},
                                     global_step=0)
         assert start_acc == acc
+    
+    # log_dict['test_counter'] = [i * len(test_loader.dataset) for i in range(args.n_epochs + 1)]
+    # print(list(network.parameters()))
+    path = os.path.join(args.result_dir, args.exp_name, 'model_{}'.format(id))
+    
 
-
-    best_acc = -1
+    best_acc = acc
     for epoch in range(1, args.retrain + 1):
-        train(args, old_network, optimizer, train_loader, log_dict, epoch)
-        acc, loss = test(args, old_network, test_loader, log_dict, return_loss=True)
-
+        scheduler.step(epoch)
+        train(args, old_network, optimizer, train_loader, log_dict, epoch, model_id=str(id))
+        acc,loss = test(args, old_network, test_loader, log_dict,return_loss=True)
+        if acc>best_acc:
+            best_acc=acc
+            print(f"A new best at epoch:: {epoch}, with test acc:: {acc}, let's save it!")
+            store_checkpoint(path, "best.checkpoint", old_network, epoch, acc,loss)
         if tensorboard_obj is not None:
             assert nick != ''
             tensorboard_obj.add_scalars('test_loss/', {nick: loss}, global_step=epoch)
             tensorboard_obj.add_scalars('test_accuracy_percent/', {nick: acc}, global_step=epoch)
 
         print("At retrain epoch the accuracy is : ", acc)
-        if acc>best_acc:
-            model_id="fused_best"
-            print(f"We have a new best! with accuracy::{acc} and at epoch::{epoch}, let's save it!")
-            torch.save(old_network.state_dict(),
-                       '{}/{}/model_{}_{}.pth'.format(args.result_dir, args.exp_name, args.model_name, model_id))
-            torch.save(optimizer.state_dict(),
-                       '{}/{}/optimizer_{}_{}.pth'.format(args.result_dir, args.exp_name, args.model_name, model_id))
-            best_acc = acc
-
-        best_acc = max(best_acc, acc)
+        
 
     return old_network, best_acc
 def store_checkpoint(output_dir, filename, model, epoch, test_accuracy,test_loss):
@@ -350,7 +356,7 @@ def train_models(args,config, second_config,train_loader, test_loader):
     accuracies = []
     for i in range(args.num_models):
         if(i==0):
-            network, acc = get_trained_model(args, i, i, train_loader, test_loader,config)
+            network, acc = get_trained_model(args, i+1, i+1, train_loader, test_loader,config)
             networks.append(network)
             accuracies.append(acc)
             if args.dump_final_models:
