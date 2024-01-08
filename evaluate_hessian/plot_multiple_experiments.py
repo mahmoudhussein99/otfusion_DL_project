@@ -6,7 +6,13 @@ from util_core import plot_loss_landscape, plot_ev_density
 
 basepath = './results' # DO NOT CHANGE
 experiments = [
-    'exp_cifar10_resnet18_nobias_nobn_no_pruning',
+    'exp_cifar10_vgg11_unpruned_retrained',
+    'exp_cifar10_vgg11_structured_pruned_30_retrained',
+    'exp_cifar10_vgg11_structured_pruned_50_retrained',
+    'exp_cifar10_vgg11_structured_pruned_70_retrained',
+    'exp_cifar10_vgg11_unstructured_pruned_30_retrained',
+    'exp_cifar10_vgg11_unstructured_pruned_50_retrained',
+    'exp_cifar10_vgg11_unstructured_pruned_70_retrained',
 ]
 
 for exp in experiments:
