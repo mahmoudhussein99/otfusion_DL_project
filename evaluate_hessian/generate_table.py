@@ -20,8 +20,8 @@ def output_table(row_names, col_names, dicts, caption, label, path):
         filename for saving the table, e.g. 'table_traces.txt'
     """
     idt = lambda n: '  ' * n # indent by multiples of 2 spaces
-    alignment = '{' + ('l ' + 'r ' * (len(col_names) - 1)).strip() + '}'
-    headers = '~ ' + ' & '.join(col_names) + r' \\'
+    alignment = '{' + ('l ' + 'c ' * len(col_names)).strip() + '}'
+    headers = '~ & ' + ' & '.join(col_names) + r' \\'
     dict_cols = dicts[0].keys()
 
     content = ''
@@ -31,19 +31,21 @@ def output_table(row_names, col_names, dicts, caption, label, path):
         content += idt(3) + row + '\n'
     content = content.strip() # remove first indent
 
-    table = fr"""\begin{{table}}[!ht]
-      \centering
-        \begin{{tabular}}{alignment}
-          \toprule
-          {headers}
-        \midrule
-          {content}
-        \bottomrule
-      \end{{tabular}}
-      \caption{{{caption}}}
-      \label{{{label}}}
-    \end{{table}}
-    """
+    table = fr"""
+\begin{{table}}[!ht]
+  \centering\small\resizebox{{0.5\textwidth}}{{!}}{{
+  \begin{{tabular}}{alignment}
+  \toprule
+    {headers}
+    \midrule
+    {content}
+    \bottomrule
+  \end{{tabular}}
+}}
+\caption{{{caption}}}
+\label{{{label}}}
+\end{{table}}
+"""
 
     with open(path, 'w') as f:
         f.write(table)
