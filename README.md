@@ -1,4 +1,19 @@
-# Model Fusion via Optimal Transport 
+# Unveiling Generalization Prospects in OT Fused Neural Networks
+
+This repo contains code for the paper 'Unveiling Generalization Prospects in OT Fused Neural Networks', which is based on ![Model Fusion](Unveiling Generalization Prospects in OT Fused Neural Networks).
+
+Some of our work can be seen in these plots.
+
+![Parameter Perturbation in Top Hessian Eigenvector Direction](https://github.com/mahmoudhussein99/otfusion_DL_project/blob/master/example_hessian_ev_perturb.pdf)
+![Hessian Eigenvalue Distribution](https://github.com/mahmoudhussein99/otfusion_DL_project/blob/master/example_ev_density.pdf)
+
+Most of our models were trained using the following sort of command.
+
+```
+python3 main.py --gpu-id 0 --model-name vgg11_nobias --n-epochs 300 --save-result-file sample_cifar10_vgg11_structured_pruned_30_retrained.csv --sweep-name exp_cifar10_vgg11_structured_pruned_30_retrained --correction --ground-metric euclidean --weight-stats --geom-ensemble-type wts --ground-metric-normalize none --sweep-id 90 --load-models ./cifar_models/ --ckpt-type best --dataset Cifar10 --ground-metric-eff --recheck-cifar --activation-seed 21 --prelu-acts --past-correction --not-squared --exact --experiment-name cifar10_vgg11_structured_pruned_30_retrained --retrain 300 --retrain-geometric-only --prune-frac 0.3 --prune-type structured --prune
+```
+
+## Model Fusion via Optimal Transport 
 ![Model Fusion](https://github.com/sidak/otfusion/blob/master/fusion_camera_ready.png)
 
 ### Requirements 
