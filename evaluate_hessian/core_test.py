@@ -54,6 +54,7 @@ def analyse_hessian(config):
         config, [parent1, parent2, fusion_initial, fusion_retrained], test_loader
     )
 
+    os.makedirs('results', exist_ok=True)
     path = f"./results/{config['experiment_name']}"
     os.makedirs(path, exist_ok=True)
     config['time_taken[s]'] =  time.time() - start_time
