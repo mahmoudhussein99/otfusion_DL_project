@@ -11,23 +11,30 @@ TABLES = True
 basepath = './results' # DO NOT CHANGE
 # used for plots
 experiments = [
-    'exp_cifar10_resnet18_nobias_nobn_no_pruning'
+	'exp_cifar10_vgg11_unpruned_retrained',
+	'exp_cifar10_vgg11_unstructured_pruned_30_retrained',
+	'exp_cifar10_vgg11_unstructured_pruned_50_retrained',
+	'exp_cifar10_vgg11_unstructured_pruned_70_retrained',
+	'exp_cifar10_vgg11_structured_pruned_30_retrained',
+	'exp_cifar10_vgg11_structured_pruned_50_retrained',
+	'exp_cifar10_vgg11_structured_pruned_70_retrained',
 ]
 # used for tables
+table_suffix = 'cifar10_vgg11' 
 experiment_names = [
-    'unpurned',
-    's.pruned 30'
-    's.pruned 50'
-    's.pruned 70'
-    'us.pruned 30'
-    'us.pruned 50'
-    'us.pruned 70'
+	'C10 V11 unP',
+    'C10 V11 uP30',
+    'C10 V11 uP50',
+    'C10 V11 uP70',
+    'C10 V11 sP30',
+    'C10 V11 sP50',
+    'C10 V11 sP70',
 ]
 model_names = [
-    'parent 1',
-    'parent 2',
-    'fusion (init)',
-    'fusion (retrained)',
+    'Parent 1',
+    'Parent 2',
+    'Child',
+    'Child (retrained)',
 ]
 dict_of_dicts = {
     'configs': [],
@@ -39,7 +46,7 @@ for exp in experiments:
     path = os.path.join(basepath, exp)
 
     print(f'EXPERIMENT: {exp[4:]}')
-    print('* Loading Raw Dumps', end = ' ')
+    print('* Loading Raw Dumps')
 
     config = json.load(open(f'{path}/config.json'))
     loss_landscape = json.load(open(f'{path}/raw_dumps/loss_landscape.json'))
@@ -59,6 +66,7 @@ for exp in experiments:
         print('DONE!')
 
     if TABLES:
+        print('* Outputting Table', end = ' ')
         dict_of_dicts['configs'].append(config)
 
         # Trace Table
@@ -67,7 +75,7 @@ for exp in experiments:
             trace = np.array(list(value_m.values()))
             trace_mean = str(round(trace.mean(axis=0), 2))
             trace_std = str(round(trace.std(axis=0), 2))
-            traces_dict[key_m] = trace_mean + " \pm " + trace_std
+            traces_dict[key_m] = fr'{trace_mean} {{\scriptsize $\pm$ {trace_std}}}' if trace_mean != str(0.0) else 'n/a'
         dict_of_dicts['traces'].append(traces_dict)
 
         # Eigenvalue Table
@@ -76,27 +84,30 @@ for exp in experiments:
             eigenvalues = np.array(list(value_m.values()))
             eigenvalues_mean = str(round(eigenvalues.mean(), 2)) # over batches and top k
             eigenvalues_std = str(round(eigenvalues.std(), 2)) # over batches and top k
-            eigenvalues_dict[key_m] = eigenvalues_mean + " \pm " + eigenvalues_std
+            eigenvalues_dict[key_m] = fr'{eigenvalues_mean} {{\scriptsize $\pm$ {eigenvalues_std}}}'
         dict_of_dicts['eigenvalues'].append(eigenvalues_dict)
 
+        print('DONE!')
 
 
 if TABLES:
+    # import json
+    # print(json.dumps(dict_of_dicts['traces']))
 
     output_table(
         row_names=experiment_names,
         col_names=model_names,
         dicts=dict_of_dicts['traces'],
-        caption='Trace caption',
+        caption='Trace caption.',
         label='mylabel1',
-        path = os.path.join(basepath, 'table_traces.latex')
+        path = os.path.join(basepath, f'table_traces_{table_suffix}.latex')
     )
 
     output_table(
         row_names=experiment_names,
         col_names=model_names,
         dicts=dict_of_dicts['eigenvalues'],
-        caption='Eigenvalues caption',
+        caption='Eigenvalues caption.',
         label='mylabel2',
-        path = os.path.join(basepath, 'table_eigenvalues.latex')
+        path = os.path.join(basepath, f'table_eigenvalues_{table_suffix}.latex')
     )
