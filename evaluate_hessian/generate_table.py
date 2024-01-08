@@ -11,7 +11,7 @@ def output_table(row_names, col_names, dicts, caption, label, path):
     row_names: list[str]
         normally names of experiments
     col_names: list[str]
-        names of models, i.e. ['parent1', ...]
+        names of models, i.e. ['parent 1', ...] for pretty table headers
     caption: str
         table caption describing the table
     label: str
@@ -22,11 +22,12 @@ def output_table(row_names, col_names, dicts, caption, label, path):
     idt = lambda n: '  ' * n # indent by multiples of 2 spaces
     alignment = '{' + ('l ' + 'r ' * (len(col_names) - 1)).strip() + '}'
     headers = '~ ' + ' & '.join(col_names) + r' \\'
+    dict_cols = dicts[0].keys()
 
     content = ''
     for e_id, e_dict in enumerate(dicts):
-        values = ' & '.join(map(str, [ e_dict[col] for col in col_names ]))
-        row = col_names[e_id] + ' & ' + values + r' \\'
+        values = ' & '.join(map(str, [ e_dict[col] for col in dict_cols ]))
+        row = row_names[e_id] + ' & ' + values + r' \\'
         content += idt(3) + row + '\n'
     content = content.strip() # remove first indent
 
