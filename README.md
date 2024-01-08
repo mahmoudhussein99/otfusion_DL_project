@@ -4,8 +4,8 @@ This repo contains code for the paper 'Unveiling Generalization Prospects in OT 
 
 Some of our work can be seen in these plots.
 
-![Parameter Perturbation in Top Hessian Eigenvector Direction](https://github.com/mahmoudhussein99/otfusion_DL_project/blob/master/example_hessian_ev_perturb.pdf)
-![Hessian Eigenvalue Distribution](https://github.com/mahmoudhussein99/otfusion_DL_project/blob/master/example_ev_density.pdf)
+![Parameter Perturbation in Top Hessian Eigenvector Direction](https://github.com/mahmoudhussein99/otfusion_DL_project/blob/master/example_hessian_ev_perturb.png)
+![Hessian Eigenvalue Distribution](https://github.com/mahmoudhussein99/otfusion_DL_project/blob/master/example_ev_density.png)
 
 Most of our models were trained using the following sort of command.
 
